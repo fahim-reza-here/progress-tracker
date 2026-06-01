@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="light">
 <head>
+    <link rel="icon" type="image/png" href="https://i.ibb.co.com/5gCG4mdn/6118255349690208357-121.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Your Current Progress!</title>
@@ -13,18 +14,16 @@
     <style>
         /* Disable text selection & long-press menu on the whole page */
         body {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-touch-callout: none;  /* Hides the "Copy/Look up" bubble on mobile */
-}
-    /* But keep selection enabled for input fields (so user can type email/password) */
-    input, textarea {
-    user-select: text;
-    -webkit-user-select: text;
-    }
-        /* Core styles */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-touch-callout: none;
+        }
+        input, textarea {
+            user-select: text;
+            -webkit-user-select: text;
+        }
         body { font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
         .cartoon-box { border: 3px solid #000; box-shadow: 4px 4px 0px #000; transition: all 0.2s ease; }
         .cartoon-box:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #000; }
@@ -47,8 +46,8 @@
         .wood-bg { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 8px); }
         .dark .wood-bg { background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px); }
         .ticker-wrapper { overflow: hidden; white-space: nowrap; position: relative; }
-        /* Notice board timer */
-        .ticker-content { display: inline-block; animation: scrollTicker 50s linear infinite; padding-left: 100%; }
+        /* Noticeboard timer animation */
+        .ticker-content { display: inline-block; animation: scrollTicker 55s linear infinite; padding-left: 100%; }
         .ticker-content:hover { animation-play-state: paused; }
         @keyframes scrollTicker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         .ticker-text { display: inline-block; padding-right: 3rem; font-weight: 800; letter-spacing: 0.02em; }
@@ -60,7 +59,7 @@
         .contact-icon { transition: transform 0.2s ease; }
         .contact-icon:hover { transform: scale(1.15); }
 
-        /* ========== ANIMATED SUBJECT BADGES (unchanged) ========== */
+        /* Subject & achievement badges styles (unchanged) */
         @keyframes badgeGlowPulse {
             0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6), 0 0 0 0 rgba(99, 102, 241, 0.4); border-color: #f59e0b; }
             25% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.4), 0 0 0 3px rgba(99, 102, 241, 0.3); border-color: #fbbf24; }
@@ -82,7 +81,6 @@
         .dark .badge-progress-bar { background: #334155; }
         .badge-progress-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); height: 100%; width: 0%; transition: width 0.3s ease; border-radius: 20px; }
 
-        /* ========== NEW STYLES FOR COMPACT ACHIEVEMENT BADGES ========== */
         .achievement-badge-icon {
             width: 52px;
             height: 52px;
@@ -97,26 +95,11 @@
             background: #f1f5f9;
             border: 2px solid #cbd5e1;
         }
-        .dark .achievement-badge-icon {
-            background: #1e293b;
-            border-color: #475569;
-        }
-        .achievement-badge-icon.locked {
-            filter: grayscale(0.6);
-            opacity: 0.5;
-        }
-        .achievement-badge-icon.unlocked {
-            background: linear-gradient(135deg, #fef9c3, #fde68a);
-            border-color: #f59e0b;
-            box-shadow: 0 0 8px rgba(245,158,11,0.4);
-        }
-        .dark .achievement-badge-icon.unlocked {
-            background: linear-gradient(135deg, #f59e0b30, #fbbf2430);
-            border-color: #fbbf24;
-        }
-        .achievement-badge-icon:hover {
-            transform: scale(1.05) translateY(-2px);
-        }
+        .dark .achievement-badge-icon { background: #1e293b; border-color: #475569; }
+        .achievement-badge-icon.locked { filter: grayscale(0.6); opacity: 0.5; }
+        .achievement-badge-icon.unlocked { background: linear-gradient(135deg, #fef9c3, #fde68a); border-color: #f59e0b; box-shadow: 0 0 8px rgba(245,158,11,0.4); }
+        .dark .achievement-badge-icon.unlocked { background: linear-gradient(135deg, #f59e0b30, #fbbf2430); border-color: #fbbf24; }
+        .achievement-badge-icon:hover { transform: scale(1.05) translateY(-2px); }
         .badge-tooltip {
             position: fixed;
             background: #1e293b;
@@ -134,15 +117,17 @@
             font-family: monospace;
             line-height: 1.3;
         }
-        .dark .badge-tooltip {
-            background: #0f172a;
-            border-left-color: #fbbf24;
-        }
+        .dark .badge-tooltip { background: #0f172a; border-left-color: #fbbf24; }
+        
+        /* For Related Links box */
+        .personal-link-actions button { transition: transform 0.1s; }
+        .personal-link-actions button:hover { transform: scale(1.1); }
+        .default-link i { font-style: normal; cursor: default; }
     </style>
 </head>
 <body class="bg-amber-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen p-4 md:p-8 flex flex-col items-center">
 
-    <!-- AUTHENTICATION MODAL (same as original) -->
+    <!-- All modals (same as original) -->
     <div id="auth-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl w-full max-w-sm border-2 border-indigo-500 shadow-2xl relative cartoon-box">
             <button id="close-auth-modal" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
@@ -159,7 +144,6 @@
         </div>
     </div>
 
-    <!-- PRIVACY POLICY MODAL -->
     <div id="privacy-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity p-4">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl w-full max-w-2xl border-2 border-indigo-500 shadow-2xl relative cartoon-box max-h-[80vh] flex flex-col">
             <button id="close-privacy-modal" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
@@ -175,7 +159,6 @@
         </div>
     </div>
 
-    <!-- USER PROGRESS MODAL -->
     <div id="user-progress-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity p-4">
         <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto border-2 border-indigo-500 shadow-2xl relative cartoon-box">
             <button id="close-user-progress-modal" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
@@ -185,7 +168,6 @@
         </div>
     </div>
 
-    <!-- SUBJECT BADGES MODAL -->
     <div id="subject-badges-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity p-4">
         <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl w-full max-w-md max-h-[85vh] overflow-y-auto border-2 border-indigo-500 shadow-2xl relative cartoon-box">
             <button id="close-subject-badges-modal" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
@@ -195,14 +177,13 @@
         </div>
     </div>
 
-    <!-- REMINDER MODAL -->
     <div id="reminder-modal" class="fixed inset-0 bg-black/70 z-[60] hidden flex items-center justify-center backdrop-blur-sm transition-opacity p-4">
         <div class="bg-white dark:bg-slate-800 rounded-3xl w-full max-w-md border-2 border-amber-500 shadow-2xl relative cartoon-box overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 to-orange-500"></div>
             <div class="p-6 text-center">
                 <div class="text-5xl mb-3">🔔</div>
                 <h2 class="text-2xl font-black text-slate-800 dark:text-white mb-2" id="reminder-title">📢 Reminder</h2>
-                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium leading-relaxed my-4" id="reminder-message">hello sobaike apnader jonno new update niye aslam ✨</p>
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium leading-relaxed my-4" id="reminder-message">..</p>
                 <div class="flex flex-col sm:flex-row gap-3 mt-6"><button id="reminder-okay-btn" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition-all shadow-md cursor-pointer transform hover:scale-105">Okay ✅</button><button id="reminder-skip-btn" class="flex-1 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition-all shadow-md cursor-pointer transform hover:scale-105">Skip ⏩</button></div>
             </div>
         </div>
@@ -236,7 +217,7 @@
             </div>
         </header>
 
-        <div class="w-full mb-6"><div class="bg-white dark:bg-slate-800 rounded-2xl cartoon-box p-3 wood-bg relative overflow-hidden"><div class="absolute -top-2 left-4 w-6 h-6 bg-red-500 rounded-full shadow-md z-10 flex items-center justify-center text-white text-sm border-2 border-red-700">📌</div><div class="ticker-wrapper w-full"><div class="ticker-content"><span class="ticker-text text-indigo-700 dark:text-indigo-300 text-base md:text-lg">📢 NOTICE: ✨ওয়েবসাইটের আপডেট এবং প্রোফাইল ও লিডারবোর্ডের ভুল তথ্যের সমস্যার কারণে ডাটা ডিলিট করতে হয়েছে!!! ✔ NOW you can safely create your profile and use it! ব্যাচের নাম অবশ্যই HSC 25 এই ফরম্যাটে লিখতে হবে!! [❌hsc 25❌Hsc 25❌HSC"25❌] ‼‼ 🎯 Complete chapters to level up! 🔥 Daily streak = more rewards 🔁 প্রতিদিন সর্বোচ্চ ২ বার রিভিশন নিতে পারবে, বেশি দিলে XP পাবে না। </span></div></div></div></div>
+        <div class="w-full mb-6"><div class="bg-white dark:bg-slate-800 rounded-2xl cartoon-box p-3 wood-bg relative overflow-hidden"><div class="absolute -top-2 left-4 w-6 h-6 bg-red-500 rounded-full shadow-md z-10 flex items-center justify-center text-white text-sm border-2 border-red-700">📌</div><div class="ticker-wrapper w-full"><div class="ticker-content"><span class="ticker-text text-indigo-700 dark:text-indigo-300 text-base md:text-lg">📢 NOTICE: ✨ওয়েবসাইটের আপডেট এবং প্রোফাইল ও লিডারবোর্ডের ভুল তথ্যের সমস্যার কারণে ডাটা ডিলিট করতে হয়েছে!!! ✔ NOW you can safely create your profile and use it! ব্যাচের নাম অবশ্যই HSC 25 এই ফরম্যাটে লিখতে হবে!! [❌hsc 25❌Hsc 25❌HSC"25❌]! Related link section এ কিছু important link আর YPT group link দেয়া আছে। 🎯 Complete chapters to level up! 🔥 Daily streak = more rewards 🔁 প্রতিদিন সর্বোচ্চ ২ বার রিভিশন নিতে পারবে, বেশি দিলে XP পাবে না। </span></div></div></div></div>
 
         <main class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 w-full">
             <div class="lg:col-span-2 bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-3xl border-3 border-black shadow-[4px_4px_0px_#000] dark:border-white dark:shadow-[4px_4px_0px_#fff] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
@@ -244,7 +225,6 @@
                 <div class="space-y-3 z-10 text-center md:text-left"><span class="bg-indigo-500/30 text-indigo-300 font-black text-xs px-3 py-1 rounded-full uppercase tracking-widest border border-indigo-400/20">✨ Yours Aura</span><h2 class="text-2xl md:text-3xl font-black tracking-tight">Let your Aura 999+</h2><p class="text-xs md:text-sm text-slate-300 max-w-sm leading-relaxed">চ্যাপ্টার শেষ করার সাথে সাথে আপনার চারাগাছটি  Aura Farmer হবে! ফুল ফুটবে ও সোনার ফল আসবে।</p><div class="flex items-center justify-center md:justify-start gap-4 mt-2"><div><span class="text-xs text-slate-400 font-bold block">CURRENT STATUS</span><span id="tree-phase-title" class="text-sm font-extrabold text-amber-400">Loading Evolution...</span></div><div class="border-l border-slate-700 h-8"></div><div><span class="text-xs text-slate-400 font-bold block">COMPLETION</span><span id="overall-progress-text" class="text-xl font-black text-emerald-400">0%</span></div></div></div>
                 <div id="anime-tree-box" class="w-44 h-44 shrink-0 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center relative shadow-inner overflow-hidden transition-all duration-300"><div class="anime-sparkle w-2 h-2" style="left:20%; top:60%; animation-delay:0s;"></div><div class="anime-sparkle w-3 h-3" style="left:75%; top:40%; animation-delay:0.7s;"></div><div class="anime-sparkle w-1.5 h-1.5" style="left:50%; top:25%; animation-delay:1.3s;"></div><div id="tree-avatar-display" class="text-7xl select-none anime-tree-sway drop-shadow-2xl">🌱</div></div>
             </div>
-            <!-- Stats cards: removed separate Badges Unlocked card, only Total XP and Chapters Done -->
             <div class="grid grid-cols-2 gap-4 w-full"><div class="bg-white dark:bg-slate-800 p-4 rounded-2xl cartoon-box text-center flex flex-col justify-center items-center"><span class="text-2xl">✨</span><h3 class="text-xs font-bold text-slate-400 mt-1">Total XP</h3><p id="total-xp-text" class="text-2xl font-black text-emerald-500 mt-0.5">0 XP</p></div><div class="bg-white dark:bg-slate-800 p-4 rounded-2xl cartoon-box text-center flex flex-col justify-center items-center"><span class="text-2xl">📚</span><h3 class="text-xs font-bold text-slate-400 mt-1">Chapters Done</h3><p id="chapters-count-text" class="text-2xl font-black text-amber-500 mt-0.5">0 / 0</p></div></div>
         </main>
 
@@ -263,7 +243,6 @@
 
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl cartoon-box w-full"><h2 class="text-xl font-extrabold mb-4 flex items-center gap-2">📈 Progress Analytics</h2><div class="relative h-64 w-full"><canvas id="progressChart"></canvas></div></div>
 
-                <!-- NEW ANIMATED SUBJECT MASTERY BADGES SECTION (unchanged) -->
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl cartoon-box w-full">
                     <h2 class="text-xl font-extrabold mb-3 flex items-center gap-2">⚡ Subject Mastery Badges</h2>
                     <p class="text-[10px] text-slate-400 mb-3">Finish ALL chapters of a subject (FULL✅) to unlock animated glowing badges!</p>
@@ -272,15 +251,31 @@
                     </div>
                 </div>
 
-                <!-- MERGED ACHIEVEMENT BADGES SECTION (compact icons + total count) -->
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl cartoon-box w-full">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-xl font-extrabold flex items-center gap-2">🏆 Achievement Badges</h2>
                         <span id="achievement-badge-total" class="bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 px-3 py-1 rounded-full text-xs font-bold">0 / 7</span>
                     </div>
                     <p class="text-[10px] text-slate-400 mb-4">Hover over any badge to see details.</p>
-                    <div id="achievement-badges-compact" class="grid grid-cols-3 sm:grid-cols-4 gap-3 justify-items-center">
-                        <!-- dynamic small icons will appear here -->
+                    <div id="achievement-badges-compact" class="grid grid-cols-3 sm:grid-cols-4 gap-3 justify-items-center"></div>
+                </div>
+
+                <!-- NEW RELATED LINKS BOX -->
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl cartoon-box w-full">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-xl font-extrabold flex items-center gap-2">🔗 Related Links</h2>
+                        <span class="text-[10px] text-slate-400">Your Personal links will be saved in your profile.</span>
+                    </div>
+                    <div id="links-list" class="space-y-2 mb-4 max-h-56 overflow-y-auto pr-1">
+                        <!-- dynamic links appear here -->
+                    </div>
+                    <div class="border-t border-slate-200 dark:border-slate-700 pt-3 mt-2">
+                        <p class="text-[10px] font-bold text-slate-500 mb-2">Add your own link:</p>
+                        <div class="flex flex-col gap-2">
+                            <input type="text" id="new-link-title" placeholder="Title (e.g., YouTube Playlist)" class="w-full p-2 rounded-xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm font-semibold">
+                            <input type="url" id="new-link-url" placeholder="https://..." class="w-full p-2 rounded-xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm font-semibold">
+                            <button id="add-personal-link-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 rounded-xl text-sm transition-colors cursor-pointer">➕ Add Personal Link</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,11 +286,10 @@
     <script>
         // Disable right-click context menu
         document.addEventListener('contextmenu', (e) => e.preventDefault());
-        // Disable drag-and-drop selection attempts
         document.addEventListener('dragstart', (e) => e.preventDefault());
-        // ======================== REMINDER CONFIG ========================
+        
         const REMINDER_TITLE = "📢 Reminder";
-        const REMINDER_MESSAGE = "Don't forget to study today! Check your rank and keep your streak alive! 🔥  কোনো Feature যুক্ত করতে চাইলে (Contact me through) থেকে যোগাযোগ করুন!";
+        const REMINDER_MESSAGE = `Don't forget to study today! Check your rank and keep your streak alive!🔥 Related link section থেকে YPT group এ join করো!! কোনো Feature যুক্ত করতে চাইলে (Contact me through) থেকে যোগাযোগ করুন!`;
         
         // Firebase config
         const firebaseConfig = {
@@ -320,11 +314,125 @@
         const defaultSyllabus = { "Physics":{"1st Paper":["ভৌত জগৎ ও পরিমাপ","ভেক্টর","গতিবিদ্যা","নিউটনিয়ান বলবিদ্যা","কাজ, শক্তি ও ক্ষমতা","মহাকর্ষ ও অভিকর্ষ","পদার্থের গাঠনিক ধর্ম","পর্যাবৃত্ত গতি","তরঙ্গ","আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব"],"2nd Paper":["তাপগতিবিদ্যা","স্থির তড়িৎ","চল তড়িৎ","তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চৌম্বকত্ব","তাড়িতচৌম্বক আবেশ ও পরিবর্তী প্রবাহ","জ্যামিতিক আলোকবিজ্ঞান","ভৌত আলোকবিজ্ঞান","আধুনিক পদার্থবিজ্ঞানের সূচনা","পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান","সেমিকন্ডাক্টর ও ইলেকট্রনিক্স","জ্যোতির্বিজ্ঞান"]},"Chemistry":{"1st Paper":["ল্যাবরেটরির নিরাপদ ব্যবহার","গুণগত রসায়ন","মৌলের পর্যায়বৃত্ত ধর্ম ও রাসায়নিক বন্ধন","রাসায়নিক পরিবর্তন","কর্মমুখী রসায়ন"],"2nd Paper":["পরিবেশ রসায়ন","জৈব রসায়ন","পরিমাণগত রসায়ন","তড়িৎ রসায়ন","অর্থনৈতিক রসায়ন"]},"Higher Math":{"1st Paper":["ম্যাট্রিক্স ও নির্ণায়ক","ভেক্টর","সরলরেখা","বৃত্ত","বিন্যাস ও সমাবেশ","ত্রিকোণমিতিক অনুপাত","সংযুক্ত কোণের ত্রিকোণমিতিক অনুপাত","ফাংশন ও ফাংশনের লেখচিত্র","অন্তরীকরণ","যোগজীকরণ"],"2nd Paper":["বাস্তব সংখ্যা ও অসমতা","যোগাশ্রয়ী প্রোগ্রাম"," জটিল  সংখ্যা","বহুপদী ও বহুপদী সমীকরণ","দ্বিপদী বিস্তৃতি","কণিক","বিপরীত ত্রিকোণমিতিক ফাংশন ও ত্রিকোণমিতিক সমীকরণ","স্থিতিবিদ্যা","সমতলে বস্তুকণার গতি","বিস্তার পরিমাপ ও সম্ভাবনা"]},"Biology":{"1st Paper":["কোষ ও এর গঠন","কোষ বিভাজন","কোষ রসায়ন","অণুজীব","শৈবাল ও ছত্রাক","ব্রায়োফাইটা ও টেরিডোফাইটা","নগ্নবীজী ও আবৃতবীজী উদ্ভিদ","টিস্যু ও টিস্যুতন্ত্র","উদ্ভিদ শারীরতত্ত্ব","উদ্ভিদ প্রজনন","জীবপ্রযুক্তি","জীবের পরিবেশ, বিস্তার ও সংরক্ষণ"],"2nd Paper":["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস","প্রাণীর পরিচিতি (হাইড্রা, ঘাসফড়িং ও রুই মাছ)","মানব শারীরতত্ত্ব: পরিপাক ও শোষণ","মানব শারীরতত্ত্ব: রক্ত ও সংবহন","মানব শারীরতত্ত্ব: শ্বসন ও শ্বাসক্রিয়া","মানব শারীরতত্ত্ব: বর্জ্য ও নিষ্কাশন","মানব শারীরতত্ত্ব: চলন ও অঙ্গচালনা","মানব শারীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ","মানব জীবনের ধারাবাহিকতা","মানবদেহের প্রতিরক্ষা","জিনতত্ত্ব ও বিবর্তন","প্রাণীর আচরণ"]},"General Knowledge":{"বাংলাদেশ বিষয়াবলি":["প্রাচীন বাংলার ইতিহাস","প্রাচীন বাংলার বিভিন্ন রাজবংশ","ভারতবর্ষে মুসলিম শাসন","বাংলায় মুসলিম শাসন","মুঘল সাম্রাজ্য","ঔপনিবেশিক ইংরেজ শাসন"," পাকিস্তানী  শাসনামল","মুক্তিযুদ্ধ ও স্বাধীন বাংলাদেশের অভ্যুদয়","স্বাধীনতা পরবর্তী বাংলাদেশ","বাংলাদেশ পরিচিতি","বাংলাদেশের গুরুত্বপূর্ণ দিবসসমূহ","ভৌগোলিক উপনাম, বর্তমান ও পূর্বনাম","বাংলাদেশের প্রথম, বৃহত্তম, ক্ষুদ্রতম ও শ্রেষ্ঠ","বাংলাদেশের জনসংখ্যা ও ক্ষুদ্র নৃ-গোষ্ঠী","বাংলাদেশের ভূ-প্রকৃতি","বাংলাদেশের সম্পদ","বাংলাদেশের শিল্প","বাংলাদেশ সংবিধান","বাংলাদেশের প্রতিষ্ঠানসমূহ","আইন বিভাগ","বিচার বিভাগ","নির্বাহী বিভাগ","বাংলাদেশের প্রতিরক্ষা ও স্বরাষ্ট্র বিভাগ","বাংলাদেশের যোগাযোগ ব্যবস্থা","বাংলাদেশের অর্থনীতি ও ব্যাংকিং ব্যবস্থা","বাংলাদেশের স্বাস্থ্য ও চিকিৎসা ব্যবস্থা","বাংলাদেশের শিক্ষাব্যবস্থা","বাংলাদেশের প্রত্নতত্ত্ব ও স্থাপত্য","বাংলাদেশের গণমাধ্যম","চিত্রকর্ম, সংস্কৃতি ও বিবিধ","বাংলা সাহিত্য","পদক-পুরস্কার ও সম্মাননা","বাংলাদেশের খেলাধুলা"],"আন্তর্জাতিক বিষয়াবলি":["বিশ্ব পরিচিতি","বিশ্ব সভ্যতার ইতিহাস","মহাদেশ, দেশ ও অঞ্চল পরিচিতি","বিশ্বের আলোচিত ব্যক্তিত্ব","বিশ্বের আলোচিত যুদ্ধ-বিপ্লব","বিভিন্ন চুক্তিসমূহ","বিশ্বের security ব্যবস্থা","আন্তর্জাতিক সংস্থা ও সংগঠন","আন্তর্জাতিক ও আঞ্চলিক রাজনৈতিক জোট","আন্তর্জাতিক ও আঞ্চলিক অর্থনৈতিক জোট","আন্তর্জাতিক সামরিক জোট","অন্যান্য জোট ও সংস্থা","বিশ্বের জাতীয় বিষয়াবলি","বিশ্বের ভৌগোলিক বিষয়াবলি","বৈচিত্র্যময় পৃথিবী","বিশ্ব যোগাযোগ ব্যবস্থা","বিশ্ব শিল্প, সাহিত্য ও সংস্কৃতি","বিশ্ব গণমাধ্যম","বিশ্বের জাতি-উপজাতি","আন্তর্জাতিক পরিবেশগত ইস্যু","বিশ্বের পুরস্কার, সম্মাননা ও দিবস","বিজ্ঞান","তথ্য ও প্রযুক্তি","বিশ্বের ক্রীড়াঙ্গন"]},"English":{"Part-I (Grammar)":{"01. Parts of Speech":["Introduction to Parts of Speech","Classification of Different Parts of Speech"],"02. Uses of Parts of Speech":["Noun","Pronoun","Number","Gender","Adjective","Article","Adverb","Conjunction"],"03. Applying Parts of Speech":["Identification of Parts of Speech","Same Word Used as Different Parts of Speech","Interchange of Parts of Speech"],"04. Phrase & Clause":["Core Concepts of Phrase & Clause"],"05. Verb":["Classification","Verbals","Modals","Conjugations"],"06. Right form of verb":["Tense","Sequence of Tense","Conditional"],"07. Subject Verb Agreement":["Core Principles of Subject Verb Agreement"],"08. Sentence":["Classification","Transformation of sentence","Voice Change","Narration","Degree of Comparison"],"09. Correction of Sentences":["Error Detection & Correction"]},"Part-II (Vocabulary)":{"10. Group verb":["Core Group Verbs"],"11. Spelling Mistakes":["Common Spelling Mistakes"],"12. Preposition":["Usage of Preposition","Appropriate Preposition"],"13. Synonym & Antonym":["Core Synonyms & Antonyms"],"14. Idioms & Phrases":["Essential Idioms & Phrases"],"15. Translations & Proverbs":["Translations","Proverbs"],"16. One Word Substitutions":["Essential One Word Substitutions"]}}};
         const customDropdownSubjects = ["Physics","Chemistry","Higher Math","Accounting","Economics","Business Organization","Biology","General Knowledge","English","Bangla","ICT"];
         const buddyQuotes = [{text:"নিশ্চয়ই কষ্টের সাথেই স্বস্তি রয়েছে। — (সূরা ইনশিরাহ্: ৫)"},{text:"আর মানুষ তা-ই পায়, যার জন্য সে চেষ্টা করে। — (সূরা আন-নাজম: ৩৯)"},{text:"তোমরা হতাশ হয়ো না এবং দুঃখ কোরো না, তোমরাই বিজয়ী হবে যদি তোমরা মুমিন হও। — (সূরা আল-ইমরান: ১৩৯)"},{text:"আল্লাহ কোনো ব্যক্তিকে তার সামর্থ্যের বাইরে কোনো দায়িত্ব চাপিয়ে দেন না। — (সূরা আল-বাকারাহ: ২৮৬)"},{text:"আর যে ব্যক্তি আল্লাহর ওপর তাওয়াক্কুল (ভরসা) করে, তিনিই তার জন্য যথেষ্ট। — (সূরা আত-তালাক: ৩)"},{text:"ধৈর্য ধারণ করো, নিশ্চয়ই আল্লাহ সৎকর্মশীলদের প্রতি প্রতিদান নষ্ট করেন না। — (সূরা হূদ: ১১৫)"},{text:"দোস্ত, সেকেন্ড টাইমারদের লড়াইটা শুধু একটা সিটের না, এটা হারিয়ে যাওয়া সম্মান আর নিজের আত্মবিশ্বাস ফিরে পাওয়ার লড়াই। আজ একটু বেশি খাটবি!"},{text:"মনে আছে তো ফার্স্ট টাইমে রেজাল্টের ওই অভিশপ্ত দিনটার কথা? চারপাশের চেনা মানুষগুলোর চোখমুখ কেমন বদলে গিয়েছিল? ওই দিনটা যেন আর ফিরে না আসে, আজ মাথা নিচু করে পড়ে ফেল।"},{text:"আজকের দিনে তুই একটা চ্যাপ্টারে টিক দেওয়া মানে তুই আরও হাজারটা কম্পিটিটরকে পেছনে ফেলে এগিয়ে গেলি। ইউ আর ডুইং গ্রেট, ব্রো!"},{text:"যারা তোকে বলেছিল 'তোরে দিয়ে হবে না', তাদের মুখের ওপর চেঁচিয়ে উত্তর দেওয়ার দরকার নেই। সাইলেন্টলি চ্যাপ্টারগুলো শেষ কর, তোর সাকসেস যেন আওয়াজ করে!"},{text:"বাবা-মার বুড়ো মুখগুলোর দিকে তাকিয়েছিস কখনো? তোর একটা চান্সের খবর শোনার জন্য তারা কতটা ব্যাকুল হয়ে আছে। ফোনটা রেখে টেবিলে ব্যাক কর!"},{text:"কষ্ট হচ্ছে? হোক! এই টেবিলের ঘাম আর রাতের অনিদ্রাগুলোই কিন্তু আগামী দিনে কোনো এক পাবলিক ইউনিভার্সিটির ক্যাম্পাসে তোর হাসির কারণ হবে。"},{text:"সেকেন্ড টাইমারদের জমানো কান্নাগুলো যেদিন সাফল্যে রূপ নেবে, সেদিন পুরো দুনিয়া থমকে যাবে।"},{text:"একটা রেজাল্ট বা একটা সুযোগ হাতছাড়া হওয়া মানেই তোমার গল্পটা শেষ হয়ে যাওয়া নয়; বরং এটা নতুন একটা মহাকাব্যের শুরু।"},{text:"সেকেন্ড টাইম পরীক্ষা দেওয়া কোনো দুর্বলতা নয়, এটা হলো তোমার ভেতরের সেই জেদ যা তোমাকে হাল ছেড়ে দেওয়া সাধারণ মানুষদের চেয়ে আলাদা করে!"},{text:"যুদ্ধক্ষেত্র থেকে পালিয়ে যাওয়া মানুষেরা কোনোদিন ইতিহাস গড়ে না, ইতিহাস গড়ে তারা—যারা ক্ষতবিক্ষত হওয়ার পরেও বুক টান করে আবার লড়াইয়ে ফেরে!"},{text:"তোমার আগেরবারের রেজাল্ট যা-ই হোক না কেন, ওটা ছিল একটা কঠিন শিক্ষা; যা তোমাকে এবার বাকিদের চেয়ে অনেক বেশি অভিজ্ঞ আর পরিপক্ক করে তুলেছে!"},{text:"সমাজ বা আশেপাশের মানুষ এখন তোমাকে নিয়ে কী ভাবছে তা একদম ভুলে যাও, কারণ দিনশেষে তোমার কামব্যাকটাই হবে তাদের সব সমালোচনার সবচেয়ে বড় জবাব!"},{text:"অ্যাডমিশন টেস্ট কোনো অলৌকিক ঘটনা নয়, এটা হলো প্রতিদিনের টেবিল-চেয়ারের সাথে লড়াই এবং নিজের অলসতাকে হারানোর এক দীর্ঘ সাধনা!"},{text:"যখনই পড়তে ইচ্ছা করবে না, শুধু একবার চোখ বন্ধ করে ভাববে—ভর্তির চান্স পাওয়ার পর তোমার বাবা-মায়ের মুখে যে চওড়া হাসিটা ফুটবে, সেটার মূল্য কতখানি!"},{text:"মনে রেখো, আজকের এই রাতের ঘুমহীন চোখ আর ক্লান্ত মস্তিষ্কই আগামী দিনে তোমার নামের পাশে একটি স্বনামধন্য বিশ্ববিদ্যালয়ের ট্যাগ এনে দেবে!"},{text:"সিলেবাস যত বড়ই হোক আর পড়া যত কঠিনই মনে হোক, ভেঙে পড়ো না; হাতিকেও টুকরো টুকরো করে কাটলে একদিন শেষ করা যায়, পড়া তো সামান্য জিনিস!"},{text:"প্রতিদিন মাত্র ১% করে নিজের কমতিগুলো দূর করো, দেখবে পরীক্ষার হলের মূল লড়াইয়ে তুমি বাকি সবার চেয়ে ১০০ গুণ এগিয়ে গেছ।!"},{text:"ফার্স্ট টাইমারদের কাছে অ্যাডমিশনটা একটা কৌতূহল বা এক্সপেরিমেন্ট হতে পারে, কিন্তু একজন সেকেন্ড টাইমারের কাছে এটা জীবন-মরণের এবং নিজের অস্তিত্ব প্রমাণের লড়াই!"},{text:"তুমি অলরেডি জানো প্রশ্ন কেমন হয়, পরীক্ষার হলের প্রেশার কেমন থাকে; এই অভিজ্ঞতাটাই তোমার সবচেয়ে বড় অস্ত্র, যা ফার্স্ট টাইমারদের কাছে নেই!"},{text:"গতবারের ভুলগুলোকে একটা কাগজে স্পষ্ট করে লেখো, সেগুলোকে নিজের শত্রু বানিয়ে এবার একটা একটা করে ধ্বংস করে দাও।"},{text:"লোকে বলে সেকেন্ড টাইমারদের সিট কমে যায় বা মার্কস কাটা যায়—কিন্তু মনে রেখো, যার প্রস্তুতি নিখুঁত হয়, তার কাছ থেকে একটা সিট কেড়ে নেওয়ার ক্ষমতা কারও নেই।"},{text:"ভাঙা নৌকা নিয়েও যারা সমুদ্র পাড়ি দেওয়ার সাহস রাখে, ঢেউও একসময় তাদের সামনে এসে শান্ত হয়ে যায়; তুমিও ঠিক সেই সাহসী নাবিক।"},{text:"নিজের ওপর থেকে বিশ্বাসটা কোনো অবস্থাতেই হারিও না, সৃষ্টিকর্তা তোমার পরিশ্রম দেখছেন এবং সঠিক সময়ে তিনি এর প্রতিদান দেবেন।"},{text:"টেবিলের বইগুলো, খাতার কাটাকুটিগুলো আর ক্যালকুলেটরের বোতামগুলো তোমার কষ্টের সাক্ষী—এরা কেউ তোমার সাথে বিশ্বাসঘাতকতা করবে না।"},{text:"আর মাত্র কয়েকটা মাস নিজের সর্বোচ্চটুকু দিয়ে খাঁচায় বন্দি বাঘের মতো লড়ে যাও, তারপর পুরো আকাশটাই তোমার নিজের মতো হয়ে যাবে!"},{text:"কষ্ট আর স্বস্তি হাত ধরাধরি করে চলে; তোমার কষ্টের দিনগুলো শেষ হতে চলেছে, এখন শুধু বুকভরা আত্মবিশ্বাস নিয়ে স্বস্তির দিকে এগিয়ে যাওয়ার পালা!"}];
+        
         let localSyllabus = JSON.parse(localStorage.getItem('study_os_syllabus')) || defaultSyllabus;
         let rawCompleted = localStorage.getItem('study_os_completed_v4');
         let parsedCompleted = [];
         try { if(rawCompleted) parsedCompleted = JSON.parse(rawCompleted); } catch(e) { parsedCompleted = []; }
         let revisionLogs = JSON.parse(localStorage.getItem('study_os_revision_logs')) || [];
+        
+        // ---------- RELATED LINKS DATA ----------
+        const DEFAULT_LINKS = [
+            { title: "🔥YPT group", url: "https://link.yeolpumta.com/P3R5cGU9Z3JvdXBJbnZpdGUmaWQ9NjgxMzA0NA==", isDefault: true },
+            { title: "Periodic table", url: "https://zperiod.app/", isDefault: true },
+            { title: "Chemistry Experiment", url: "https://chemistry-en.nobook.com", isDefault: true },
+            { title: "PCMB Simulations-University of Colorado", url: "https://phet.colorado.edu", isDefault: true },
+        ];
+        let userLinks = []; // { title, url, id (timestamp), isDefault: false }
+        
+        function loadUserLinks() {
+            if (uid && !uid.startsWith('user_')) {
+                // logged in: try to load from Firebase
+                db.ref(`users/${uid}/userLinks`).once('value').then(snap => {
+                    if (snap.exists()) {
+                        userLinks = snap.val() || [];
+                    } else {
+                        // init from localStorage if any
+                        let stored = localStorage.getItem('study_os_user_links');
+                        if (stored) try { userLinks = JSON.parse(stored); } catch(e){ userLinks=[]; }
+                        saveUserLinksToFirebase();
+                    }
+                    renderLinksBox();
+                }).catch(() => { loadLocalUserLinks(); renderLinksBox(); });
+            } else {
+                loadLocalUserLinks();
+                renderLinksBox();
+            }
+        }
+        function loadLocalUserLinks() {
+            let stored = localStorage.getItem('study_os_user_links');
+            if (stored) try { userLinks = JSON.parse(stored); } catch(e){ userLinks=[]; }
+            else userLinks = [];
+        }
+        function saveUserLinks() {
+            if (uid && !uid.startsWith('user_')) {
+                saveUserLinksToFirebase();
+            }
+            localStorage.setItem('study_os_user_links', JSON.stringify(userLinks));
+            renderLinksBox();
+        }
+        function saveUserLinksToFirebase() {
+            if (uid && !uid.startsWith('user_')) {
+                db.ref(`users/${uid}/userLinks`).set(userLinks).catch(console.error);
+            }
+        }
+        function addPersonalLink(title, url) {
+            if (!title.trim() || !url.trim()) return alert("Please enter both title and URL.");
+            userLinks.push({ title: title.trim(), url: url.trim(), isDefault: false, id: Date.now() });
+            saveUserLinks();
+        }
+        function editPersonalLink(id, newTitle, newUrl) {
+            let link = userLinks.find(l => l.id === id);
+            if (link && !link.isDefault) {
+                link.title = newTitle.trim();
+                link.url = newUrl.trim();
+                saveUserLinks();
+            }
+        }
+        function deletePersonalLink(id) {
+            userLinks = userLinks.filter(l => l.id !== id);
+            saveUserLinks();
+        }
+        function renderLinksBox() {
+            const container = document.getElementById('links-list');
+            if (!container) return;
+            let allLinks = [...DEFAULT_LINKS, ...userLinks];
+            if (allLinks.length === 0) {
+                container.innerHTML = '<div class="text-xs text-slate-400 text-center py-2">No links yet. Add your own!</div>';
+                return;
+            }
+            let html = '';
+            allLinks.forEach(link => {
+                const isDefault = link.isDefault === true;
+                const title = link.title;
+                const url = link.url;
+                const linkId = link.id;
+                html += `<div class="flex justify-between items-center gap-2 p-2 border-b border-slate-100 dark:border-slate-700 text-sm">
+                    <a href="${url}" target="_blank" rel="noopener noreferrer" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline truncate max-w-[150px] md:max-w-[200px]">${title}</a>
+                    <div class="flex gap-1 personal-link-actions">
+                        ${!isDefault ? `<button class="edit-link-btn text-blue-500 hover:text-blue-700 text-xs" data-id="${linkId}" title="Edit">✏️</button>
+                                         <button class="delete-link-btn text-rose-500 hover:text-rose-700 text-xs" data-id="${linkId}" title="Delete">❌</button>` : `<span class="text-slate-400 text-xs" title="Default link (cannot edit)">📌</span>`}
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+            // attach edit/delete events
+            document.querySelectorAll('.edit-link-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    const link = userLinks.find(l => l.id === id);
+                    if (link) {
+                        let newTitle = prompt("Edit title:", link.title);
+                        if (newTitle && newTitle.trim()) {
+                            let newUrl = prompt("Edit URL:", link.url);
+                            if (newUrl && newUrl.trim()) {
+                                editPersonalLink(id, newTitle, newUrl);
+                            }
+                        }
+                    }
+                });
+            });
+            document.querySelectorAll('.delete-link-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    if (confirm("Delete this personal link?")) {
+                        deletePersonalLink(id);
+                    }
+                });
+            });
+        }
+        // ---------- END RELATED LINKS ----------
+        
         let state = {
             syllabus: localSyllabus,
             completedChapters: parsedCompleted,
@@ -345,7 +453,7 @@
         let currentPeriod = 'lifetime';
         let leaderboardDisplayLimit = 10;
 
-        // Helper functions (unchanged from original, except for achievement badges render)
+        // Helper functions (unchanged)
         function getTodayRevisionCountForChapter(chapterId) { const todayStr = new Date().toISOString().split('T')[0]; return revisionLogs.filter(r => r.id === chapterId && r.date === todayStr).length; }
         function computeTotalXPFromChaptersAndRevisions() { let chapterXP = 0; state.completedChapters.forEach(c => chapterXP += (c.status === 'half' ? 50 : 100)); let revisionTotal = revisionLogs.reduce((sum, r) => sum + (r.xp || 20), 0); return chapterXP + revisionTotal; }
         function getAllActivityLogs() { let logs = []; state.completedChapters.forEach(c => { logs.push({ id: c.id, date: c.date, type: c.status === 'half' ? 'Half' : 'Full', xp: c.status === 'half' ? 50 : 100 }); }); revisionLogs.forEach(r => { logs.push({ id: r.id, date: r.date, type: 'Revision', xp: r.xp || 20 }); }); return logs; }
@@ -539,11 +647,11 @@
         document.getElementById('period-filter-select')?.addEventListener('change', (e) => { currentPeriod = e.target.value; leaderboardDisplayLimit = 10; renderLeaderboard(); });
 
         const authBtn = document.getElementById('auth-toggle-btn');
-        const authModal = document.getElementById('auth-modal');
+        const authModalEl = document.getElementById('auth-modal');
         const errText = document.getElementById('auth-error');
-        auth.onAuthStateChanged((user) => { if (user) { uid = user.uid; localStorage.setItem('study_os_uid', uid); authBtn.innerText = '🚪 Sign Out'; authBtn.classList.replace('bg-indigo-600','bg-rose-500'); authBtn.classList.replace('hover:bg-indigo-700','hover:bg-rose-600'); authBtn.classList.replace('border-indigo-800','border-rose-700'); db.ref('users/' + uid).once('value').then(snap => { if (snap.exists()) { const data = snap.val(); if (data.name) userProfile.name = data.name; if (data.batch && ['HSC 25','HSC 26','HSC 27','HSC 28','Others'].includes(data.batch)) userProfile.batch = data.batch; else userProfile.batch = 'Others'; if (data.completedData) { try { state.completedChapters = JSON.parse(data.completedData); localStorage.setItem('study_os_completed_v4', data.completedData); } catch(e) {} } if (data.revisionLogs) { try { revisionLogs = JSON.parse(data.revisionLogs); localStorage.setItem('study_os_revision_logs', data.revisionLogs); } catch(e) {} } updateProfileUI(); triggerUpdateCycle(true); } }); authModal.classList.add('hidden'); errText.classList.add('hidden'); } else { authBtn.innerText = '🔐 Sign In / Sync'; authBtn.classList.replace('bg-rose-500','bg-indigo-600'); authBtn.classList.replace('hover:bg-rose-600','hover:bg-indigo-700'); authBtn.classList.replace('border-rose-700','border-indigo-800'); uid = localStorage.getItem('study_os_uid'); if (!uid || !uid.startsWith('user_')) { uid = 'user_' + Math.random().toString(36).substring(2,11); localStorage.setItem('study_os_uid', uid); } } });
-        authBtn.addEventListener('click', () => { if (auth.currentUser) { if(confirm("আপনি কি সাইন আউট করতে চান?")) auth.signOut(); } else authModal.classList.remove('hidden'); });
-        document.getElementById('close-auth-modal')?.addEventListener('click', () => authModal.classList.add('hidden'));
+        auth.onAuthStateChanged((user) => { if (user) { uid = user.uid; localStorage.setItem('study_os_uid', uid); authBtn.innerText = '🚪 Sign Out'; authBtn.classList.replace('bg-indigo-600','bg-rose-500'); authBtn.classList.replace('hover:bg-indigo-700','hover:bg-rose-600'); authBtn.classList.replace('border-indigo-800','border-rose-700'); db.ref('users/' + uid).once('value').then(snap => { if (snap.exists()) { const data = snap.val(); if (data.name) userProfile.name = data.name; if (data.batch && ['HSC 25','HSC 26','HSC 27','HSC 28','Others'].includes(data.batch)) userProfile.batch = data.batch; else userProfile.batch = 'Others'; if (data.completedData) { try { state.completedChapters = JSON.parse(data.completedData); localStorage.setItem('study_os_completed_v4', data.completedData); } catch(e) {} } if (data.revisionLogs) { try { revisionLogs = JSON.parse(data.revisionLogs); localStorage.setItem('study_os_revision_logs', data.revisionLogs); } catch(e) {} } updateProfileUI(); triggerUpdateCycle(true); } }); authModalEl.classList.add('hidden'); errText.classList.add('hidden'); loadUserLinks(); } else { authBtn.innerText = '🔐 Sign In / Sync'; authBtn.classList.replace('bg-rose-500','bg-indigo-600'); authBtn.classList.replace('hover:bg-rose-600','hover:bg-indigo-700'); authBtn.classList.replace('border-rose-700','border-indigo-800'); uid = localStorage.getItem('study_os_uid'); if (!uid || !uid.startsWith('user_')) { uid = 'user_' + Math.random().toString(36).substring(2,11); localStorage.setItem('study_os_uid', uid); } loadUserLinks(); } });
+        authBtn.addEventListener('click', () => { if (auth.currentUser) { if(confirm("আপনি কি সাইন আউট করতে চান?")) auth.signOut(); } else authModalEl.classList.remove('hidden'); });
+        document.getElementById('close-auth-modal')?.addEventListener('click', () => authModalEl.classList.add('hidden'));
         document.getElementById('google-login-btn')?.addEventListener('click', () => { auth.signInWithPopup(googleProvider).catch(err => { errText.innerText = err.message; errText.classList.remove('hidden'); }); });
         document.getElementById('email-login-btn')?.addEventListener('click', () => { const email = document.getElementById('auth-email').value, pass = document.getElementById('auth-pass').value; if(!email || !pass) return alert("Email & Password required"); auth.signInWithEmailAndPassword(email, pass).catch(err => { errText.innerText = err.message; errText.classList.remove('hidden'); }); });
         document.getElementById('email-signup-btn')?.addEventListener('click', () => { const email = document.getElementById('auth-email').value, pass = document.getElementById('auth-pass').value; if(!email || !pass) return alert("Email & Password required"); auth.createUserWithEmailAndPassword(email, pass).catch(err => { errText.innerText = err.message; errText.classList.remove('hidden'); }); });
@@ -626,7 +734,6 @@
             container.innerHTML = html;
         }
 
-        // NEW: Render compact achievement badges with hover tooltip
         function renderAchievementBadges() {
             const container = document.getElementById('achievement-badges-compact');
             if (!container) return;
@@ -645,7 +752,6 @@
             });
             container.innerHTML = badgesHtml;
             document.getElementById('achievement-badge-total').innerText = `${unlockedCount} / ${badgesConfig.length}`;
-            // Attach tooltip behavior
             const icons = document.querySelectorAll('.achievement-badge-icon');
             let tooltip = null;
             icons.forEach(icon => {
@@ -683,7 +789,6 @@
             document.getElementById('chapters-count-text').innerText = `${Number.isInteger(totalWeightedDone)?totalWeightedDone:totalWeightedDone.toFixed(1)} / ${totalChapters}`;
             const currentStreak = calculateDailyStreak();
             document.getElementById('streak-display').innerText = `${currentStreak} Days 🔥`;
-            // No separate badge container update needed (removed old one)
             const selectSub = document.getElementById('custom-subject');
             if (selectSub) {
                 const currentSelected = selectSub.value;
@@ -692,7 +797,7 @@
             }
             renderCalendar();
             renderSubjectMasteryBadges();
-            renderAchievementBadges(); // new compact badges
+            renderAchievementBadges();
             renderLeaderboard();
         };
 
@@ -711,7 +816,20 @@
         document.getElementById('sound-toggle')?.addEventListener('click', function() { state.isMuted = !state.isMuted; localStorage.setItem('study_os_muted', state.isMuted); this.innerText = state.isMuted ? "🔇 Muted" : "🔊 Sound On"; }); document.getElementById('sound-toggle').innerText = state.isMuted ? "🔇 Muted" : "🔊 Sound On";
         document.getElementById('cal-prev-month')?.addEventListener('click', () => { currentCalendarMonth--; if (currentCalendarMonth < 0) { currentCalendarMonth = 11; currentCalendarYear--; } renderCalendar(); });
         document.getElementById('cal-next-month')?.addEventListener('click', () => { currentCalendarMonth++; if (currentCalendarMonth > 11) { currentCalendarMonth = 0; currentCalendarYear++; } renderCalendar(); });
-        document.getElementById('theme-toggle')?.addEventListener('click', () => { state.isDarkMode = !state.isDarkMode; document.documentElement.classList.toggle('dark', state.isDarkMode); localStorage.setItem('study_os_theme', state.isDarkMode ? 'dark' : 'light'); renderChart(); });
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        function updateThemeButton() {
+            if (themeToggleBtn) {
+                themeToggleBtn.innerHTML = state.isDarkMode ? '☀️ Light' : '🌙 Dark';
+            }
+        }
+        document.getElementById('theme-toggle')?.addEventListener('click', () => { 
+            state.isDarkMode = !state.isDarkMode; 
+            document.documentElement.classList.toggle('dark', state.isDarkMode); 
+            localStorage.setItem('study_os_theme', state.isDarkMode ? 'dark' : 'light'); 
+            updateThemeButton();
+            renderChart(); 
+        });
+        updateThemeButton();
         if(state.isDarkMode) document.documentElement.classList.add('dark');
         document.getElementById('reset-btn')?.addEventListener('click', () => { if(confirm('⚠️ রিসেট করতে চান? আপনার সব ডাটা (কমপ্লিশন ও রিভিশন) মুছে যাবে।')) { localStorage.clear(); window.location.reload(); } });
         document.getElementById('edit-buddy-name-btn')?.addEventListener('click', () => { const n = prompt("🤖 বাডির নাম দিন:", state.buddyName); if(n && n.trim()) { state.buddyName = n.trim().toUpperCase(); localStorage.setItem('study_os_buddy_name', state.buddyName); updateBuddyNameUI(); } if(confirm("📝 নতুন কোনো উক্তি বা আয়াত যোগ করবেন?")) { const q = prompt("উক্তিটি লিখুন:"); if(q && q.trim()) { let c = JSON.parse(localStorage.getItem('study_os_custom_quotes')) || []; c.push({ text: q.trim() }); localStorage.setItem('study_os_custom_quotes', JSON.stringify(c)); displayQuoteWithFade(getCombinedQuotes().length - 1); startBuddyAutoCarousel(); } } });
@@ -720,6 +838,15 @@
         document.getElementById('open-privacy-modal')?.addEventListener('click', () => { document.getElementById('privacy-modal').classList.remove('hidden'); });
         document.getElementById('close-privacy-modal')?.addEventListener('click', () => { document.getElementById('privacy-modal').classList.add('hidden'); });
         document.getElementById('accept-privacy-btn')?.addEventListener('click', () => { document.getElementById('privacy-modal').classList.add('hidden'); });
+        
+        // Add personal link button event
+        document.getElementById('add-personal-link-btn')?.addEventListener('click', () => {
+            const title = document.getElementById('new-link-title').value;
+            const url = document.getElementById('new-link-url').value;
+            addPersonalLink(title, url);
+            document.getElementById('new-link-title').value = '';
+            document.getElementById('new-link-url').value = '';
+        });
 
         const triggerUpdateCycle = (fullReload = false) => { renderDashboard(); if(fullReload) { renderSyllabus(); } else { const opened = []; document.querySelectorAll('.subject-content, .paper-content, .topic-content').forEach((el, idx) => { if(!el.classList.contains('hidden')) opened.push(idx); }); renderSyllabus(); document.querySelectorAll('.subject-content, .paper-content, .topic-content').forEach((el, idx) => { if(opened.includes(idx)) el.classList.remove('hidden'); }); } renderChart(); };
 
@@ -739,8 +866,62 @@
         function evaluateAndShowReminder() { incrementReminderCount(); const currentCount = getReminderCount(); const action = getReminderAction(); if (action === null) { showReminderModal(); return; } if (action === 'skip') { showReminderModal(); return; } if (action === 'okay') { if (currentCount >= 10) showReminderModal(); return; } }
         function triggerReminderAfterModals() { setTimeout(() => { if (!isAnyBlockingModalVisible()) evaluateAndShowReminder(); }, 500); }
 
-        const initApp = () => { updateProfileUI(); renderDashboard(); renderSyllabus(); renderChart(); updateBuddyNameUI(); displayQuoteWithFade(0); startBuddyAutoCarousel(); initLeaderboardListener(); if (!document.getElementById('welcome-modal')) { const welcomeModalHTML = `<div id="welcome-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 hidden"><div class="bg-white max-w-md w-full p-6 text-center relative" style="border: 3px solid #000; box-shadow: 6px 6px 0px #000;"><h2 class="text-2xl font-extrabold mb-1 text-black">Welcome Dreamer! 🚀</h2><p class="text-xs text-gray-600 mb-5 font-bold">Please complete your profile to continue.</p><div class="space-y-4 text-left mb-6"><div><label class="block text-xs font-extrabold text-black mb-1">YOUR NAME/NICKNAME *</label><input type="text" id="welcome-name-input" placeholder="Enter your full name or nickname" class="w-full p-2.5 text-sm text-black font-bold bg-[#F9F9F9]" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;"></div><div><label class="block text-xs font-extrabold text-black mb-1">SELECT YOUR BATCH *</label><select id="welcome-batch-input" class="w-full p-2.5 text-sm text-black font-bold bg-[#F9F9F9]" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;"><option value="">-- Select Batch --</option><option value="HSC 25">HSC 25</option><option value="HSC 26">HSC 26</option><option value="HSC 27">HSC 27</option><option value="HSC 28">HSC 28</option><option value="Others">Others</option></select></div></div><div class="flex flex-col gap-2"><button id="welcome-guest-btn" class="w-full bg-[#A3E635] hover:translate-y-[-1px] transition-transform py-2.5 text-black font-extrabold text-sm cursor-pointer" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;">Continue as Guest</button><div class="text-xs font-black text-gray-400 my-0.5">OR</div><button id="welcome-google-btn" class="w-full bg-[#FFA6C9] hover:translate-y-[-1px] transition-transform py-2.5 text-black font-extrabold text-sm flex items-center justify-center gap-2 cursor-pointer" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/provider/google.svg" class="w-4 h-4"> Sign In with Google</button></div></div></div>`; document.body.insertAdjacentHTML('beforeend', welcomeModalHTML); document.getElementById('welcome-guest-btn')?.addEventListener('click', () => { const name = document.getElementById('welcome-name-input').value.trim(); const batch = document.getElementById('welcome-batch-input').value; if (!name || !batch) { alert('Both Name and Batch are mandatory!'); return; } userProfile.name = name; userProfile.batch = batch; localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); localStorage.setItem('profile_name', name); localStorage.setItem('profile_batch', batch); localStorage.setItem('username', name); localStorage.setItem('user_batch', batch); localStorage.setItem('user_name', name); localStorage.setItem('batch', batch); if (typeof syncDataToFirebase === 'function') syncDataToFirebase(); if (typeof updateProfileUI === 'function') updateProfileUI(); if (typeof triggerUpdateCycle === 'function') triggerUpdateCycle(true); document.getElementById('welcome-modal').classList.add('hidden'); triggerReminderAfterModals(); }); document.getElementById('welcome-google-btn')?.addEventListener('click', () => { const name = document.getElementById('welcome-name-input').value.trim(); const batch = document.getElementById('welcome-batch-input').value; if (!name || !batch) { alert('Both Name and Batch are mandatory before Signing In!'); return; } const provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider).then((result) => { const user = result.user; uid = user.uid; localStorage.setItem('study_os_uid', uid); userProfile.name = name; userProfile.batch = batch; localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); localStorage.setItem('profile_name', name); localStorage.setItem('profile_batch', batch); localStorage.setItem('username', name); localStorage.setItem('user_batch', batch); localStorage.setItem('user_name', name); localStorage.setItem('batch', batch); db.ref('users/' + uid).update({ name: name, batch: batch, totalXP: state.totalXP, progressPercent: (() => { const { totalChapters, totalWeightedDone } = getStatsSummary(); return totalChapters > 0 ? Math.round((totalWeightedDone / totalChapters) * 100) : 0; })(), phase: document.getElementById('tree-phase-title')?.innerText || '🌱 Sprout', completedData: JSON.stringify(state.completedChapters), revisionLogs: JSON.stringify(revisionLogs), lastUpdated: firebase.database.ServerValue.TIMESTAMP }).then(() => { syncDataToFirebase(); }); if (typeof updateProfileUI === 'function') updateProfileUI(); if (typeof triggerUpdateCycle === 'function') triggerUpdateCycle(true); document.getElementById('welcome-modal').classList.add('hidden'); triggerReminderAfterModals(); }).catch((error) => { console.error(error); alert("Google Sign-In failed: " + error.message); }); }); } const savedName = localStorage.getItem('profile_name') || localStorage.getItem('username') || localStorage.getItem('user_name'); const savedBatch = localStorage.getItem('profile_batch') || localStorage.getItem('user_batch') || localStorage.getItem('batch'); if (!savedName || !savedBatch) document.getElementById('welcome-modal').classList.remove('hidden'); else { triggerReminderAfterModals(); } };
-        setReminderContent(); initReminderButtons(); initApp();
+        const initApp = () => { 
+            updateProfileUI(); 
+            renderDashboard(); 
+            renderSyllabus(); 
+            renderChart(); 
+            updateBuddyNameUI(); 
+            displayQuoteWithFade(0); 
+            startBuddyAutoCarousel(); 
+            initLeaderboardListener(); 
+            loadUserLinks();
+            if (!document.getElementById('welcome-modal')) { 
+                const welcomeModalHTML = `<div id="welcome-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 hidden"><div class="bg-white max-w-md w-full p-6 text-center relative" style="border: 3px solid #000; box-shadow: 6px 6px 0px #000;"><h2 class="text-2xl font-extrabold mb-1 text-black">Welcome Dreamer! 🚀</h2><p class="text-xs text-gray-600 mb-5 font-bold">Please complete your profile to continue.</p><div class="space-y-4 text-left mb-6"><div><label class="block text-xs font-extrabold text-black mb-1">YOUR NAME/NICKNAME *</label><input type="text" id="welcome-name-input" placeholder="Enter your full name or nickname" class="w-full p-2.5 text-sm text-black font-bold bg-[#F9F9F9]" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;"></div><div><label class="block text-xs font-extrabold text-black mb-1">SELECT YOUR BATCH *</label><select id="welcome-batch-input" class="w-full p-2.5 text-sm text-black font-bold bg-[#F9F9F9]" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;"><option value="">-- Select Batch --</option><option value="HSC 25">HSC 25</option><option value="HSC 26">HSC 26</option><option value="HSC 27">HSC 27</option><option value="HSC 28">HSC 28</option><option value="Others">Others</option></select></div></div><div class="flex flex-col gap-2"><button id="welcome-guest-btn" class="w-full bg-[#A3E635] hover:translate-y-[-1px] transition-transform py-2.5 text-black font-extrabold text-sm cursor-pointer" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;">Continue as Guest</button><div class="text-xs font-black text-gray-400 my-0.5">OR</div><button id="welcome-google-btn" class="w-full bg-[#FFA6C9] hover:translate-y-[-1px] transition-transform py-2.5 text-black font-extrabold text-sm flex items-center justify-center gap-2 cursor-pointer" style="border: 3px solid #000; box-shadow: 3px 3px 0px #000;"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/provider/google.svg" class="w-4 h-4"> Sign In with Google</button></div></div></div>`; 
+                document.body.insertAdjacentHTML('beforeend', welcomeModalHTML); 
+                document.getElementById('welcome-guest-btn')?.addEventListener('click', () => { 
+                    const name = document.getElementById('welcome-name-input').value.trim(); 
+                    const batch = document.getElementById('welcome-batch-input').value; 
+                    if (!name || !batch) { alert('Both Name and Batch are mandatory!'); return; } 
+                    userProfile.name = name; userProfile.batch = batch; 
+                    localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); 
+                    localStorage.setItem('profile_name', name); localStorage.setItem('profile_batch', batch); 
+                    localStorage.setItem('username', name); localStorage.setItem('user_batch', batch); 
+                    localStorage.setItem('user_name', name); localStorage.setItem('batch', batch); 
+                    if (typeof syncDataToFirebase === 'function') syncDataToFirebase(); 
+                    if (typeof updateProfileUI === 'function') updateProfileUI(); 
+                    if (typeof triggerUpdateCycle === 'function') triggerUpdateCycle(true); 
+                    document.getElementById('welcome-modal').classList.add('hidden'); 
+                    triggerReminderAfterModals(); 
+                }); 
+                document.getElementById('welcome-google-btn')?.addEventListener('click', () => { 
+                    const name = document.getElementById('welcome-name-input').value.trim(); 
+                    const batch = document.getElementById('welcome-batch-input').value; 
+                    if (!name || !batch) { alert('Both Name and Batch are mandatory before Signing In!'); return; } 
+                    const provider = new firebase.auth.GoogleAuthProvider(); 
+                    firebase.auth().signInWithPopup(provider).then((result) => { 
+                        const user = result.user; uid = user.uid; localStorage.setItem('study_os_uid', uid); 
+                        userProfile.name = name; userProfile.batch = batch; 
+                        localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); 
+                        localStorage.setItem('profile_name', name); localStorage.setItem('profile_batch', batch); 
+                        localStorage.setItem('username', name); localStorage.setItem('user_batch', batch); 
+                        localStorage.setItem('user_name', name); localStorage.setItem('batch', batch); 
+                        db.ref('users/' + uid).update({ name: name, batch: batch, totalXP: state.totalXP, progressPercent: (() => { const { totalChapters, totalWeightedDone } = getStatsSummary(); return totalChapters > 0 ? Math.round((totalWeightedDone / totalChapters) * 100) : 0; })(), phase: document.getElementById('tree-phase-title')?.innerText || '🌱 Sprout', completedData: JSON.stringify(state.completedChapters), revisionLogs: JSON.stringify(revisionLogs), lastUpdated: firebase.database.ServerValue.TIMESTAMP }).then(() => { syncDataToFirebase(); }); 
+                        if (typeof updateProfileUI === 'function') updateProfileUI(); 
+                        if (typeof triggerUpdateCycle === 'function') triggerUpdateCycle(true); 
+                        document.getElementById('welcome-modal').classList.add('hidden'); 
+                        triggerReminderAfterModals(); 
+                    }).catch((error) => { console.error(error); alert("Google Sign-In failed: " + error.message); }); 
+                }); 
+            } 
+            const savedName = localStorage.getItem('profile_name') || localStorage.getItem('username') || localStorage.getItem('user_name'); 
+            const savedBatch = localStorage.getItem('profile_batch') || localStorage.getItem('user_batch') || localStorage.getItem('batch'); 
+            if (!savedName || !savedBatch) document.getElementById('welcome-modal').classList.remove('hidden'); 
+            else { triggerReminderAfterModals(); } 
+        };
+        setReminderContent(); 
+        initReminderButtons(); 
+        initApp();
     </script>
 </body>
 </html>
