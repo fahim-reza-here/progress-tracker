@@ -81,7 +81,10 @@
         }
 
         * { 
-            transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-fast), box-shadow var(--transition-base), transform var(--transition-fast); 
+            transition: none;
+        }
+        body, .modern-box, .glass-card, .chapter-item, .btn-primary, .btn-secondary, .toggle-btn, .modern-input {
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
         body {
@@ -108,16 +111,14 @@
 
         /* Glass Card Base */
         .glass-card {
-            background: var(--bg-card);
-            backdrop-filter: var(--backdrop-blur);
-            -webkit-backdrop-filter: var(--backdrop-blur);
+            background: var(--bg-card-solid);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
         }
         .dark .glass-card {
-            background: var(--bg-card);
-            box-shadow: var(--shadow-lg), inset 0 1px 0 0 rgba(255,255,255,0.05);
+            background: var(--bg-card-solid);
+            box-shadow: var(--shadow-md), inset 0 1px 0 0 rgba(255,255,255,0.05);
         }
 
         /* Modern Box (replaces cartoon-box) */
@@ -204,16 +205,12 @@
             font-weight: 700;
             border-radius: var(--radius-sm);
             box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35);
-            transition: all var(--transition-fast);
+            transition: none;
             position: relative;
-            overflow: hidden;
         }
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.45);
             filter: brightness(1.1);
         }
-        .btn-primary:active { transform: translateY(0); }
         .dark .btn-primary {
             background: linear-gradient(135deg, #6366f1, #818cf8);
             box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.4);
@@ -225,12 +222,11 @@
             border: 1px solid var(--border-color);
             font-weight: 600;
             border-radius: var(--radius-sm);
-            transition: all var(--transition-fast);
+            transition: none;
         }
         .btn-secondary:hover {
             background: var(--bg-hover);
             border-color: var(--border-strong);
-            transform: translateY(-1px);
         }
 
         .btn-danger {
@@ -247,7 +243,6 @@
         .progress-track {
             background: var(--bg-hover);
             border-radius: 100px;
-            overflow: hidden;
             position: relative;
         }
         .progress-fill {
@@ -276,11 +271,9 @@
             border-radius: var(--radius-lg);
             background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(139,92,246,0.05));
             border: 1px solid var(--border-color);
-            overflow: hidden;
         }
         .dark .aura-tree-container {
             background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.08));
-            box-shadow: inset 0 0 40px rgba(99,102,241,0.1), 0 0 40px rgba(99,102,241,0.1);
         }
         .aura-tree-container .glow-orb {
             position: absolute;
@@ -324,7 +317,6 @@
             background: var(--bg-card-solid);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            transition: all var(--transition-slow);
             position: relative;
         }
         .badge-card.locked { opacity: 0.5; filter: grayscale(0.6); }
@@ -358,7 +350,6 @@
             border-radius: var(--radius);
             background: var(--bg-hover);
             border: 1px solid var(--border-color);
-            transition: all var(--transition-fast);
             cursor: pointer;
             position: relative;
         }
@@ -394,32 +385,19 @@
 
         /* Subject Accordion Animation - Ultra Smooth */
         .subject-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease, padding 0.4s ease;
-            opacity: 0;
+            display: none;
             padding-top: 0;
             padding-bottom: 0;
-            will-change: max-height, opacity;
-        }
-        .subject-content > div {
-            overflow: visible;
         }
         .subject-content.open {
-            max-height: 5000px;
-            opacity: 1;
+            display: block;
             padding-top: 1rem;
             padding-bottom: 1rem;
         }
 
         /* Buddy Speech Silky Animation */
         #buddy-speech {
-            transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        #buddy-speech.changing {
-            opacity: 0;
-            transform: translateY(10px) scale(0.97);
-            filter: blur(2px);
+            transition: none;
         }
 
         /* Progress Pillars (Graph Stambho) */
@@ -531,7 +509,7 @@
             color: var(--accent-primary);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.2s;
+            transition: none;
             white-space: nowrap;
             box-shadow: var(--shadow-sm);
             z-index: 5;
@@ -554,7 +532,6 @@
             box-shadow: var(--shadow-xl);
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--accent-warning);
-            backdrop-filter: var(--backdrop-blur);
             line-height: 1.4;
         }
         .dark .modern-tooltip { border-left-color: var(--accent-warning); }
@@ -564,26 +541,17 @@
             overflow: hidden;
             white-space: nowrap;
             position: relative;
-            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
         }
-        /* noticeboard timer */
+        /* noticeboard timer - animation removed for performance */
         .ticker-track {
             display: inline-block;
-            animation: tickerScroll 35s linear infinite;
             padding-left: 100%;
-        }
-        .ticker-track:hover { animation-play-state: paused; }
-        @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+            white-space: nowrap;
         }
 
         /* Modals */
         .modal-overlay {
-            background: rgba(2, 6, 23, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(2, 6, 23, 0.8);
         }
         .modal-content {
             background: var(--bg-card-solid);
@@ -593,7 +561,7 @@
         }
         .dark .modal-content {
             background: #0f172a;
-            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255,255,255,0.05);
+            box-shadow: var(--shadow-md);
         }
 
         /* Inputs */
@@ -626,28 +594,19 @@
             font-size: 0.7rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all var(--transition-fast);
+            transition: none;
             border: 1px solid transparent;
             background: var(--bg-hover);
             color: var(--text-secondary);
         }
-        .cal-day:hover { transform: scale(1.1); border-color: var(--border-strong); z-index: 2; }
+        .cal-day:hover { border-color: var(--border-strong); }
         .cal-day.today {
             position: relative;
-        }
-        .cal-day.today::after {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 50%;
             border: 2px solid var(--accent-primary);
             box-shadow: 0 0 8px var(--accent-primary-glow);
-            pointer-events: none;
-            z-index: 5;
         }
         .cal-day.active { 
-            outline: 2px solid var(--accent-primary);
-            outline-offset: 1px;
+            border: 2px solid var(--accent-primary);
             box-shadow: 0 0 12px var(--accent-primary-glow);
             z-index: 3;
         }
@@ -658,7 +617,6 @@
 
         /* Leaderboard */
         .lb-row {
-            transition: all var(--transition-fast);
             border-bottom: 1px solid var(--border-color);
         }
         .lb-row:hover { background: var(--bg-hover); }
@@ -678,11 +636,11 @@
             border-radius: 100px;
             border: none;
             cursor: pointer;
-            transition: all var(--transition-fast);
+            transition: none;
             box-shadow: 0 2px 6px rgba(217,119,6,0.3);
             letter-spacing: 0.02em;
         }
-        .revise-btn:hover { transform: scale(1.08); filter: brightness(1.1); box-shadow: 0 4px 10px rgba(217,119,6,0.4); }
+        .revise-btn:hover { filter: brightness(1.1); }
         .revise-count {
             font-size: 0.6rem;
             background: rgba(0,0,0,0.2);
@@ -724,24 +682,22 @@
             border-radius: var(--radius-sm);
             padding: 0.5rem;
             font-size: 0.875rem;
-            transition: all var(--transition-fast);
+            transition: none;
             cursor: pointer;
             color: var(--text-secondary);
         }
         .toggle-btn:hover {
             background: var(--bg-elevated);
             color: var(--text-primary);
-            transform: scale(1.05);
         }
 
         /* Contact Icons */
         .contact-icon {
-            transition: all var(--transition-fast);
+            transition: none;
             padding: 6px;
             border-radius: var(--radius-xs);
         }
         .contact-icon:hover {
-            transform: scale(1.15) translateY(-2px);
             background: var(--bg-hover);
         }
 
@@ -750,7 +706,6 @@
             background: linear-gradient(135deg, var(--accent-primary-soft), transparent);
             border-bottom: 1px solid var(--border-color);
             position: relative;
-            overflow: hidden;
         }
         .subject-header::before {
             content: '';
@@ -767,7 +722,6 @@
             background: var(--bg-card-solid);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
-            overflow: hidden;
         }
         .nested-header {
             background: var(--bg-hover);
@@ -798,34 +752,21 @@
             font-weight: 600;
             font-size: 0.875rem;
             text-decoration: none;
-            transition: all var(--transition-fast);
         }
         .link-row a:hover { color: #7c3aed; text-decoration: underline; }
         .dark .link-row a { color: #818cf8; }
         .dark .link-row a:hover { color: #a5b4fc; }
 
         /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-in { animation: fadeInUp 0.6s ease-out forwards; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
+        /* fadeInUp animation removed for performance */
+        .animate-in { opacity: 1; }
+        .delay-1 { }
+        .delay-2 { }
+        .delay-3 { }
 
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 5px var(--accent-primary-glow); }
-            50% { box-shadow: 0 0 20px var(--accent-primary-glow); }
-        }
-        .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        /* pulse-glow animation removed for performance */
 
-        @keyframes levelUpAnim {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); filter: brightness(1.3); }
-            100% { transform: scale(1); }
-        }
-        .level-up-anim { animation: levelUpAnim 0.8s ease-in-out 2; }
+        /* level-up animation removed for performance */
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -834,20 +775,75 @@
         }
             /* Leaderboard Tabs */
         .lb-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-        .lb-tab { padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: all var(--transition-fast); border: 1px solid var(--border-color); background: var(--bg-hover); color: var(--text-secondary); }
-        .lb-tab.active { background: var(--accent-primary); color: white; border-color: var(--accent-primary); box-shadow: 0 4px 14px 0 var(--accent-primary-glow); }
+        .lb-tab { padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 700; cursor: pointer; border: 1px solid var(--border-color); background: var(--bg-hover); color: var(--text-secondary); }
+        .lb-tab.active { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
         .lb-tab:hover:not(.active) { background: var(--bg-elevated); color: var(--text-primary); }
 
         /* Admin Panel */
         .admin-panel-box { border: 2px solid var(--accent-primary) !important; background: linear-gradient(135deg, rgba(79,70,229,0.08), transparent) !important; }
-        .admin-user-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem; border-bottom: 1px solid var(--border-color); transition: background var(--transition-fast); flex-wrap: wrap; gap: 0.5rem; overflow: hidden; }
+        .admin-user-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 0.5rem; }
         .admin-user-row:hover { background: var(--bg-hover); }
         .admin-user-row:last-child { border-bottom: none; }
-        .admin-toggle-btn { padding: 0.25rem 0.5rem; border-radius: var(--radius-xs); font-size: 0.65rem; font-weight: 700; cursor: pointer; transition: all var(--transition-fast); border: none; white-space: nowrap; }
+        .admin-toggle-btn { padding: 0.25rem 0.5rem; border-radius: var(--radius-xs); font-size: 0.65rem; font-weight: 700; cursor: pointer; border: none; white-space: nowrap; }
         .admin-toggle-btn.in-group { background: var(--accent-success); color: white; box-shadow: 0 2px 8px rgba(5,150,105,0.3); }
         .admin-toggle-btn.not-in-group { background: var(--bg-card-solid); color: var(--text-secondary); border: 1px solid var(--border-color); }
         .admin-toggle-btn.not-in-group:hover { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
-</style>
+
+        /* Aura Ring */
+        .glass-tree-container {
+            width: 140px;
+            height: 160px;
+            position: relative;
+            border: 2px solid rgba(147, 197, 253, 0.4);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark .glass-tree-container {
+            border-color: rgba(147, 197, 253, 0.25);
+            background: rgba(15, 23, 42, 0.2);
+        }
+        .glass-tree-container canvas {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Water Level */
+        .water-level {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(to top, rgba(59, 130, 246, 0.5), rgba(96, 165, 250, 0.2));
+            transition: height 0.5s ease;
+            z-index: 1;
+        }
+        .water-level::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 0;
+            width: 200%;
+            height: 12px;
+            background: radial-gradient(ellipse at center, rgba(96, 165, 250, 0.6) 0%, transparent 70%);
+            background-size: 16px 12px;
+            animation: waterWave 2s linear infinite;
+        }
+        @keyframes waterWave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-16px); }
+        }
+        .dark .water-level {
+            background: linear-gradient(to top, rgba(37, 99, 235, 0.4), rgba(59, 130, 246, 0.15));
+        }
+        .dark .water-level::before {
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.5) 0%, transparent 70%);
+        }
+        </style>
 <base target="_blank">
 </head>
 <body class="min-h-screen p-4 md:p-6 lg:p-8 flex flex-col items-center">
@@ -990,13 +986,13 @@
                 <div class="flex items-center gap-2 flex-wrap">
                     <div class="flex items-center gap-2 p-2 px-3 rounded-xl glass-card text-xs font-bold w-fit">
                         <span style="color: var(--text-secondary);">👤 User: <span id="profile-name-display" class="font-black" style="color: var(--accent-primary);">Loading...</span> (<span id="profile-batch-display">...</span>)</span>
-                        <button id="edit-profile-btn" class="p-1 rounded-md hover:scale-125 transition-transform cursor-pointer" style="background: var(--bg-hover); color: var(--text-muted);" title="Edit Profile Name & Batch">✏️</button>
+                        <button id="edit-profile-btn" class="p-1 rounded-md transition-none cursor-pointer" style="background: var(--bg-hover); color: var(--text-muted);" title="Edit Profile Name & Batch">✏️</button>
                     </div>
                     <div class="flex items-center gap-2 p-2 px-3 rounded-xl glass-card text-xs font-bold w-fit">
                         <span style="color: var(--text-secondary);">📅 Exam:</span>
                         <input type="date" id="exam-date-input" class="modern-input p-1 text-xs font-bold" style="width: 120px;" value="">
-                        <button id="exam-date-edit-btn" class="p-1 rounded-md hover:scale-110 transition-transform cursor-pointer" style="background: var(--bg-hover); color: var(--text-muted);" title="Edit Exam Date">✏️</button>
-                        <button id="exam-date-clear-btn" class="p-1 rounded-md hover:scale-110 transition-transform cursor-pointer" style="background: var(--accent-danger-soft); color: var(--accent-danger);" title="Clear Exam Date">🗑️</button>
+                        <button id="exam-date-edit-btn" class="p-1 rounded-md transition-none cursor-pointer" style="background: var(--bg-hover); color: var(--text-muted);" title="Edit Exam Date">✏️</button>
+                        <button id="exam-date-clear-btn" class="p-1 rounded-md transition-none cursor-pointer" style="background: var(--accent-danger-soft); color: var(--accent-danger);" title="Clear Exam Date">🗑️</button>
                         <span id="exam-countdown-display" class="font-black" style="color: var(--accent-danger);"></span>
                     </div>
                     <button id="auth-toggle-btn" class="btn-primary text-xs px-4 py-2 rounded-xl cursor-pointer">🔐 Sign In / Sync</button>
@@ -1052,9 +1048,9 @@
         <main class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full animate-in delay-2">
             <!-- Aura Tree Card -->
             <div class="lg:col-span-2 aura-tree-container p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative">
-                <div class="glow-orb w-32 h-32 bg-indigo-500/20 top-10 left-10"></div>
-                <div class="glow-orb w-24 h-24 bg-amber-500/20 bottom-10 right-20" style="animation-delay: -3s;"></div>
-                <div class="space-y-4 z-10 text-center md:text-left max-w-md">
+                
+                
+                <div class="space-y-4 text-center md:text-left max-w-md">
                     <span class="inline-block text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest glass-card" style="color: var(--accent-primary); border-color: var(--accent-primary);">✨ AURA METER </span>
                     <h2 class="text-2xl md:text-3xl font-black tracking-tight" style="color: var(--text-primary);">Let your Aura 999+</h2>
                     <p class="text-xs md:text-sm leading-relaxed font-medium" style="color: var(--text-secondary);">Complete chapters to absolute grind! Level up your tiny sprout into a legendary golden harvest. Unleash your inner main-character energy and let your Aura dominate the leaderboard!</p>
@@ -1070,8 +1066,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="anime-tree-box" class="w-44 h-44 shrink-0 rounded-2xl flex items-center justify-center relative z-10 transition-all duration-300">
-                    <div id="tree-avatar-display" class="text-7xl select-none tree-avatar">🌱</div>
+                <div id="anime-tree-box" class="w-44 h-44 shrink-0 rounded-2xl flex items-center justify-center relative">
+                    <div class="glass-tree-container" id="glass-tree-container">
+                    <div class="water-level" id="water-level">
+                        <div class="water-wave"></div>
+                    </div>
+                    <canvas id="tree-avatar-display" width="128" height="128" class="select-none" style="width:128px;height:128px;image-rendering:pixelated;"></canvas>
+                </div>
                 </div>
             </div>
 
@@ -1102,7 +1103,7 @@
             <!-- Left Column -->
             <div class="lg:col-span-2 space-y-6 w-full">
                 <!-- Syllabus -->
-                <div class="modern-box p-6 w-full animate-in delay-3">
+                <div class="modern-box p-6 w-full">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
                         <h2 class="text-2xl font-extrabold flex items-center gap-2" style="color: var(--text-primary);">📖 Target Syllabus</h2>
                         <span class="text-[11px] font-semibold p-2 px-3 rounded-lg glass-card" style="color: var(--text-muted);">💡 1st Click=Half done | 2nd Click=Full done | 3rd Click=Undo | 🔁 Revise +20XP (max 2/day)</span>
@@ -1133,25 +1134,25 @@
             <!-- Right Column (Sticky) -->
             <div class="space-y-6 w-full lg:sticky lg:top-6">
                 <!-- Buddy Box -->
-                <div id="buddy-box" class="glass-card p-5 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(15,23,42,0.9));">
-                    <div class="absolute -right-6 -bottom-6 opacity-5 text-9xl select-none">🧠</div>
+                <div id="buddy-box" class="glass-card p-5 relative" style="background: var(--bg-card-solid);">
+                    
                     <div class="flex items-center justify-between gap-3 mb-3 relative z-10">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center text-xl shadow-lg" style="background: linear-gradient(135deg, var(--accent-primary), #7c3aed); color: white;">🤖</div>
                             <div>
                                 <div class="flex items-center gap-2">
                                     <h3 id="buddy-name-display" class="font-extrabold text-sm tracking-wide" style="color: var(--accent-primary);">Buddy</h3>
-                                    <button id="edit-buddy-name-btn" class="text-xs p-1 rounded-md hover:scale-125 transition-transform cursor-pointer" style="background: var(--bg-hover); color: var(--text-muted);" title="Change Buddy Name / Add Quote">✏️</button>
+                                    <button id="edit-buddy-name-btn" class="text-xs p-1 rounded-md transition-none cursor-pointer" style="background: var(--bg-hover); color: var(--text-muted);" title="Change Buddy Name / Add Quote">✏️</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between gap-2 relative z-10">
-                        <button id="buddy-prev-btn" class="hover:scale-110 transition-transform p-2 font-black cursor-pointer text-xl select-none" style="color: var(--accent-primary);">❮</button>
+                    <div class="flex items-center justify-between gap-2 relative">
+                        <button id="buddy-prev-btn" class="transition-none p-2 font-black cursor-pointer text-xl select-none" style="color: var(--accent-primary);">❮</button>
                         <div class="flex-1 p-4 rounded-xl min-h-[90px] flex items-center justify-center text-center glass-card">
                             <p id="buddy-speech" class="text-xs md:text-sm leading-relaxed font-medium transition-opacity duration-300 opacity-100" style="color: var(--text-secondary);">Loading buddy engine...</p>
                         </div>
-                        <button id="buddy-next-btn" class="hover:scale-110 transition-transform p-2 font-black cursor-pointer text-xl select-none" style="color: var(--accent-primary);">❯</button>
+                        <button id="buddy-next-btn" class="transition-none p-2 font-black cursor-pointer text-xl select-none" style="color: var(--accent-primary);">❯</button>
                     </div>
                 </div>
 
@@ -1508,6 +1509,9 @@
         let currentPeriod = 'lifetime';
         let leaderboardDisplayLimit = 10;
         let isAdmin = false;
+let adminXPAdjustments = JSON.parse(localStorage.getItem('study_os_admin_xp_adjustments')) || [];
+let currentXPUserId = null;
+let currentXPNotificationId = null;
         let currentLeaderboardTab = 'global';
         let personalLeaderboardDisplayLimit = 10;
 
@@ -1532,7 +1536,9 @@
                 (round.completedChapters || []).forEach(c => archivedXP += (c.status === 'half' ? 50 : 100));
                 (round.revisionLogs || []).forEach(r => archivedXP += (r.xp || 20));
             });
-            return currentXP + revisionTotal + archivedXP; 
+            // Add admin XP adjustments
+            let adminXP = adminXPAdjustments.reduce((sum, a) => sum + (a.amount || 0), 0);
+            return currentXP + revisionTotal + archivedXP + adminXP; 
         }
         function getAllActivityLogs() { 
             let logs = []; 
@@ -1845,6 +1851,7 @@
                             <button class="admin-toggle-btn ${groupBtnClass}" data-userid="${user.id}" data-in-group="${inGroup}">${groupBtnText}</button>
                             <button class="admin-toggle-btn ${blockBtnClass}" data-userid="${user.id}" data-blocked="${isBlocked}" style="${blockBtnStyle}">${blockBtnText}</button>
                             <button class="admin-toggle-btn ${notifyBtnClass}" data-userid="${user.id}" data-notified="${isNotified}" style="${notifyBtnStyle}">${notifyBtnText}</button>
+                            <button class="admin-toggle-btn not-in-group" data-userid="${user.id}" data-action="xp" style="background: linear-gradient(135deg, #059669, #10b981); color: white;">💰 XP</button>
                             <button class="admin-toggle-btn not-in-group" data-userid="${user.id}" data-action="delete" style="background: #7f1d1d; color: white;">🗑️ Delete</button>
                         </div>
                     </div>`;
@@ -1876,6 +1883,8 @@
                             } else {
                                 openNotifyModal(userId);
                             }
+                        } else if (btn.getAttribute('data-action') === 'xp') {
+                            openXPModal(userId);
                         } else if (btn.getAttribute('data-action') === 'delete') {
                             if (confirm('⚠️ Are you sure you want to DELETE this user\'s profile completely? This cannot be undone!')) {
                                 deleteUserProfile(userId);
@@ -2075,9 +2084,11 @@
                 isAdmin = (user.email === 'fahimreza511@gmail.com');
                 if (isAdmin) { document.getElementById('admin-panel')?.classList.remove('hidden'); renderAdminPanel(); }
                 else { document.getElementById('admin-panel')?.classList.add('hidden'); }
-                authBtn.innerText = '🚪 Sign Out'; authBtn.classList.replace('bg-indigo-600','bg-rose-500'); authBtn.classList.replace('hover:bg-indigo-700','hover:bg-rose-600'); authBtn.classList.replace('border-indigo-800','border-rose-700'); db.ref('users/' + uid).once('value').then(snap => { if (snap.exists()) { const data = snap.val(); if (data.name) userProfile.name = data.name; if (data.batch && ['HSC 25','HSC 26','HSC 27','HSC 28','Others'].includes(data.batch)) userProfile.batch = data.batch; else userProfile.batch = 'Others'; if (data.completedData) { try { state.completedChapters = JSON.parse(data.completedData); localStorage.setItem('study_os_completed_v4', data.completedData); } catch(e) {} } if (data.revisionLogs) { try { revisionLogs = JSON.parse(data.revisionLogs); localStorage.setItem('study_os_revision_logs', data.revisionLogs); } catch(e) {} } if (data.syllabus) { try { const customSyllabus = JSON.parse(data.syllabus); state.syllabus = customSyllabus; localStorage.setItem('study_os_syllabus', data.syllabus); } catch(e) {} } if (data.revisionRounds) { try { revisionRounds = JSON.parse(data.revisionRounds); localStorage.setItem('study_os_revision_rounds', data.revisionRounds); } catch(e) {} } if (data.currentRound) { try { currentRound = parseInt(data.currentRound); localStorage.setItem('study_os_current_round', data.currentRound); } catch(e) {} } if (data.examDate !== undefined) { userProfile.examDate = data.examDate || ''; localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); } updateProfileUI(); updateExamCountdownUI(); triggerUpdateCycle(true); } else { syncDataToFirebase(); updateProfileUI(); triggerUpdateCycle(true); } }); authModalEl.classList.add('hidden'); errText.classList.add('hidden'); loadUserLinks();
+                authBtn.innerText = '🚪 Sign Out'; authBtn.classList.replace('bg-indigo-600','bg-rose-500'); authBtn.classList.replace('hover:bg-indigo-700','hover:bg-rose-600'); authBtn.classList.replace('border-indigo-800','border-rose-700'); db.ref('users/' + uid).once('value').then(snap => { if (snap.exists()) { const data = snap.val(); if (data.name) userProfile.name = data.name; if (data.batch && ['HSC 25','HSC 26','HSC 27','HSC 28','Others'].includes(data.batch)) userProfile.batch = data.batch; else userProfile.batch = 'Others'; if (data.completedData) { try { state.completedChapters = JSON.parse(data.completedData); localStorage.setItem('study_os_completed_v4', data.completedData); } catch(e) {} } if (data.revisionLogs) { try { revisionLogs = JSON.parse(data.revisionLogs); localStorage.setItem('study_os_revision_logs', data.revisionLogs); } catch(e) {} } if (data.syllabus) { try { const customSyllabus = JSON.parse(data.syllabus); state.syllabus = customSyllabus; localStorage.setItem('study_os_syllabus', data.syllabus); } catch(e) {} } if (data.revisionRounds) { try { revisionRounds = JSON.parse(data.revisionRounds); localStorage.setItem('study_os_revision_rounds', data.revisionRounds); } catch(e) {} }
+                if (data.adminXPAdjustments) { try { adminXPAdjustments = Object.values(data.adminXPAdjustments); localStorage.setItem('study_os_admin_xp_adjustments', JSON.stringify(adminXPAdjustments)); } catch(e) {} } if (data.currentRound) { try { currentRound = parseInt(data.currentRound); localStorage.setItem('study_os_current_round', data.currentRound); } catch(e) {} } if (data.examDate !== undefined) { userProfile.examDate = data.examDate || ''; localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); } updateProfileUI(); updateExamCountdownUI(); triggerUpdateCycle(true); } else { syncDataToFirebase(); updateProfileUI(); triggerUpdateCycle(true); } }); authModalEl.classList.add('hidden'); errText.classList.add('hidden'); loadUserLinks();
                 checkUserBlockStatus();
                 checkUserNotification();
+                listenForXPNotifications();
             } else { isAdmin = false; document.getElementById('admin-panel')?.classList.add('hidden'); authBtn.innerText = '🔐 Sign In / Sync'; authBtn.classList.replace('bg-rose-500','bg-indigo-600'); authBtn.classList.replace('hover:bg-rose-600','hover:bg-indigo-700'); authBtn.classList.replace('border-rose-700','border-indigo-800'); uid = localStorage.getItem('study_os_uid'); if (!uid || !uid.startsWith('user_')) { uid = 'user_' + Math.random().toString(36).substring(2,11); localStorage.setItem('study_os_uid', uid); } loadUserLinks();
                 document.getElementById('block-overlay')?.classList.add('hidden');
                 document.getElementById('force-notification-overlay')?.classList.add('hidden');
@@ -2280,10 +2291,162 @@ function mergeSyllabusWithCustom(defaultSyllabus, currentSyllabus) {
         const getTimeBasedCounts = () => { const allLogs = getAllActivityLogs(); const todayStr = new Date().toISOString().split('T')[0]; const oneWeekAgo = new Date(); oneWeekAgo.setDate(oneWeekAgo.getDate() - 7); const oneMonthAgo = new Date(); oneMonthAgo.setDate(oneMonthAgo.getDate() - 30); let todayCount=0, weekCount=0, monthCount=0; allLogs.forEach(c => { const cDate = new Date(c.date); if(c.date === todayStr) todayCount++; if(cDate >= oneWeekAgo) weekCount++; if(cDate >= oneMonthAgo) monthCount++; }); return { todayCount, weekCount, monthCount }; };
         const badgesConfig = [{ id:'first', name:'First Milestone', desc:'Complete 1st Chapter', icon:'🌱', check:(total)=>total>=1 },{ id:'ten', name:'Syllabus Conqueror', desc:'Complete 10 Chapters', icon:'👑', check:(total)=>total>=10 },{ id:'daily_w', name:'Daily Warrior', desc:'Complete 3 chapters today', icon:'🔥', check:(_,__,time)=>time.todayCount>=3 },{ id:'weekly_c', name:'Weekly Champion', desc:'10 chapters in last 7 days', icon:'⚡', check:(_,__,time)=>time.weekCount>=10 },{ id:'monthly_l', name:'Monthly Legend', desc:'25 chapters in last 30 days', icon:'🏆', check:(_,__,time)=>time.monthCount>=25 },{ id:'streak_5', name:'Streak Master', desc:'Maintain 5 Days Streak', icon:'⭐', check:(_,__,___,streak)=>streak>=5 },{ id:'level5', name:'Elite Level 5', desc:'Reach Level 5 or higher', icon:'🛡️', check:(_,level)=>level>=5 }];
 
-        const updateAnimeTreeVisuals = (progressPercent) => { const treeAvatar = document.getElementById('tree-avatar-display'); const treePhaseTitle = document.getElementById('tree-phase-title'); const animeBox = document.getElementById('anime-tree-box'); if (progressPercent <= 25) { treeAvatar.innerText = "🌱"; treePhaseTitle.innerText = "Phase 1: Anime Sprout Era"; treePhaseTitle.style.color = 'var(--accent-success)'; animeBox.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.1), transparent)'; animeBox.style.border = '1px solid rgba(16,185,129,0.2)'; } else if (progressPercent <= 50) { treeAvatar.innerText = "🌿"; treePhaseTitle.innerText = "Phase 2: Lush Green Growth"; treePhaseTitle.style.color = 'var(--accent-success)'; animeBox.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(99,102,241,0.05))'; animeBox.style.border = '1px solid rgba(16,185,129,0.3)'; } else if (progressPercent <= 75) { treeAvatar.innerText = "🌸"; treePhaseTitle.innerText = "Phase 3: Sakura Blossom Peak"; treePhaseTitle.style.color = '#ec4899'; animeBox.style.background = 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(99,102,241,0.05))'; animeBox.style.border = '1px solid rgba(236,72,153,0.3)'; } else { treeAvatar.innerText = "🌳✨"; treePhaseTitle.innerText = "Phase 4: Golden Cosmic Fruit"; treePhaseTitle.style.color = 'var(--accent-warning)'; animeBox.style.background = 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(99,102,241,0.1))'; animeBox.style.border = '1px solid rgba(245,158,11,0.4)'; animeBox.style.boxShadow = '0 0 30px rgba(245,158,11,0.15)'; } };
+        const renderPixelTree = (phase, progressPercent) => {
+            const canvas = document.getElementById('tree-avatar-display');
+            if (!canvas || canvas.tagName !== 'CANVAS') return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 128, 128);
+
+            // 16x16 pixel grid, 8px per pixel = 128x128 canvas
+            const maps = {
+                // Phase 1: TINY seedling - very small, just 2 tiny leaves
+                sprout: [
+                    "................",
+                    "................",
+                    "................",
+                    "................",
+                    "................",
+                    "................",
+                    "................",
+                    ".......GG.......",
+                    "......GLLG......",
+                    ".......TT.......",
+                    ".......TT.......",
+                    ".......TT.......",
+                    ".......TT.......",
+                    ".......TT.......",
+                    "....########....",
+                    "................"
+                ],
+                // Phase 2: BIG BUSH - massive green canopy, thin trunk, jhop akare
+                growth: [
+                    ".......GG.......",
+                    "......GGGG......",
+                    ".....GGGGGG.....",
+                    "....GGGGGGGG....",
+                    "...GGGGGGGGGG...",
+                    "..GGGGGGGGGGGG..",
+                    ".GGGGGGGGGGGGGG.",
+                    ".GGGGGGGGGGGGGG.",
+                    "..GGGGGGGGGGGG..",
+                    "...GGGGGGGGGG...",
+                    ".......TT.......",
+                    ".......TT.......",
+                    "......TTTT......",
+                    "....########....",
+                    "....########....",
+                    "................"
+                ],
+                // Phase 3: Same big bush + scattered pink sakura flowers
+                blossom: [
+                    ".......GG.......",
+                    "......GPPG......",
+                    ".....GGPPGG.....",
+                    "....GGPPGGGG....",
+                    "...GGGGPPGGGG...",
+                    "..GGPPGGGGPPGG..",
+                    ".GGGGPPGGGGPPGG.",
+                    ".GGPPGGGGPPGGGG.",
+                    "..GGGGPPGGGGGG..",
+                    "...GGGGPPGGGG...",
+                    ".......TT.......",
+                    ".......TT.......",
+                    "......TTTT......",
+                    "....########....",
+                    "....########....",
+                    "................"
+                ],
+                // Phase 4: Same big bush + scattered golden fruits
+                cosmic: [
+                    ".......GG.......",
+                    "......GYYG......",
+                    ".....GGYYGG.....",
+                    "....GGYYGGGG....",
+                    "...GGGGYYGGGG...",
+                    "..GGYYGGGGYYGG..",
+                    ".GGGGYYGGGGYYGG.",
+                    ".GGYYGGGGYYGGGG.",
+                    "..GGGGYYGGGGGG..",
+                    "...GGGGYYGGGG...",
+                    ".......TT.......",
+                    ".......TT.......",
+                    "......TTTT......",
+                    "....########....",
+                    "....########....",
+                    "................"
+                ]
+            };
+
+            const palette = {
+                'G': '#22c55e',   // dark green leaf
+                'L': '#4ade80',   // light green leaf
+                'P': '#f472b6',   // pink sakura flower
+                'p': '#f9a8d4',   // light pink
+                'Y': '#fbbf24',   // golden fruit
+                'y': '#f59e0b',   // dark golden
+                'T': '#92400e',   // trunk brown
+                '#': '#475569',   // ground/soil
+                '.': null
+            };
+
+            const map = maps[phase];
+            if (!map) return;
+            const pixelSize = 8;
+
+            for (let row = 0; row < map.length; row++) {
+                for (let col = 0; col < map[row].length; col++) {
+                    const char = map[row][col];
+                    const color = palette[char];
+                    if (color) {
+                        ctx.fillStyle = color;
+                        ctx.fillRect(col * pixelSize, row * pixelSize, pixelSize, pixelSize);
+                    }
+                }
+            }
+
+            // Update water level based on progress
+            const waterLevel = document.getElementById('water-level');
+            if (waterLevel) {
+                const waterHeight = Math.min(40, progressPercent * 0.4);
+                waterLevel.style.height = waterHeight + '%';
+            }
+        };
+
+        const updatePixelTree = (progressPercent) => {
+            const treePhaseTitle = document.getElementById('tree-phase-title');
+            const animeBox = document.getElementById('anime-tree-box');
+
+            if (progressPercent <= 25) {
+                renderPixelTree('sprout', progressPercent);
+                treePhaseTitle.innerText = "Phase 1:Sprout";
+                treePhaseTitle.style.color = '#60a5fa';
+                animeBox.style.background = 'linear-gradient(135deg, rgba(96,165,250,0.1), transparent)';
+                animeBox.style.border = '1px solid rgba(96,165,250,0.2)';
+            } else if (progressPercent <= 50) {
+                renderPixelTree('growth', progressPercent);
+                treePhaseTitle.innerText = "Phase 2:Growth";
+                treePhaseTitle.style.color = '#34d399';
+                animeBox.style.background = 'linear-gradient(135deg, rgba(52,211,153,0.15), rgba(99,102,241,0.05))';
+                animeBox.style.border = '1px solid rgba(52,211,153,0.3)';
+            } else if (progressPercent <= 75) {
+                renderPixelTree('blossom', progressPercent);
+                treePhaseTitle.innerText = "Phase 3:Sakura";
+                treePhaseTitle.style.color = '#ec4899';
+                animeBox.style.background = 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(99,102,241,0.05))';
+                animeBox.style.border = '1px solid rgba(236,72,153,0.3)';
+            } else {
+                renderPixelTree('cosmic', progressPercent);
+                treePhaseTitle.innerText = "Phase 4:Cosmic";
+                treePhaseTitle.style.color = '#f59e0b';
+                animeBox.style.background = 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(99,102,241,0.1))';
+                animeBox.style.border = '1px solid rgba(245,158,11,0.4)';
+            }
+        };
+
+        const updateAnimeTreeVisuals = (progressPercent) => { updatePixelTree(progressPercent); };
 
         const recalculateGamerStats = () => { let totalXP = computeTotalXPFromChaptersAndRevisions(); state.totalXP = totalXP; let oldLevel = state.level; state.level = Math.floor(state.totalXP / 500) + 1; if(state.level > oldLevel && oldLevel !== 1) { const treeBox = document.getElementById('anime-tree-box'); treeBox.classList.add('level-up-anim'); setTimeout(() => treeBox.classList.remove('level-up-anim'), 2000); } localStorage.setItem('study_os_xp', state.totalXP); localStorage.setItem('study_os_level', state.level); localStorage.setItem('study_os_completed_v4', JSON.stringify(state.completedChapters)); localStorage.setItem('study_os_revision_logs', JSON.stringify(revisionLogs)); syncDataToFirebase(); };
-        const syncDataToFirebase = () => { const { totalChapters, totalWeightedDone } = getStatsSummary(); const progressPercent = totalChapters > 0 ? Math.round((totalWeightedDone / totalChapters) * 100) : 0; let currentPhase = "🌱 Sprout"; if(progressPercent > 25 && progressPercent <= 50) currentPhase = "🌿 Growth"; else if(progressPercent > 50 && progressPercent <= 75) currentPhase = "🌸 Sakura"; else if(progressPercent > 75) currentPhase = "🌳 Cosmic"; let syncPayload = { name: userProfile.name, batch: userProfile.batch, examDate: userProfile.examDate || '', totalXP: state.totalXP, progressPercent: progressPercent, phase: currentPhase, completedData: JSON.stringify(state.completedChapters), revisionLogs: JSON.stringify(revisionLogs), syllabus: JSON.stringify(state.syllabus), revisionRounds: JSON.stringify(revisionRounds), currentRound: currentRound, lastUpdated: firebase.database.ServerValue.TIMESTAMP };
+        const syncDataToFirebase = () => { const { totalChapters, totalWeightedDone } = getStatsSummary(); const progressPercent = totalChapters > 0 ? Math.round((totalWeightedDone / totalChapters) * 100) : 0; let currentPhase = "🌱 Sprout"; if(progressPercent > 25 && progressPercent <= 50) currentPhase = "🌿 Growth"; else if(progressPercent > 50 && progressPercent <= 75) currentPhase = "🌸 Sakura"; else if(progressPercent > 75) currentPhase = "🌳 Cosmic"; let syncPayload = { name: userProfile.name, batch: userProfile.batch, examDate: userProfile.examDate || '', totalXP: state.totalXP, progressPercent: progressPercent, phase: currentPhase, completedData: JSON.stringify(state.completedChapters), revisionLogs: JSON.stringify(revisionLogs), syllabus: JSON.stringify(state.syllabus), revisionRounds: JSON.stringify(revisionRounds), currentRound: currentRound, adminXPAdjustments: JSON.stringify(adminXPAdjustments), lastUpdated: firebase.database.ServerValue.TIMESTAMP };
             if (auth.currentUser && auth.currentUser.email) syncPayload.email = auth.currentUser.email;
             else if (auth.currentUser && auth.currentUser.providerData && auth.currentUser.providerData[0] && auth.currentUser.providerData[0].email) syncPayload.email = auth.currentUser.providerData[0].email;
             db.ref('users/' + uid).update(syncPayload); };
@@ -2408,25 +2571,32 @@ function mergeSyllabusWithCustom(defaultSyllabus, currentSyllabus) {
         function handleRevision(uniqueId, element) { const match = state.completedChapters.find(c => c.id === uniqueId && c.status === 'full'); if (!match) { alert("শুধুমাত্র সম্পূর্ণ (Full) কমপ্লিট করা চ্যাপ্টার রিভিশন দিতে পারবেন। আগে চ্যাপ্টারটি দুবার ক্লিক করে সম্পূর্ণ করুন।"); return; } const todayStr = new Date().toISOString().split('T')[0]; const todayCount = getTodayRevisionCountForChapter(uniqueId); if (todayCount >= 2) { alert("আজকের জন্য এই চ্যাপ্টারে সর্বোচ্চ ২ বার রিভিশন নেওয়া সম্ভব। কাল আবার চেষ্টা করুন।"); return; } revisionLogs.push({ id: uniqueId, date: todayStr, xp: 20 }); triggerInBoxParticles(element); playRevisionSound(); document.getElementById('buddy-speech').innerText = "রিভিশন দারুণ হয়েছে! +20 XP পেলেন। (আজকে বাকি " + (1 - todayCount) + " বার সম্ভব)"; triggerUpdateCycle(); }
         function removeAllRevisionsForChapter(chapterId) { revisionLogs = revisionLogs.filter(r => r.id !== chapterId); localStorage.setItem('study_os_revision_logs', JSON.stringify(revisionLogs)); }
 
-        const renderSyllabus = () => { const container = document.getElementById('syllabus-container'); container.innerHTML = ''; Object.keys(state.syllabus).forEach(sub => { let subTotal = 0, subDone = 0, paperData = {}; Object.keys(state.syllabus[sub]).forEach(paper => { paperData[paper] = { total: 0, done: 0, topics: {} }; if (Array.isArray(state.syllabus[sub][paper])) { state.syllabus[sub][paper].forEach(chap => { subTotal++; paperData[paper].total++; const uniqueId = `${sub}-${paper}-${chap}`; const match = state.completedChapters.find(c => c.id === uniqueId); if (match) { let w = match.status === 'half' ? 0.5 : 1.0; subDone += w; paperData[paper].done += w; } }); } else { Object.keys(state.syllabus[sub][paper]).forEach(topic => { paperData[paper].topics[topic] = { total: 0, done: 0 }; state.syllabus[sub][paper][topic].forEach(subChap => { subTotal++; paperData[paper].total++; paperData[paper].topics[topic].total++; const uniqueId = `${sub}-${paper}-${topic}-${subChap}`; const match = state.completedChapters.find(c => c.id === uniqueId); if (match) { let w = match.status === 'half' ? 0.5 : 1.0; subDone += w; paperData[paper].done += w; paperData[paper].topics[topic].done += w; } }); }); } }); const subPercent = subTotal > 0 ? Math.round((subDone / subTotal) * 100) : 0; let papersHTML = ''; Object.keys(state.syllabus[sub]).forEach(paper => { let chaptersHTML = ''; const paperPercent = paperData[paper].total > 0 ? Math.round((paperData[paper].done / paperData[paper].total) * 100) : 0; if (Array.isArray(state.syllabus[sub][paper])) { state.syllabus[sub][paper].forEach(chap => { const uniqueId = `${sub}-${paper}-${chap}`; const match = state.completedChapters.find(c => c.id === uniqueId); let boxClass = 'chapter-item'; let statusIcon = '⭕'; let reviseButton = ''; let reviseCountSpan = ''; if (match) { if (match.status === 'half') { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 50 + revXP; boxClass += ' status-half'; statusIcon = revXP > 0 ? `🌗 +${totalXP}XP` : '🌗 +50XP'; } else { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 100 + revXP; boxClass += ' status-full'; statusIcon = revXP > 0 ? `✅ +${totalXP}XP` : '✅ +100XP'; const todayCount = getTodayRevisionCountForChapter(uniqueId); reviseCountSpan = `<span class="revise-count">${todayCount}/2</span>`; reviseButton = `<button class="revise-btn" data-id="${uniqueId}">🔄 Revise ${reviseCountSpan}</button>`; } } let dateSticker = ''; if (match && match.date) { const d = new Date(match.date); const day = String(d.getDate()).padStart(2,'0'); const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]; dateSticker = `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded mr-1 shrink-0 z-10" style="background: var(--accent-primary-soft); color: var(--accent-primary);">${day} ${months[d.getMonth()]}</span>`; } chaptersHTML += `<div class="${boxClass} p-3 text-sm select-none" data-id="${uniqueId}"><div class="font-semibold mb-2 break-words leading-snug" style="color: var(--text-primary);">${chap}</div><div class="flex items-center justify-between gap-2 pt-2" style="border-top: 1px solid var(--border-color);"><div class="flex items-center gap-1">${dateSticker}</div><div class="flex items-center gap-1"><span class="text-xs px-2 py-1 rounded-md font-bold" style="background: var(--bg-hover); color: var(--text-muted);">${statusIcon}</span>${reviseButton}</div></div></div>`; }); } else { let mergedTopicsHTML = ''; Object.keys(state.syllabus[sub][paper]).forEach(topic => { let subChaptersHTML = ''; const topicPercent = paperData[paper].topics[topic].total > 0 ? Math.round((paperData[paper].topics[topic].done / paperData[paper].topics[topic].total) * 100) : 0; state.syllabus[sub][paper][topic].forEach(subChap => { const uniqueId = `${sub}-${paper}-${topic}-${subChap}`; const match = state.completedChapters.find(c => c.id === uniqueId); let boxClass = 'chapter-item'; let statusIcon = '⭕'; let reviseButton = ''; let reviseCountSpan = ''; if (match) { if (match.status === 'half') { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 50 + revXP; boxClass += ' status-half'; statusIcon = revXP > 0 ? `🌗 +${totalXP}XP` : '🌗 +50XP'; } else { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 100 + revXP; boxClass += ' status-full'; statusIcon = revXP > 0 ? `✅ +${totalXP}XP` : '✅ +100XP'; const todayCount = getTodayRevisionCountForChapter(uniqueId); reviseCountSpan = `<span class="revise-count">${todayCount}/2</span>`; reviseButton = `<button class="revise-btn" data-id="${uniqueId}">🔄 Revise ${reviseCountSpan}</button>`; } } let dateSticker = ''; if (match && match.date) { const d = new Date(match.date); const day = String(d.getDate()).padStart(2,'0'); const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]; dateSticker = `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded mr-1 shrink-0 z-10" style="background: var(--accent-primary-soft); color: var(--accent-primary);">${day} ${months[d.getMonth()]}</span>`; } subChaptersHTML += `<div class="${boxClass} p-2.5 px-3 text-xs select-none" data-id="${uniqueId}"><div class="font-medium mb-1.5 break-words leading-snug" style="color: var(--text-primary);">${subChap}</div><div class="flex items-center justify-between gap-1.5 pt-1.5" style="border-top: 1px solid var(--border-color);"><div class="flex items-center gap-1">${dateSticker}</div><div class="flex items-center gap-1"><span class="text-[10px] px-1.5 py-0.5 rounded-md font-bold" style="background: var(--bg-hover); color: var(--text-muted);">${statusIcon}</span>${reviseButton}</div></div></div>`; }); mergedTopicsHTML += `<div class="nested-card relative"><button class="nested-header w-full p-2.5 font-bold text-xs flex justify-between items-center cursor-pointer relative overflow-hidden"><div class="topic-pillar-track"><div class="topic-pillar-fill" style="height: ${topicPercent}%"></div></div><div class="flex items-center gap-1.5 z-10"><svg class="w-3.5 h-3.5 shrink-0" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg><span style="color: var(--text-primary);">${topic}</span></div><div class="flex items-center gap-2 z-10"><span class="text-[10px] px-1.5 py-0.5 rounded-sm font-bold" style="background: var(--accent-success-soft); color: var(--accent-success);">${topicPercent}%</span><svg class="transform transition-transform text-[10px] w-3 h-3" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div></button><div class="topic-content hidden p-2.5 space-y-2">${subChaptersHTML}</div></div>`; }); chaptersHTML = `<div class="space-y-2">${mergedTopicsHTML}</div>`; } papersHTML += `<div class="nested-card relative"><button class="nested-header w-full p-3 font-bold text-xs flex justify-between items-center cursor-pointer relative overflow-hidden"><div class="nested-pillar-track"><div class="nested-pillar-fill" style="height: ${paperPercent}%"></div></div><div class="flex items-center gap-1.5 z-10"><svg class="w-3.5 h-3.5 shrink-0" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><span style="color: var(--text-primary);">${paper}</span></div><div class="flex items-center gap-2 z-10"><span class="text-[10px] px-1.5 py-0.5 rounded-sm font-bold" style="background: var(--accent-success-soft); color: var(--accent-success);">${paperPercent}%</span><svg class="transform transition-transform text-xs w-3.5 h-3.5" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div></button><div class="paper-content hidden p-3 space-y-2">${chaptersHTML}</div></div>`; }); const deleteBtnHTML = `<button class="delete-subject-btn text-xs px-2 py-1 rounded-md font-bold cursor-pointer transition-colors" style="background: var(--accent-danger-soft); color: var(--accent-danger);" data-subject="${sub}">🗑️</button>`; container.innerHTML += `<div class="modern-box overflow-hidden relative"><div class="subject-header w-full p-4 font-black text-lg flex justify-between items-center cursor-pointer relative overflow-hidden"><div class="pillar-track"><div class="pillar-fill" style="height: ${subPercent}%"></div></div><span class="flex items-center gap-2 z-10" style="color: var(--text-primary);"><svg class="w-5 h-5 shrink-0" style="color: var(--accent-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>${sub}</span><div class="flex items-center gap-3 z-10"><span class="text-xs px-2 py-1 rounded-full font-black" style="background: var(--accent-success); color: white;">${subPercent}%</span>${deleteBtnHTML}<svg class="transform transition-transform text-sm w-4 h-4" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div></div><div class="subject-content"><div class="p-4 space-y-3">${papersHTML}<div class="mini-graph-row">${Object.keys(state.syllabus[sub]).map((paper, idx) => { const pData = paperData[paper]; const pPct = pData.total > 0 ? Math.round((pData.done / pData.total) * 100) : 0; const colors = ['bg-indigo-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500','bg-violet-500']; const color = colors[idx % colors.length]; return `<div class="mini-bar-wrap"><div class="mini-bar ${color}" style="height: ${Math.max(pPct, 6)}%"><span class="mini-bar-tooltip">${paper}: ${pPct}%</span></div><span class="mini-bar-label">${paper.replace(' Paper','').replace('Part-I','P1').replace('Part-II','P2').replace('বাংলাদেশ বিষয়াবলি','BD').replace('আন্তর্জাতিক বিষয়াবলি','INTL')}</span></div>`; }).join('')}</div></div></div></div>`; }); setupInteractionListeners(); };
+        const renderSyllabus = () => { const container = document.getElementById('syllabus-container'); container.innerHTML = ''; Object.keys(state.syllabus).forEach(sub => { let subTotal = 0, subDone = 0, paperData = {}; Object.keys(state.syllabus[sub]).forEach(paper => { paperData[paper] = { total: 0, done: 0, topics: {} }; if (Array.isArray(state.syllabus[sub][paper])) { state.syllabus[sub][paper].forEach(chap => { subTotal++; paperData[paper].total++; const uniqueId = `${sub}-${paper}-${chap}`; const match = state.completedChapters.find(c => c.id === uniqueId); if (match) { let w = match.status === 'half' ? 0.5 : 1.0; subDone += w; paperData[paper].done += w; } }); } else { Object.keys(state.syllabus[sub][paper]).forEach(topic => { paperData[paper].topics[topic] = { total: 0, done: 0 }; state.syllabus[sub][paper][topic].forEach(subChap => { subTotal++; paperData[paper].total++; paperData[paper].topics[topic].total++; const uniqueId = `${sub}-${paper}-${topic}-${subChap}`; const match = state.completedChapters.find(c => c.id === uniqueId); if (match) { let w = match.status === 'half' ? 0.5 : 1.0; subDone += w; paperData[paper].done += w; paperData[paper].topics[topic].done += w; } }); }); } }); const subPercent = subTotal > 0 ? Math.round((subDone / subTotal) * 100) : 0; let papersHTML = ''; Object.keys(state.syllabus[sub]).forEach(paper => { let chaptersHTML = ''; const paperPercent = paperData[paper].total > 0 ? Math.round((paperData[paper].done / paperData[paper].total) * 100) : 0; if (Array.isArray(state.syllabus[sub][paper])) { state.syllabus[sub][paper].forEach(chap => { const uniqueId = `${sub}-${paper}-${chap}`; const match = state.completedChapters.find(c => c.id === uniqueId); let boxClass = 'chapter-item'; let statusIcon = '⭕'; let reviseButton = ''; let reviseCountSpan = ''; if (match) { if (match.status === 'half') { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 50 + revXP; boxClass += ' status-half'; statusIcon = revXP > 0 ? `🌗 +${totalXP}XP` : '🌗 +50XP'; } else { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 100 + revXP; boxClass += ' status-full'; statusIcon = revXP > 0 ? `✅ +${totalXP}XP` : '✅ +100XP'; const todayCount = getTodayRevisionCountForChapter(uniqueId); reviseCountSpan = `<span class="revise-count">${todayCount}/2</span>`; reviseButton = `<button class="revise-btn" data-id="${uniqueId}">🔄 Revise ${reviseCountSpan}</button>`; } } let dateSticker = ''; if (match && match.date) { const d = new Date(match.date); const day = String(d.getDate()).padStart(2,'0'); const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]; dateSticker = `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded mr-1 shrink-0 z-10" style="background: var(--accent-primary-soft); color: var(--accent-primary);">${day} ${months[d.getMonth()]}</span>`; } chaptersHTML += `<div class="${boxClass} p-3 text-sm select-none" data-id="${uniqueId}"><div class="font-semibold mb-2 break-words leading-snug" style="color: var(--text-primary);">${chap}</div><div class="flex items-center justify-between gap-2 pt-2" style="border-top: 1px solid var(--border-color);"><div class="flex items-center gap-1">${dateSticker}</div><div class="flex items-center gap-1"><span class="text-xs px-2 py-1 rounded-md font-bold" style="background: var(--bg-hover); color: var(--text-muted);">${statusIcon}</span>${reviseButton}</div></div></div>`; }); } else { let mergedTopicsHTML = ''; Object.keys(state.syllabus[sub][paper]).forEach(topic => { let subChaptersHTML = ''; const topicPercent = paperData[paper].topics[topic].total > 0 ? Math.round((paperData[paper].topics[topic].done / paperData[paper].topics[topic].total) * 100) : 0; state.syllabus[sub][paper][topic].forEach(subChap => { const uniqueId = `${sub}-${paper}-${topic}-${subChap}`; const match = state.completedChapters.find(c => c.id === uniqueId); let boxClass = 'chapter-item'; let statusIcon = '⭕'; let reviseButton = ''; let reviseCountSpan = ''; if (match) { if (match.status === 'half') { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 50 + revXP; boxClass += ' status-half'; statusIcon = revXP > 0 ? `🌗 +${totalXP}XP` : '🌗 +50XP'; } else { const revXP = getTotalRevisionXPForChapter(uniqueId); const totalXP = 100 + revXP; boxClass += ' status-full'; statusIcon = revXP > 0 ? `✅ +${totalXP}XP` : '✅ +100XP'; const todayCount = getTodayRevisionCountForChapter(uniqueId); reviseCountSpan = `<span class="revise-count">${todayCount}/2</span>`; reviseButton = `<button class="revise-btn" data-id="${uniqueId}">🔄 Revise ${reviseCountSpan}</button>`; } } let dateSticker = ''; if (match && match.date) { const d = new Date(match.date); const day = String(d.getDate()).padStart(2,'0'); const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]; dateSticker = `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded mr-1 shrink-0 z-10" style="background: var(--accent-primary-soft); color: var(--accent-primary);">${day} ${months[d.getMonth()]}</span>`; } subChaptersHTML += `<div class="${boxClass} p-2.5 px-3 text-xs select-none" data-id="${uniqueId}"><div class="font-medium mb-1.5 break-words leading-snug" style="color: var(--text-primary);">${subChap}</div><div class="flex items-center justify-between gap-1.5 pt-1.5" style="border-top: 1px solid var(--border-color);"><div class="flex items-center gap-1">${dateSticker}</div><div class="flex items-center gap-1"><span class="text-[10px] px-1.5 py-0.5 rounded-md font-bold" style="background: var(--bg-hover); color: var(--text-muted);">${statusIcon}</span>${reviseButton}</div></div></div>`; }); mergedTopicsHTML += `<div class="nested-card relative"><button class="nested-header w-full p-2.5 font-bold text-xs flex justify-between items-center cursor-pointer relative"><div class="topic-pillar-track"><div class="topic-pillar-fill" style="height: ${topicPercent}%"></div></div><div class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 shrink-0" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg><span style="color: var(--text-primary);">${topic}</span></div><div class="flex items-center gap-2"><span class="text-[10px] px-1.5 py-0.5 rounded-sm font-bold" style="background: var(--accent-success-soft); color: var(--accent-success);">${topicPercent}%</span><svg class="text-[10px] w-3 h-3" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div></button><div class="topic-content hidden p-2.5 space-y-2">${subChaptersHTML}</div></div>`; }); chaptersHTML = `<div class="space-y-2">${mergedTopicsHTML}</div>`; } papersHTML += `<div class="nested-card relative"><button class="nested-header w-full p-3 font-bold text-xs flex justify-between items-center cursor-pointer relative"><div class="nested-pillar-track"><div class="nested-pillar-fill" style="height: ${paperPercent}%"></div></div><div class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 shrink-0" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><span style="color: var(--text-primary);">${paper}</span></div><div class="flex items-center gap-2"><span class="text-[10px] px-1.5 py-0.5 rounded-sm font-bold" style="background: var(--accent-success-soft); color: var(--accent-success);">${paperPercent}%</span><svg class="text-xs w-3.5 h-3.5" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div></button><div class="paper-content hidden p-3 space-y-2">${chaptersHTML}</div></div>`; }); const deleteBtnHTML = `<button class="delete-subject-btn text-xs px-2 py-1 rounded-md font-bold cursor-pointer transition-colors" style="background: var(--accent-danger-soft); color: var(--accent-danger);" data-subject="${sub}">🗑️</button>`; container.innerHTML += `<div class="modern-box overflow-hidden relative"><div class="subject-header w-full p-4 font-black text-lg flex justify-between items-center cursor-pointer relative"><div class="pillar-track"><div class="pillar-fill" style="height: ${subPercent}%"></div></div><span class="flex items-center gap-2" style="color: var(--text-primary);"><svg class="w-5 h-5 shrink-0" style="color: var(--accent-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>${sub}</span><div class="flex items-center gap-3"><span class="text-xs px-2 py-1 rounded-full font-black" style="background: var(--accent-success); color: white;">${subPercent}%</span>${deleteBtnHTML}<svg class="text-sm w-4 h-4" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div></div><div class="subject-content"><div class="p-4 space-y-3">${papersHTML}<div class="mini-graph-row">${Object.keys(state.syllabus[sub]).map((paper, idx) => { const pData = paperData[paper]; const pPct = pData.total > 0 ? Math.round((pData.done / pData.total) * 100) : 0; const colors = ['bg-indigo-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500','bg-violet-500']; const color = colors[idx % colors.length]; return `<div class="mini-bar-wrap"><div class="mini-bar ${color}" style="height: ${Math.max(pPct, 6)}%"><span class="mini-bar-tooltip">${paper}: ${pPct}%</span></div><span class="mini-bar-label">${paper.replace(' Paper','').replace('Part-I','P1').replace('Part-II','P2').replace('বাংলাদেশ বিষয়াবলি','BD').replace('আন্তর্জাতিক বিষয়াবলি','INTL')}</span></div>`; }).join('')}</div></div></div></div>`; }); setupInteractionListeners(); };
         const setupInteractionListeners = () => { document.querySelectorAll('.subject-header').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     if (e.target.classList.contains('delete-subject-btn')) return;
                     const content = this.nextElementSibling;
-                    const arrow = this.querySelector('.transform');
+                    const arrow = this.querySelector('svg');
                     const isCurrentlyOpen = content.classList.contains('open');
+                    // Smart close all other subjects
                     document.querySelectorAll('.subject-content').forEach(el => el.classList.remove('open'));
-                    document.querySelectorAll('.subject-header .transform').forEach(arr => arr.classList.remove('rotate-180'));
+                    document.querySelectorAll('.subject-header').forEach(h => {
+                        const arr = h.querySelector('svg');
+                        if (arr) arr.classList.remove('rotate-180');
+                    });
                     if (!isCurrentlyOpen) {
                         content.classList.add('open');
-                        arrow.classList.add('rotate-180');
-                        setTimeout(() => {
-                            this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }, 80);
+                        if (arrow) arrow.classList.add('rotate-180');
+                        // Smart scroll to opened subject
+                        requestAnimationFrame(() => {
+                            const yOffset = -80;
+                            const y = this.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
+                        });
                     }
                 });
             });
-            document.querySelectorAll('.nested-header').forEach(btn => { btn.addEventListener('click', function(e) { if (e.target.classList.contains('delete-subject-btn')) return; this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.transform').classList.toggle('rotate-180'); }); }); document.querySelectorAll('.delete-subject-btn').forEach(btn => { btn.addEventListener('click', (e) => { e.stopPropagation(); const targetSub = btn.getAttribute('data-subject'); if (confirm(`⚠️ আপনি কি নিশ্চিতভাবে "${targetSub}" সাবজেক্টটি ডিলিট করতে চান?`)) { delete state.syllabus[targetSub]; state.completedChapters = state.completedChapters.filter(c => !c.id.startsWith(`${targetSub}-`)); revisionLogs = revisionLogs.filter(r => !r.id.startsWith(`${targetSub}-`)); localStorage.setItem('study_os_syllabus', JSON.stringify(state.syllabus)); localStorage.setItem('study_os_revision_logs', JSON.stringify(revisionLogs)); triggerUpdateCycle(true); } }); }); document.querySelectorAll('.chapter-item').forEach(item => { const newItem = item.cloneNode(true); item.parentNode.replaceChild(newItem, item); newItem.addEventListener('click', function(e) { if (e.target.classList.contains('revise-btn')) return; const uniqueId = this.getAttribute('data-id'); const todayStr = new Date().toISOString().split('T')[0]; let matchIndex = state.completedChapters.findIndex(c => c.id === uniqueId); triggerInBoxParticles(this); if (matchIndex === -1) { state.completedChapters.push({ id: uniqueId, date: todayStr, status: 'half' }); playCheersSound(false); document.getElementById('buddy-speech').innerText = "দারুণ শুরু দোস্ত! চ্যাপ্টারটা অর্ধেক খতম করে ফেলেছিস। বাকি অর্ধেক ঝটপট শেষ করে ফেল!"; } else if (state.completedChapters[matchIndex].status === 'half') { state.completedChapters[matchIndex].status = 'full'; state.completedChapters[matchIndex].date = todayStr; playCheersSound(true); document.getElementById('buddy-speech').innerText = "সাবাশ জানবাজ! পুরো চ্যাপ্টার সটান শেষ করে দিলি। এখন থেকে রিভিশন বাটন দেখাবে, চাইলে বারবার +20 XP পেতে পারো! (সর্বোচ্চ ২ বার/দিন)"; } else { state.completedChapters.splice(matchIndex, 1); removeAllRevisionsForChapter(uniqueId); document.getElementById('buddy-speech').innerText = "চ্যাপ্টার ট্র্যাকিং তুলে দিলি এবং তার সব রিভিশন XP মুছে গেল। আবার ভালো করে পড়ে শেষ কর।"; } triggerUpdateCycle(); }); const reviseBtn = newItem.querySelector('.revise-btn'); if (reviseBtn) { reviseBtn.addEventListener('click', (e) => { e.stopPropagation(); const uniqueId = reviseBtn.getAttribute('data-id'); handleRevision(uniqueId, newItem); }); } }); };
+            document.querySelectorAll('.nested-header').forEach(btn => { btn.addEventListener('click', function(e) { if (e.target.classList.contains('delete-subject-btn')) return; this.nextElementSibling.classList.toggle('hidden'); const arr = this.querySelector('svg'); if (arr) arr.classList.toggle('rotate-180'); }); }); document.querySelectorAll('.delete-subject-btn').forEach(btn => { btn.addEventListener('click', (e) => { e.stopPropagation(); const targetSub = btn.getAttribute('data-subject'); if (confirm(`⚠️ আপনি কি নিশ্চিতভাবে "${targetSub}" সাবজেক্টটি ডিলিট করতে চান?`)) { delete state.syllabus[targetSub]; state.completedChapters = state.completedChapters.filter(c => !c.id.startsWith(`${targetSub}-`)); revisionLogs = revisionLogs.filter(r => !r.id.startsWith(`${targetSub}-`)); localStorage.setItem('study_os_syllabus', JSON.stringify(state.syllabus)); localStorage.setItem('study_os_revision_logs', JSON.stringify(revisionLogs)); triggerUpdateCycle(true); } }); }); document.querySelectorAll('.chapter-item').forEach(item => { const newItem = item.cloneNode(true); item.parentNode.replaceChild(newItem, item); newItem.addEventListener('click', function(e) { if (e.target.classList.contains('revise-btn')) return; const uniqueId = this.getAttribute('data-id'); const todayStr = new Date().toISOString().split('T')[0]; let matchIndex = state.completedChapters.findIndex(c => c.id === uniqueId); triggerInBoxParticles(this); if (matchIndex === -1) { state.completedChapters.push({ id: uniqueId, date: todayStr, status: 'half' }); playCheersSound(false); document.getElementById('buddy-speech').innerText = "দারুণ শুরু দোস্ত! চ্যাপ্টারটা অর্ধেক খতম করে ফেলেছিস। বাকি অর্ধেক ঝটপট শেষ করে ফেল!"; } else if (state.completedChapters[matchIndex].status === 'half') { state.completedChapters[matchIndex].status = 'full'; state.completedChapters[matchIndex].date = todayStr; playCheersSound(true); document.getElementById('buddy-speech').innerText = "সাবাশ জানবাজ! পুরো চ্যাপ্টার সটান শেষ করে দিলি। এখন থেকে রিভিশন বাটন দেখাবে, চাইলে বারবার +20 XP পেতে পারো! (সর্বোচ্চ ২ বার/দিন)"; } else { state.completedChapters.splice(matchIndex, 1); removeAllRevisionsForChapter(uniqueId); document.getElementById('buddy-speech').innerText = "চ্যাপ্টার ট্র্যাকিং তুলে দিলি এবং তার সব রিভিশন XP মুছে গেল। আবার ভালো করে পড়ে শেষ কর।"; } triggerUpdateCycle(); }); const reviseBtn = newItem.querySelector('.revise-btn'); if (reviseBtn) { reviseBtn.addEventListener('click', (e) => { e.stopPropagation(); const uniqueId = reviseBtn.getAttribute('data-id'); handleRevision(uniqueId, newItem); }); } }); };
 
         const renderCalendar = () => { const gridContainer = document.getElementById('calendar-grid'); gridContainer.innerHTML = ''; const weekdays = ["Su","Mo","Tu","We","Th","Fr","Sa"]; weekdays.forEach(wd => { gridContainer.innerHTML += `<div class="text-[10px] font-bold text-center py-0.5" style="color: var(--text-muted);">${wd}</div>`; }); const firstDayIndex = new Date(currentCalendarYear, currentCalendarMonth, 1).getDay(); for (let i = 0; i < firstDayIndex; i++) gridContainer.innerHTML += `<div></div>`; const totalDaysInMonth = new Date(currentCalendarYear, currentCalendarMonth + 1, 0).getDate(); const allLogs = getAllActivityLogs(); const todayStr = new Date().toISOString().split('T')[0];
             for(let day = 1; day <= totalDaysInMonth; day++) { const dateStr = `${currentCalendarYear}-${String(currentCalendarMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`; const dayActivities = allLogs.filter(log => log.date === dateStr); const count = dayActivities.length; let extraClass = ''; if(count > 0 && count <= 2) extraClass = 'has-1'; if(count > 2 && count <= 4) extraClass = 'has-2'; if(count > 4) extraClass = 'has-3'; if(count > 6) extraClass = 'has-4'; const isSelected = selectedCalendarDate === dateStr; if (isSelected) extraClass += ' active'; if (dateStr === todayStr) extraClass += ' today'; gridContainer.innerHTML += `<div class="cal-day ${extraClass}" onclick="selectCalendarDate('${dateStr}')">${day}</div>`; } const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]; document.getElementById('cal-month-year-title').innerText = `${monthNames[currentCalendarMonth]} ${currentCalendarYear}`; const logList = document.getElementById('selected-date-logs'); logList.innerHTML = ''; document.getElementById('selected-date-title').innerHTML = `📅 Activity Log: ${new Date(selectedCalendarDate).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })}`; const targetActivities = allLogs.filter(c => c.date === selectedCalendarDate); if(targetActivities.length === 0) logList.innerHTML = `<li class="text-[11px] italic list-none" style="color: var(--text-muted);">এই দিনে কোনো অ্যাক্টিভিটি নেই </li>`; else targetActivities.forEach(act => { const p = act.id.split('-'); const chapName = p.length===4?`${p[2]} ➔ ${p[3]}`:(p[2]||p[0]); logList.innerHTML += `<li class="text-[11px]"><strong style="color: var(--text-primary);">[${p[0]}]</strong> ${chapName} <span class="font-bold" style="color: var(--accent-primary);">${act.type === 'Revision' ? '(Revision +20XP)' : (act.type === 'Half' ? '(Half +50XP)' : '(Full +100XP)')}</span></li>`; }); };
@@ -2610,7 +2780,121 @@ function mergeSyllabusWithCustom(defaultSyllabus, currentSyllabus) {
             }).catch(err => console.error('Error removing notification:', err));
         }
 
-        function deleteUserProfile(userId) {
+        function openXPModal(userId) {
+    currentXPUserId = userId;
+    const user = globalUsersData.find(u => u.id === userId);
+    document.getElementById('admin-xp-target').innerText = 'To: ' + (user?.name || 'Anonymous') + ' (' + (user?.email || 'no email') + ')';
+    document.getElementById('admin-xp-amount').value = '';
+    document.getElementById('admin-xp-reason').value = '';
+    document.getElementById('admin-xp-modal').classList.remove('hidden');
+}
+
+function closeXPModal() {
+    document.getElementById('admin-xp-modal').classList.add('hidden');
+    currentXPUserId = null;
+}
+
+function adjustUserXP(userId, amount, reason) {
+    if (!isAdmin) return;
+    const adminName = auth.currentUser?.displayName || auth.currentUser?.email || 'Admin';
+
+    db.ref('users/' + userId).once('value').then(snap => {
+        const data = snap.val() || {};
+        const currentTotal = data.totalXP || 0;
+        const newTotal = Math.max(0, currentTotal + amount);
+
+        // Push adjustment record
+        const adjRef = db.ref('users/' + userId + '/adminXPAdjustments').push();
+        adjRef.set({
+            amount: amount,
+            reason: reason || '',
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+            adminUid: auth.currentUser?.uid || 'admin',
+            adminName: adminName
+        });
+
+        // Update totalXP directly for immediate leaderboard effect
+        db.ref('users/' + userId + '/totalXP').set(newTotal);
+
+        // Push notification
+        const notifRef = db.ref('xpNotifications/' + userId).push();
+        notifRef.set({
+            amount: amount,
+            reason: reason || '',
+            adminName: adminName,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+            read: false
+        });
+
+        alert('✅ ' + (amount > 0 ? 'Gifted +' : 'Deducted ') + amount + ' XP to user. New total: ' + newTotal + ' XP');
+    }).catch(err => {
+        console.error('Error adjusting XP:', err);
+        alert('Failed to adjust XP.');
+    });
+}
+
+function listenForXPNotifications() {
+    if (!auth.currentUser) return;
+    const userId = auth.currentUser.uid;
+    db.ref('xpNotifications/' + userId).on('value', snap => {
+        const notifications = snap.val();
+        if (!notifications) return;
+        Object.entries(notifications).forEach(([id, notif]) => {
+            if (!notif.read) {
+                showXPNotification(notif, id);
+            }
+        });
+    });
+}
+
+function showXPNotification(notif, notifId) {
+    const modal = document.getElementById('xp-notification-modal');
+    const title = document.getElementById('xp-notification-title');
+    const message = document.getElementById('xp-notification-message');
+    const reasonBox = document.getElementById('xp-notification-reason-box');
+    const reason = document.getElementById('xp-notification-reason');
+    const icon = document.getElementById('xp-notification-icon');
+    const bar = document.getElementById('xp-notification-bar');
+
+    const isGift = notif.amount > 0;
+    const absAmount = Math.abs(notif.amount);
+
+    if (isGift) {
+        icon.innerText = '🎁';
+        title.innerText = 'XP Gift Received!';
+        title.style.color = 'var(--accent-success)';
+        bar.style.background = 'linear-gradient(to right, #059669, #10b981)';
+        message.innerHTML = '<strong style="color: var(--accent-success);">' + (notif.adminName || 'Admin') + '</strong> gifted you <strong style="color: var(--accent-success);">+' + absAmount + ' XP</strong>!';
+    } else {
+        icon.innerText = '⚠️';
+        title.innerText = 'XP Deducted';
+        title.style.color = 'var(--accent-danger)';
+        bar.style.background = 'linear-gradient(to right, #dc2626, #ef4444)';
+        message.innerHTML = '<strong style="color: var(--accent-danger);">' + (notif.adminName || 'Admin') + '</strong> deducted <strong style="color: var(--accent-danger);">-' + absAmount + ' XP</strong> from your account.';
+    }
+
+    if (notif.reason) {
+        reasonBox.classList.remove('hidden');
+        reason.innerText = notif.reason;
+    } else {
+        reasonBox.classList.add('hidden');
+    }
+
+    modal.classList.remove('hidden');
+    currentXPNotificationId = notifId;
+}
+
+function dismissXPNotification() {
+    const modal = document.getElementById('xp-notification-modal');
+    modal.classList.add('hidden');
+
+    if (currentXPNotificationId && auth.currentUser) {
+        db.ref('xpNotifications/' + auth.currentUser.uid + '/' + currentXPNotificationId).update({ read: true });
+        currentXPNotificationId = null;
+    }
+}
+
+function deleteUserProfile(userId) {
             if (!isAdmin) return;
             db.ref('users/' + userId).remove().then(() => {
                 db.ref('adminNotifications/' + userId).remove().catch(()=>{});
@@ -2755,6 +3039,29 @@ function mergeSyllabusWithCustom(defaultSyllabus, currentSyllabus) {
             document.getElementById('admin-notify-modal')?.addEventListener('click', (e) => {
                 if (e.target === document.getElementById('admin-notify-modal')) closeNotifyModal();
             });
+
+            // Admin XP Modal Listeners
+            document.getElementById('close-admin-xp-modal')?.addEventListener('click', closeXPModal);
+            document.getElementById('admin-xp-modal')?.addEventListener('click', (e) => {
+                if (e.target === document.getElementById('admin-xp-modal')) closeXPModal();
+            });
+            document.getElementById('admin-gift-xp-btn')?.addEventListener('click', () => {
+                if (!isAdmin || !currentXPUserId) return;
+                const amount = parseInt(document.getElementById('admin-xp-amount').value);
+                const reason = document.getElementById('admin-xp-reason').value.trim();
+                if (!amount || amount <= 0) { alert('Please enter a valid positive amount.'); return; }
+                adjustUserXP(currentXPUserId, amount, reason);
+                closeXPModal();
+            });
+            document.getElementById('admin-deduct-xp-btn')?.addEventListener('click', () => {
+                if (!isAdmin || !currentXPUserId) return;
+                const amount = parseInt(document.getElementById('admin-xp-amount').value);
+                const reason = document.getElementById('admin-xp-reason').value.trim();
+                if (!amount || amount <= 0) { alert('Please enter a valid positive amount.'); return; }
+                adjustUserXP(currentXPUserId, -amount, reason);
+                closeXPModal();
+            });
+
             // User cannot dismiss notification - only admin can remove it via admin panel
         });
 
@@ -3093,6 +3400,29 @@ const initApp = () => {
         </div>
     </div>
 
+    <!-- Admin XP Gift/Deduct Modal -->
+    <div id="admin-xp-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-overlay transition-opacity p-4">
+        <div class="modal-content w-full max-w-md p-6 relative mx-4">
+            <button id="close-admin-xp-modal" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
+            <h2 class="text-xl font-black text-center mb-1" style="color: var(--text-primary);">💰 XP Manager</h2>
+            <p class="text-center text-xs mb-4" style="color: var(--text-muted);" id="admin-xp-target">To: User</p>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold mb-1" style="color: var(--text-primary);">Amount</label>
+                    <input type="number" id="admin-xp-amount" placeholder="Enter XP amount..." class="w-full modern-input p-3 text-sm font-bold">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1" style="color: var(--text-primary);">Reason (Optional)</label>
+                    <textarea id="admin-xp-reason" rows="2" placeholder="Why are you giving/taking XP?" class="w-full modern-input p-3 text-sm font-medium"></textarea>
+                </div>
+                <div class="flex gap-3">
+                    <button id="admin-gift-xp-btn" class="flex-1 btn-primary py-3 rounded-xl text-sm cursor-pointer" style="background: linear-gradient(135deg, #059669, #10b981);">🎁 Gift +XP</button>
+                    <button id="admin-deduct-xp-btn" class="flex-1 btn-danger py-3 rounded-xl text-sm cursor-pointer">➖ Deduct -XP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!-- My Study History Modal -->
 <div id="my-history-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay transition-opacity p-4">
     <div class="modal-content w-full max-w-lg p-5 relative mx-4 max-h-[85vh] overflow-y-auto">
@@ -3369,6 +3699,23 @@ const initApp = () => {
             </div>
 
             <button onclick="document.getElementById('reset-options-modal').classList.add('hidden')" class="w-full mt-4 btn-secondary py-3 rounded-xl cursor-pointer text-sm">❌ Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- XP Notification Modal (Dismissible) -->
+<div id="xp-notification-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-overlay transition-opacity p-4">
+    <div class="modal-content w-full max-w-md overflow-hidden relative mx-4">
+        <div class="absolute top-0 left-0 w-full h-1" id="xp-notification-bar" style="background: linear-gradient(to right, #059669, #10b981);"></div>
+        <div class="p-6 text-center">
+            <div class="text-5xl mb-3" id="xp-notification-icon">🎁</div>
+            <h2 class="text-2xl font-black mb-2" id="xp-notification-title" style="color: var(--text-primary);">XP Received!</h2>
+            <p class="text-sm font-medium leading-relaxed my-4" id="xp-notification-message" style="color: var(--text-secondary);">...</p>
+            <div id="xp-notification-reason-box" class="p-3 rounded-lg mb-4 hidden" style="background: var(--bg-hover); border: 1px solid var(--border-color);">
+                <p class="text-xs font-bold mb-1" style="color: var(--text-muted);">Reason:</p>
+                <p class="text-sm font-medium" id="xp-notification-reason" style="color: var(--text-primary);">...</p>
+            </div>
+            <button onclick="dismissXPNotification()" class="w-full btn-primary py-3 rounded-xl cursor-pointer">Okay, Thanks! 👍</button>
         </div>
     </div>
 </div>
