@@ -4,7 +4,7 @@
     <link rel="icon" type="image/png" href="https://i.ibb.co.com/5gCG4mdn/6118255349690208357-121.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Your Progress!</title>
+    <title>Tracking my Progress!</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -294,16 +294,17 @@
             33% { transform: translate(20px, -20px) scale(1.1); }
             66% { transform: translate(-10px, 10px) scale(0.9); }
         }
-        /* Pixel tree subtle idle animation */
-        .pixel-tree {
-            animation: pixelIdle 4s ease-in-out infinite;
+        .tree-avatar {
+            animation: treeSway 6s ease-in-out infinite, treeGlow 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(99,102,241,0.4));
         }
-        @keyframes pixelIdle {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-3px) scale(1.02); }
+        @keyframes treeSway {
+            0%, 100% { transform: rotate(-2deg) scale(1); }
+            50% { transform: rotate(3deg) scale(1.05); }
         }
-        .pixel-tree.rendering {
-            animation: pixelRender 0.7s steps(10) forwards;
+        @keyframes treeGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(99,102,241,0.3)); }
+            50% { filter: drop-shadow(0 0 25px rgba(245,158,11,0.6)); }
         }
 
         /* Particles */
@@ -391,11 +392,11 @@
             background: rgba(2, 6, 23, 0.4);
         }
 
-        /* Subject Accordion - Instant Toggle (No Animation) */
+        /* Subject Accordion Animation - Ultra Smooth */
         .subject-content {
-            max-height: 0;
+            display: none;
             overflow: hidden;
-            opacity: 0;
+            opacity: 1;
             padding-top: 0;
             padding-bottom: 0;
         }
@@ -403,8 +404,7 @@
             overflow: visible;
         }
         .subject-content.open {
-            max-height: 5000px;
-            opacity: 1;
+            display: block;
             padding-top: 1rem;
             padding-bottom: 1rem;
         }
@@ -824,1797 +824,6 @@
         }
         .level-up-anim { animation: levelUpAnim 0.8s ease-in-out 2; }
 
-
-        /* Pixel Art Realistic Tree */
-        .pixel-tree-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .pixel-tree {
-            width: 4px;
-            height: 4px;
-            position: relative;
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
-            transition: box-shadow 0.4s ease;
-        }
-
-        /* Phase 1: Small thin tree with 2 leaves */
-        .pixel-tree.sprout {
-            box-shadow:
-            -2px -14px 0 #4ade80,
-            2px -14px 0 #4ade80,
-            -6px -10px 0 #4ade80,
-            -2px -10px 0 #4ade80,
-            2px -10px 0 #4ade80,
-            -6px -6px 0 #4ade80,
-            -2px -6px 0 #4ade80,
-            2px -6px 0 #4ade80,
-            -2px -2px 0 #4ade80,
-            -2px 2px 0 #a16207,
-            -2px 6px 0 #a16207,
-            -2px 10px 0 #a16207,
-            -2px 14px 0 #a16207,
-            -6px 18px 0 #a16207,
-            -2px 18px 0 #a16207,
-            2px 18px 0 #a16207,
-            -10px 22px 0 #3f2c1d,
-            -6px 22px 0 #3f2c1d,
-            -2px 22px 0 #3f2c1d,
-            2px 22px 0 #3f2c1d,
-            6px 22px 0 #3f2c1d,
-            -10px 26px 0 #3f2c1d,
-            -6px 26px 0 #3f2c1d,
-            -2px 26px 0 #3f2c1d,
-            2px 26px 0 #3f2c1d,
-            6px 26px 0 #3f2c1d;
-        }
-
-        /* Phase 2: Big tree, thin trunk, HUGE green leaves */
-        .pixel-tree.growth {
-            width: 3px;
-            height: 3px;
-            box-shadow:
-            -20px -44px 0 #22c55e,
-            -17px -44px 0 #22c55e,
-            -14px -44px 0 #22c55e,
-            -11px -44px 0 #22c55e,
-            -8px -44px 0 #22c55e,
-            -5px -44px 0 #22c55e,
-            -2px -44px 0 #22c55e,
-            1px -44px 0 #22c55e,
-            4px -44px 0 #22c55e,
-            7px -44px 0 #22c55e,
-            10px -44px 0 #22c55e,
-            -26px -41px 0 #22c55e,
-            -23px -41px 0 #22c55e,
-            -20px -41px 0 #22c55e,
-            -17px -41px 0 #22c55e,
-            -14px -41px 0 #22c55e,
-            -11px -41px 0 #22c55e,
-            -8px -41px 0 #22c55e,
-            -5px -41px 0 #22c55e,
-            -2px -41px 0 #22c55e,
-            1px -41px 0 #22c55e,
-            4px -41px 0 #22c55e,
-            7px -41px 0 #22c55e,
-            10px -41px 0 #22c55e,
-            13px -41px 0 #22c55e,
-            16px -41px 0 #22c55e,
-            -32px -38px 0 #22c55e,
-            -29px -38px 0 #22c55e,
-            -26px -38px 0 #22c55e,
-            -23px -38px 0 #22c55e,
-            -20px -38px 0 #22c55e,
-            -17px -38px 0 #22c55e,
-            -14px -38px 0 #22c55e,
-            -11px -38px 0 #22c55e,
-            -8px -38px 0 #22c55e,
-            -5px -38px 0 #22c55e,
-            -2px -38px 0 #22c55e,
-            1px -38px 0 #22c55e,
-            4px -38px 0 #22c55e,
-            7px -38px 0 #22c55e,
-            10px -38px 0 #22c55e,
-            13px -38px 0 #22c55e,
-            16px -38px 0 #22c55e,
-            19px -38px 0 #22c55e,
-            22px -38px 0 #22c55e,
-            -35px -35px 0 #22c55e,
-            -32px -35px 0 #22c55e,
-            -29px -35px 0 #22c55e,
-            -26px -35px 0 #22c55e,
-            -23px -35px 0 #22c55e,
-            -20px -35px 0 #22c55e,
-            -17px -35px 0 #22c55e,
-            -14px -35px 0 #22c55e,
-            -11px -35px 0 #22c55e,
-            -8px -35px 0 #22c55e,
-            -5px -35px 0 #22c55e,
-            -2px -35px 0 #22c55e,
-            1px -35px 0 #22c55e,
-            4px -35px 0 #22c55e,
-            7px -35px 0 #22c55e,
-            10px -35px 0 #22c55e,
-            13px -35px 0 #22c55e,
-            16px -35px 0 #22c55e,
-            19px -35px 0 #22c55e,
-            22px -35px 0 #22c55e,
-            25px -35px 0 #22c55e,
-            -38px -32px 0 #22c55e,
-            -35px -32px 0 #22c55e,
-            -32px -32px 0 #22c55e,
-            -29px -32px 0 #22c55e,
-            -26px -32px 0 #22c55e,
-            -23px -32px 0 #22c55e,
-            -20px -32px 0 #22c55e,
-            -17px -32px 0 #22c55e,
-            -14px -32px 0 #22c55e,
-            -11px -32px 0 #22c55e,
-            -8px -32px 0 #22c55e,
-            -5px -32px 0 #22c55e,
-            -2px -32px 0 #22c55e,
-            1px -32px 0 #22c55e,
-            4px -32px 0 #22c55e,
-            7px -32px 0 #22c55e,
-            10px -32px 0 #22c55e,
-            13px -32px 0 #22c55e,
-            16px -32px 0 #22c55e,
-            19px -32px 0 #22c55e,
-            22px -32px 0 #22c55e,
-            25px -32px 0 #22c55e,
-            28px -32px 0 #22c55e,
-            -41px -29px 0 #22c55e,
-            -38px -29px 0 #22c55e,
-            -35px -29px 0 #22c55e,
-            -32px -29px 0 #22c55e,
-            -29px -29px 0 #22c55e,
-            -26px -29px 0 #22c55e,
-            -23px -29px 0 #22c55e,
-            -20px -29px 0 #22c55e,
-            -17px -29px 0 #22c55e,
-            -14px -29px 0 #22c55e,
-            -11px -29px 0 #22c55e,
-            -8px -29px 0 #22c55e,
-            -5px -29px 0 #22c55e,
-            -2px -29px 0 #22c55e,
-            1px -29px 0 #22c55e,
-            4px -29px 0 #22c55e,
-            7px -29px 0 #22c55e,
-            10px -29px 0 #22c55e,
-            13px -29px 0 #22c55e,
-            16px -29px 0 #22c55e,
-            19px -29px 0 #22c55e,
-            22px -29px 0 #22c55e,
-            25px -29px 0 #22c55e,
-            28px -29px 0 #22c55e,
-            31px -29px 0 #22c55e,
-            -44px -26px 0 #22c55e,
-            -41px -26px 0 #22c55e,
-            -38px -26px 0 #22c55e,
-            -35px -26px 0 #22c55e,
-            -32px -26px 0 #22c55e,
-            -29px -26px 0 #22c55e,
-            -26px -26px 0 #22c55e,
-            -23px -26px 0 #22c55e,
-            -20px -26px 0 #22c55e,
-            -17px -26px 0 #22c55e,
-            -14px -26px 0 #22c55e,
-            -11px -26px 0 #22c55e,
-            -8px -26px 0 #22c55e,
-            -5px -26px 0 #22c55e,
-            -2px -26px 0 #22c55e,
-            1px -26px 0 #22c55e,
-            4px -26px 0 #22c55e,
-            7px -26px 0 #22c55e,
-            10px -26px 0 #22c55e,
-            13px -26px 0 #22c55e,
-            16px -26px 0 #22c55e,
-            19px -26px 0 #22c55e,
-            22px -26px 0 #22c55e,
-            25px -26px 0 #22c55e,
-            28px -26px 0 #22c55e,
-            31px -26px 0 #22c55e,
-            34px -26px 0 #22c55e,
-            -44px -23px 0 #22c55e,
-            -41px -23px 0 #22c55e,
-            -38px -23px 0 #22c55e,
-            -35px -23px 0 #22c55e,
-            -32px -23px 0 #22c55e,
-            -29px -23px 0 #22c55e,
-            -26px -23px 0 #22c55e,
-            -23px -23px 0 #22c55e,
-            -20px -23px 0 #22c55e,
-            -17px -23px 0 #22c55e,
-            -14px -23px 0 #22c55e,
-            -11px -23px 0 #22c55e,
-            -8px -23px 0 #22c55e,
-            -5px -23px 0 #22c55e,
-            -2px -23px 0 #22c55e,
-            1px -23px 0 #22c55e,
-            4px -23px 0 #22c55e,
-            7px -23px 0 #22c55e,
-            10px -23px 0 #22c55e,
-            13px -23px 0 #22c55e,
-            16px -23px 0 #22c55e,
-            19px -23px 0 #22c55e,
-            22px -23px 0 #22c55e,
-            25px -23px 0 #22c55e,
-            28px -23px 0 #22c55e,
-            31px -23px 0 #22c55e,
-            34px -23px 0 #22c55e,
-            -47px -20px 0 #22c55e,
-            -44px -20px 0 #22c55e,
-            -41px -20px 0 #22c55e,
-            -38px -20px 0 #22c55e,
-            -35px -20px 0 #22c55e,
-            -32px -20px 0 #22c55e,
-            -29px -20px 0 #22c55e,
-            -26px -20px 0 #22c55e,
-            -23px -20px 0 #22c55e,
-            -20px -20px 0 #22c55e,
-            -17px -20px 0 #22c55e,
-            -14px -20px 0 #22c55e,
-            -11px -20px 0 #22c55e,
-            -8px -20px 0 #22c55e,
-            -5px -20px 0 #22c55e,
-            -2px -20px 0 #22c55e,
-            1px -20px 0 #22c55e,
-            4px -20px 0 #22c55e,
-            7px -20px 0 #22c55e,
-            10px -20px 0 #22c55e,
-            13px -20px 0 #22c55e,
-            16px -20px 0 #22c55e,
-            19px -20px 0 #22c55e,
-            22px -20px 0 #22c55e,
-            25px -20px 0 #22c55e,
-            28px -20px 0 #22c55e,
-            31px -20px 0 #22c55e,
-            34px -20px 0 #22c55e,
-            37px -20px 0 #22c55e,
-            -47px -17px 0 #22c55e,
-            -44px -17px 0 #22c55e,
-            -41px -17px 0 #22c55e,
-            -38px -17px 0 #22c55e,
-            -35px -17px 0 #22c55e,
-            -32px -17px 0 #22c55e,
-            -29px -17px 0 #22c55e,
-            -26px -17px 0 #22c55e,
-            -23px -17px 0 #22c55e,
-            -20px -17px 0 #22c55e,
-            -17px -17px 0 #22c55e,
-            -14px -17px 0 #22c55e,
-            -11px -17px 0 #22c55e,
-            -8px -17px 0 #22c55e,
-            -5px -17px 0 #22c55e,
-            -2px -17px 0 #22c55e,
-            1px -17px 0 #22c55e,
-            4px -17px 0 #22c55e,
-            7px -17px 0 #22c55e,
-            10px -17px 0 #22c55e,
-            13px -17px 0 #22c55e,
-            16px -17px 0 #22c55e,
-            19px -17px 0 #22c55e,
-            22px -17px 0 #22c55e,
-            25px -17px 0 #22c55e,
-            28px -17px 0 #22c55e,
-            31px -17px 0 #22c55e,
-            34px -17px 0 #22c55e,
-            37px -17px 0 #22c55e,
-            -47px -14px 0 #22c55e,
-            -44px -14px 0 #22c55e,
-            -41px -14px 0 #22c55e,
-            -38px -14px 0 #22c55e,
-            -35px -14px 0 #22c55e,
-            -32px -14px 0 #22c55e,
-            -29px -14px 0 #22c55e,
-            -26px -14px 0 #22c55e,
-            -23px -14px 0 #22c55e,
-            -20px -14px 0 #22c55e,
-            -17px -14px 0 #22c55e,
-            -14px -14px 0 #22c55e,
-            -11px -14px 0 #22c55e,
-            -8px -14px 0 #22c55e,
-            -5px -14px 0 #22c55e,
-            -2px -14px 0 #22c55e,
-            1px -14px 0 #22c55e,
-            4px -14px 0 #22c55e,
-            7px -14px 0 #22c55e,
-            10px -14px 0 #22c55e,
-            13px -14px 0 #22c55e,
-            16px -14px 0 #22c55e,
-            19px -14px 0 #22c55e,
-            22px -14px 0 #22c55e,
-            25px -14px 0 #22c55e,
-            28px -14px 0 #22c55e,
-            31px -14px 0 #22c55e,
-            34px -14px 0 #22c55e,
-            37px -14px 0 #22c55e,
-            -47px -11px 0 #22c55e,
-            -44px -11px 0 #22c55e,
-            -41px -11px 0 #22c55e,
-            -38px -11px 0 #22c55e,
-            -35px -11px 0 #22c55e,
-            -32px -11px 0 #22c55e,
-            -29px -11px 0 #22c55e,
-            -26px -11px 0 #22c55e,
-            -23px -11px 0 #22c55e,
-            -20px -11px 0 #22c55e,
-            -17px -11px 0 #22c55e,
-            -14px -11px 0 #22c55e,
-            -11px -11px 0 #22c55e,
-            -8px -11px 0 #22c55e,
-            -5px -11px 0 #22c55e,
-            -2px -11px 0 #22c55e,
-            1px -11px 0 #22c55e,
-            4px -11px 0 #22c55e,
-            7px -11px 0 #22c55e,
-            10px -11px 0 #22c55e,
-            13px -11px 0 #22c55e,
-            16px -11px 0 #22c55e,
-            19px -11px 0 #22c55e,
-            22px -11px 0 #22c55e,
-            25px -11px 0 #22c55e,
-            28px -11px 0 #22c55e,
-            31px -11px 0 #22c55e,
-            34px -11px 0 #22c55e,
-            37px -11px 0 #22c55e,
-            -47px -8px 0 #22c55e,
-            -44px -8px 0 #22c55e,
-            -41px -8px 0 #22c55e,
-            -38px -8px 0 #22c55e,
-            -35px -8px 0 #22c55e,
-            -32px -8px 0 #22c55e,
-            -29px -8px 0 #22c55e,
-            -26px -8px 0 #22c55e,
-            -23px -8px 0 #22c55e,
-            -20px -8px 0 #22c55e,
-            -17px -8px 0 #22c55e,
-            -14px -8px 0 #22c55e,
-            -11px -8px 0 #22c55e,
-            -8px -8px 0 #22c55e,
-            -5px -8px 0 #22c55e,
-            -2px -8px 0 #22c55e,
-            1px -8px 0 #22c55e,
-            4px -8px 0 #22c55e,
-            7px -8px 0 #22c55e,
-            10px -8px 0 #22c55e,
-            13px -8px 0 #22c55e,
-            16px -8px 0 #22c55e,
-            19px -8px 0 #22c55e,
-            22px -8px 0 #22c55e,
-            25px -8px 0 #22c55e,
-            28px -8px 0 #22c55e,
-            31px -8px 0 #22c55e,
-            34px -8px 0 #22c55e,
-            37px -8px 0 #22c55e,
-            -44px -5px 0 #22c55e,
-            -41px -5px 0 #22c55e,
-            -38px -5px 0 #22c55e,
-            -35px -5px 0 #22c55e,
-            -32px -5px 0 #22c55e,
-            -29px -5px 0 #22c55e,
-            -26px -5px 0 #22c55e,
-            -23px -5px 0 #22c55e,
-            -20px -5px 0 #22c55e,
-            -17px -5px 0 #22c55e,
-            -14px -5px 0 #22c55e,
-            -11px -5px 0 #22c55e,
-            -8px -5px 0 #22c55e,
-            -5px -5px 0 #22c55e,
-            -2px -5px 0 #22c55e,
-            1px -5px 0 #22c55e,
-            4px -5px 0 #22c55e,
-            7px -5px 0 #22c55e,
-            10px -5px 0 #22c55e,
-            13px -5px 0 #22c55e,
-            16px -5px 0 #22c55e,
-            19px -5px 0 #22c55e,
-            22px -5px 0 #22c55e,
-            25px -5px 0 #22c55e,
-            28px -5px 0 #22c55e,
-            31px -5px 0 #22c55e,
-            34px -5px 0 #22c55e,
-            -44px -2px 0 #22c55e,
-            -41px -2px 0 #22c55e,
-            -38px -2px 0 #22c55e,
-            -35px -2px 0 #22c55e,
-            -32px -2px 0 #22c55e,
-            -29px -2px 0 #22c55e,
-            -26px -2px 0 #22c55e,
-            -23px -2px 0 #22c55e,
-            -20px -2px 0 #22c55e,
-            -17px -2px 0 #22c55e,
-            -14px -2px 0 #22c55e,
-            -11px -2px 0 #22c55e,
-            -8px -2px 0 #22c55e,
-            -5px -2px 0 #22c55e,
-            -2px -2px 0 #22c55e,
-            1px -2px 0 #22c55e,
-            4px -2px 0 #22c55e,
-            7px -2px 0 #22c55e,
-            10px -2px 0 #22c55e,
-            13px -2px 0 #22c55e,
-            16px -2px 0 #22c55e,
-            19px -2px 0 #22c55e,
-            22px -2px 0 #22c55e,
-            25px -2px 0 #22c55e,
-            28px -2px 0 #22c55e,
-            31px -2px 0 #22c55e,
-            34px -2px 0 #22c55e,
-            -41px 1px 0 #22c55e,
-            -38px 1px 0 #22c55e,
-            -35px 1px 0 #22c55e,
-            -32px 1px 0 #22c55e,
-            -29px 1px 0 #22c55e,
-            -26px 1px 0 #22c55e,
-            -23px 1px 0 #22c55e,
-            -20px 1px 0 #22c55e,
-            -17px 1px 0 #22c55e,
-            -14px 1px 0 #22c55e,
-            -11px 1px 0 #22c55e,
-            -8px 1px 0 #22c55e,
-            -5px 1px 0 #22c55e,
-            -2px 1px 0 #22c55e,
-            1px 1px 0 #22c55e,
-            4px 1px 0 #22c55e,
-            7px 1px 0 #22c55e,
-            10px 1px 0 #22c55e,
-            13px 1px 0 #22c55e,
-            16px 1px 0 #22c55e,
-            19px 1px 0 #22c55e,
-            22px 1px 0 #22c55e,
-            25px 1px 0 #22c55e,
-            28px 1px 0 #22c55e,
-            31px 1px 0 #22c55e,
-            -38px 4px 0 #22c55e,
-            -35px 4px 0 #22c55e,
-            -32px 4px 0 #22c55e,
-            -29px 4px 0 #22c55e,
-            -26px 4px 0 #22c55e,
-            -23px 4px 0 #22c55e,
-            -20px 4px 0 #22c55e,
-            -17px 4px 0 #22c55e,
-            -14px 4px 0 #22c55e,
-            -11px 4px 0 #22c55e,
-            -8px 4px 0 #22c55e,
-            -5px 4px 0 #22c55e,
-            -2px 4px 0 #22c55e,
-            1px 4px 0 #22c55e,
-            4px 4px 0 #22c55e,
-            7px 4px 0 #22c55e,
-            10px 4px 0 #22c55e,
-            13px 4px 0 #22c55e,
-            16px 4px 0 #22c55e,
-            19px 4px 0 #22c55e,
-            22px 4px 0 #22c55e,
-            25px 4px 0 #22c55e,
-            28px 4px 0 #22c55e,
-            -35px 7px 0 #22c55e,
-            -32px 7px 0 #22c55e,
-            -29px 7px 0 #22c55e,
-            -26px 7px 0 #22c55e,
-            -23px 7px 0 #22c55e,
-            -20px 7px 0 #22c55e,
-            -17px 7px 0 #22c55e,
-            -14px 7px 0 #22c55e,
-            -11px 7px 0 #22c55e,
-            -8px 7px 0 #22c55e,
-            -5px 7px 0 #22c55e,
-            -2px 7px 0 #22c55e,
-            1px 7px 0 #22c55e,
-            4px 7px 0 #22c55e,
-            7px 7px 0 #22c55e,
-            10px 7px 0 #22c55e,
-            13px 7px 0 #22c55e,
-            16px 7px 0 #22c55e,
-            19px 7px 0 #22c55e,
-            22px 7px 0 #22c55e,
-            25px 7px 0 #22c55e,
-            -32px 10px 0 #22c55e,
-            -29px 10px 0 #22c55e,
-            -26px 10px 0 #22c55e,
-            -23px 10px 0 #22c55e,
-            -20px 10px 0 #22c55e,
-            -17px 10px 0 #22c55e,
-            -14px 10px 0 #22c55e,
-            -11px 10px 0 #22c55e,
-            -8px 10px 0 #22c55e,
-            -5px 10px 0 #22c55e,
-            -2px 10px 0 #22c55e,
-            1px 10px 0 #22c55e,
-            4px 10px 0 #22c55e,
-            7px 10px 0 #22c55e,
-            10px 10px 0 #22c55e,
-            13px 10px 0 #22c55e,
-            16px 10px 0 #22c55e,
-            19px 10px 0 #22c55e,
-            22px 10px 0 #22c55e,
-            -29px 13px 0 #22c55e,
-            -26px 13px 0 #22c55e,
-            -23px 13px 0 #22c55e,
-            -20px 13px 0 #22c55e,
-            -17px 13px 0 #22c55e,
-            -14px 13px 0 #22c55e,
-            -11px 13px 0 #22c55e,
-            -8px 13px 0 #22c55e,
-            -5px 13px 0 #22c55e,
-            -2px 13px 0 #22c55e,
-            1px 13px 0 #22c55e,
-            4px 13px 0 #22c55e,
-            7px 13px 0 #22c55e,
-            10px 13px 0 #22c55e,
-            13px 13px 0 #22c55e,
-            16px 13px 0 #22c55e,
-            -26px 16px 0 #22c55e,
-            -23px 16px 0 #22c55e,
-            -20px 16px 0 #22c55e,
-            -17px 16px 0 #22c55e,
-            -14px 16px 0 #22c55e,
-            -11px 16px 0 #22c55e,
-            -8px 16px 0 #22c55e,
-            -5px 16px 0 #22c55e,
-            -2px 16px 0 #22c55e,
-            1px 16px 0 #22c55e,
-            4px 16px 0 #22c55e,
-            7px 16px 0 #22c55e,
-            10px 16px 0 #22c55e,
-            -11px 19px 0 #92400e,
-            -8px 19px 0 #92400e,
-            -5px 19px 0 #92400e,
-            -2px 19px 0 #92400e,
-            -11px 22px 0 #92400e,
-            -8px 22px 0 #92400e,
-            -5px 22px 0 #92400e,
-            -2px 22px 0 #92400e,
-            -11px 25px 0 #92400e,
-            -8px 25px 0 #92400e,
-            -5px 25px 0 #92400e,
-            -2px 25px 0 #92400e,
-            -11px 28px 0 #92400e,
-            -8px 28px 0 #92400e,
-            -5px 28px 0 #92400e,
-            -2px 28px 0 #92400e,
-            -11px 31px 0 #92400e,
-            -8px 31px 0 #92400e,
-            -5px 31px 0 #92400e,
-            -2px 31px 0 #92400e,
-            -11px 34px 0 #92400e,
-            -8px 34px 0 #92400e,
-            -5px 34px 0 #92400e,
-            -2px 34px 0 #92400e,
-            -14px 37px 0 #92400e,
-            -11px 37px 0 #92400e,
-            -8px 37px 0 #92400e,
-            -5px 37px 0 #92400e,
-            -2px 37px 0 #92400e,
-            1px 37px 0 #92400e,
-            -14px 40px 0 #92400e,
-            -11px 40px 0 #92400e,
-            -8px 40px 0 #92400e,
-            -5px 40px 0 #92400e,
-            -2px 40px 0 #92400e,
-            1px 40px 0 #92400e,
-            -17px 43px 0 #3f2c1d,
-            -14px 43px 0 #3f2c1d,
-            -11px 43px 0 #3f2c1d,
-            -8px 43px 0 #3f2c1d,
-            -5px 43px 0 #3f2c1d,
-            -2px 43px 0 #3f2c1d,
-            1px 43px 0 #3f2c1d,
-            4px 43px 0 #3f2c1d,
-            -20px 46px 0 #3f2c1d,
-            -17px 46px 0 #3f2c1d,
-            -14px 46px 0 #3f2c1d,
-            -11px 46px 0 #3f2c1d,
-            -8px 46px 0 #3f2c1d,
-            -5px 46px 0 #3f2c1d,
-            -2px 46px 0 #3f2c1d,
-            1px 46px 0 #3f2c1d,
-            4px 46px 0 #3f2c1d,
-            7px 46px 0 #3f2c1d,
-            -20px 49px 0 #3f2c1d,
-            -17px 49px 0 #3f2c1d,
-            -14px 49px 0 #3f2c1d,
-            -11px 49px 0 #3f2c1d,
-            -8px 49px 0 #3f2c1d,
-            -5px 49px 0 #3f2c1d,
-            -2px 49px 0 #3f2c1d,
-            1px 49px 0 #3f2c1d,
-            4px 49px 0 #3f2c1d,
-            7px 49px 0 #3f2c1d;
-        }
-
-        /* Phase 3: Same tree as Phase 2 but sakura flowers everywhere */
-        .pixel-tree.sakura {
-            width: 3px;
-            height: 3px;
-            box-shadow:
-            -20px -44px 0 #f472b6,
-            -17px -44px 0 #f472b6,
-            -14px -44px 0 #f472b6,
-            -11px -44px 0 #f472b6,
-            -8px -44px 0 #f472b6,
-            -5px -44px 0 #f472b6,
-            -2px -44px 0 #f472b6,
-            1px -44px 0 #f472b6,
-            4px -44px 0 #f472b6,
-            7px -44px 0 #f472b6,
-            10px -44px 0 #f472b6,
-            -26px -41px 0 #f472b6,
-            -23px -41px 0 #f472b6,
-            -20px -41px 0 #f472b6,
-            -17px -41px 0 #f472b6,
-            -14px -41px 0 #f472b6,
-            -11px -41px 0 #f472b6,
-            -8px -41px 0 #f472b6,
-            -5px -41px 0 #f472b6,
-            -2px -41px 0 #f472b6,
-            1px -41px 0 #f472b6,
-            4px -41px 0 #f472b6,
-            7px -41px 0 #f472b6,
-            10px -41px 0 #f472b6,
-            13px -41px 0 #f472b6,
-            16px -41px 0 #f472b6,
-            -32px -38px 0 #f472b6,
-            -29px -38px 0 #f472b6,
-            -26px -38px 0 #f472b6,
-            -23px -38px 0 #f472b6,
-            -20px -38px 0 #f472b6,
-            -17px -38px 0 #f472b6,
-            -14px -38px 0 #f472b6,
-            -11px -38px 0 #f472b6,
-            -8px -38px 0 #f472b6,
-            -5px -38px 0 #f472b6,
-            -2px -38px 0 #f472b6,
-            1px -38px 0 #f472b6,
-            4px -38px 0 #f472b6,
-            7px -38px 0 #f472b6,
-            10px -38px 0 #f472b6,
-            13px -38px 0 #f472b6,
-            16px -38px 0 #f472b6,
-            19px -38px 0 #f472b6,
-            22px -38px 0 #f472b6,
-            -35px -35px 0 #f472b6,
-            -32px -35px 0 #f472b6,
-            -29px -35px 0 #f472b6,
-            -26px -35px 0 #f472b6,
-            -23px -35px 0 #f472b6,
-            -20px -35px 0 #f472b6,
-            -17px -35px 0 #f472b6,
-            -14px -35px 0 #f472b6,
-            -11px -35px 0 #f472b6,
-            -8px -35px 0 #f472b6,
-            -5px -35px 0 #f472b6,
-            -2px -35px 0 #f472b6,
-            1px -35px 0 #f472b6,
-            4px -35px 0 #f472b6,
-            7px -35px 0 #f472b6,
-            10px -35px 0 #f472b6,
-            13px -35px 0 #f472b6,
-            16px -35px 0 #f472b6,
-            19px -35px 0 #f472b6,
-            22px -35px 0 #f472b6,
-            25px -35px 0 #f472b6,
-            -38px -32px 0 #f472b6,
-            -35px -32px 0 #f472b6,
-            -32px -32px 0 #f472b6,
-            -29px -32px 0 #f472b6,
-            -26px -32px 0 #f472b6,
-            -23px -32px 0 #f472b6,
-            -20px -32px 0 #f472b6,
-            -17px -32px 0 #f472b6,
-            -14px -32px 0 #f472b6,
-            -11px -32px 0 #f472b6,
-            -8px -32px 0 #f472b6,
-            -5px -32px 0 #f472b6,
-            -2px -32px 0 #f472b6,
-            1px -32px 0 #f472b6,
-            4px -32px 0 #f472b6,
-            7px -32px 0 #f472b6,
-            10px -32px 0 #f472b6,
-            13px -32px 0 #f472b6,
-            16px -32px 0 #f472b6,
-            19px -32px 0 #f472b6,
-            22px -32px 0 #f472b6,
-            25px -32px 0 #f472b6,
-            28px -32px 0 #f472b6,
-            -41px -29px 0 #f472b6,
-            -38px -29px 0 #f472b6,
-            -35px -29px 0 #f472b6,
-            -32px -29px 0 #f472b6,
-            -29px -29px 0 #f472b6,
-            -26px -29px 0 #f472b6,
-            -23px -29px 0 #f472b6,
-            -20px -29px 0 #f472b6,
-            -17px -29px 0 #f472b6,
-            -14px -29px 0 #f472b6,
-            -11px -29px 0 #f472b6,
-            -8px -29px 0 #f472b6,
-            -5px -29px 0 #f472b6,
-            -2px -29px 0 #f472b6,
-            1px -29px 0 #f472b6,
-            4px -29px 0 #f472b6,
-            7px -29px 0 #f472b6,
-            10px -29px 0 #f472b6,
-            13px -29px 0 #f472b6,
-            16px -29px 0 #f472b6,
-            19px -29px 0 #f472b6,
-            22px -29px 0 #f472b6,
-            25px -29px 0 #f472b6,
-            28px -29px 0 #f472b6,
-            31px -29px 0 #f472b6,
-            -44px -26px 0 #f472b6,
-            -41px -26px 0 #f472b6,
-            -38px -26px 0 #f472b6,
-            -35px -26px 0 #f472b6,
-            -32px -26px 0 #f472b6,
-            -29px -26px 0 #f472b6,
-            -26px -26px 0 #f472b6,
-            -23px -26px 0 #f472b6,
-            -20px -26px 0 #f472b6,
-            -17px -26px 0 #f472b6,
-            -14px -26px 0 #f472b6,
-            -11px -26px 0 #f472b6,
-            -8px -26px 0 #f472b6,
-            -5px -26px 0 #f472b6,
-            -2px -26px 0 #f472b6,
-            1px -26px 0 #f472b6,
-            4px -26px 0 #f472b6,
-            7px -26px 0 #f472b6,
-            10px -26px 0 #f472b6,
-            13px -26px 0 #f472b6,
-            16px -26px 0 #f472b6,
-            19px -26px 0 #f472b6,
-            22px -26px 0 #f472b6,
-            25px -26px 0 #f472b6,
-            28px -26px 0 #f472b6,
-            31px -26px 0 #f472b6,
-            34px -26px 0 #f472b6,
-            -44px -23px 0 #f472b6,
-            -41px -23px 0 #f472b6,
-            -38px -23px 0 #f472b6,
-            -35px -23px 0 #f472b6,
-            -32px -23px 0 #f472b6,
-            -29px -23px 0 #f472b6,
-            -26px -23px 0 #f472b6,
-            -23px -23px 0 #f472b6,
-            -20px -23px 0 #f472b6,
-            -17px -23px 0 #f472b6,
-            -14px -23px 0 #f472b6,
-            -11px -23px 0 #f472b6,
-            -8px -23px 0 #f472b6,
-            -5px -23px 0 #f472b6,
-            -2px -23px 0 #f472b6,
-            1px -23px 0 #f472b6,
-            4px -23px 0 #f472b6,
-            7px -23px 0 #f472b6,
-            10px -23px 0 #f472b6,
-            13px -23px 0 #f472b6,
-            16px -23px 0 #f472b6,
-            19px -23px 0 #f472b6,
-            22px -23px 0 #f472b6,
-            25px -23px 0 #f472b6,
-            28px -23px 0 #f472b6,
-            31px -23px 0 #f472b6,
-            34px -23px 0 #f472b6,
-            -47px -20px 0 #f472b6,
-            -44px -20px 0 #f472b6,
-            -41px -20px 0 #f472b6,
-            -38px -20px 0 #f472b6,
-            -35px -20px 0 #f472b6,
-            -32px -20px 0 #f472b6,
-            -29px -20px 0 #f472b6,
-            -26px -20px 0 #f472b6,
-            -23px -20px 0 #f472b6,
-            -20px -20px 0 #f472b6,
-            -17px -20px 0 #f472b6,
-            -14px -20px 0 #f472b6,
-            -11px -20px 0 #f472b6,
-            -8px -20px 0 #f472b6,
-            -5px -20px 0 #f472b6,
-            -2px -20px 0 #f472b6,
-            1px -20px 0 #f472b6,
-            4px -20px 0 #f472b6,
-            7px -20px 0 #f472b6,
-            10px -20px 0 #f472b6,
-            13px -20px 0 #f472b6,
-            16px -20px 0 #f472b6,
-            19px -20px 0 #f472b6,
-            22px -20px 0 #f472b6,
-            25px -20px 0 #f472b6,
-            28px -20px 0 #f472b6,
-            31px -20px 0 #f472b6,
-            34px -20px 0 #f472b6,
-            37px -20px 0 #f472b6,
-            -47px -17px 0 #f472b6,
-            -44px -17px 0 #f472b6,
-            -41px -17px 0 #f472b6,
-            -38px -17px 0 #f472b6,
-            -35px -17px 0 #f472b6,
-            -32px -17px 0 #f472b6,
-            -29px -17px 0 #f472b6,
-            -26px -17px 0 #f472b6,
-            -23px -17px 0 #f472b6,
-            -20px -17px 0 #f472b6,
-            -17px -17px 0 #f472b6,
-            -14px -17px 0 #f472b6,
-            -11px -17px 0 #f472b6,
-            -8px -17px 0 #f472b6,
-            -5px -17px 0 #f472b6,
-            -2px -17px 0 #f472b6,
-            1px -17px 0 #f472b6,
-            4px -17px 0 #f472b6,
-            7px -17px 0 #f472b6,
-            10px -17px 0 #f472b6,
-            13px -17px 0 #f472b6,
-            16px -17px 0 #f472b6,
-            19px -17px 0 #f472b6,
-            22px -17px 0 #f472b6,
-            25px -17px 0 #f472b6,
-            28px -17px 0 #f472b6,
-            31px -17px 0 #f472b6,
-            34px -17px 0 #f472b6,
-            37px -17px 0 #f472b6,
-            -47px -14px 0 #f472b6,
-            -44px -14px 0 #f472b6,
-            -41px -14px 0 #f472b6,
-            -38px -14px 0 #f472b6,
-            -35px -14px 0 #f472b6,
-            -32px -14px 0 #f472b6,
-            -29px -14px 0 #f472b6,
-            -26px -14px 0 #f472b6,
-            -23px -14px 0 #f472b6,
-            -20px -14px 0 #f472b6,
-            -17px -14px 0 #f472b6,
-            -14px -14px 0 #f472b6,
-            -11px -14px 0 #f472b6,
-            -8px -14px 0 #f472b6,
-            -5px -14px 0 #f472b6,
-            -2px -14px 0 #f472b6,
-            1px -14px 0 #f472b6,
-            4px -14px 0 #f472b6,
-            7px -14px 0 #f472b6,
-            10px -14px 0 #f472b6,
-            13px -14px 0 #f472b6,
-            16px -14px 0 #f472b6,
-            19px -14px 0 #f472b6,
-            22px -14px 0 #f472b6,
-            25px -14px 0 #f472b6,
-            28px -14px 0 #f472b6,
-            31px -14px 0 #f472b6,
-            34px -14px 0 #f472b6,
-            37px -14px 0 #f472b6,
-            -47px -11px 0 #f472b6,
-            -44px -11px 0 #f472b6,
-            -41px -11px 0 #f472b6,
-            -38px -11px 0 #f472b6,
-            -35px -11px 0 #f472b6,
-            -32px -11px 0 #f472b6,
-            -29px -11px 0 #f472b6,
-            -26px -11px 0 #f472b6,
-            -23px -11px 0 #f472b6,
-            -20px -11px 0 #f472b6,
-            -17px -11px 0 #f472b6,
-            -14px -11px 0 #f472b6,
-            -11px -11px 0 #f472b6,
-            -8px -11px 0 #f472b6,
-            -5px -11px 0 #f472b6,
-            -2px -11px 0 #f472b6,
-            1px -11px 0 #f472b6,
-            4px -11px 0 #f472b6,
-            7px -11px 0 #f472b6,
-            10px -11px 0 #f472b6,
-            13px -11px 0 #f472b6,
-            16px -11px 0 #f472b6,
-            19px -11px 0 #f472b6,
-            22px -11px 0 #f472b6,
-            25px -11px 0 #f472b6,
-            28px -11px 0 #f472b6,
-            31px -11px 0 #f472b6,
-            34px -11px 0 #f472b6,
-            37px -11px 0 #f472b6,
-            -47px -8px 0 #f472b6,
-            -44px -8px 0 #f472b6,
-            -41px -8px 0 #f472b6,
-            -38px -8px 0 #f472b6,
-            -35px -8px 0 #f472b6,
-            -32px -8px 0 #f472b6,
-            -29px -8px 0 #f472b6,
-            -26px -8px 0 #f472b6,
-            -23px -8px 0 #f472b6,
-            -20px -8px 0 #f472b6,
-            -17px -8px 0 #f472b6,
-            -14px -8px 0 #f472b6,
-            -11px -8px 0 #f472b6,
-            -8px -8px 0 #f472b6,
-            -5px -8px 0 #f472b6,
-            -2px -8px 0 #f472b6,
-            1px -8px 0 #f472b6,
-            4px -8px 0 #f472b6,
-            7px -8px 0 #f472b6,
-            10px -8px 0 #f472b6,
-            13px -8px 0 #f472b6,
-            16px -8px 0 #f472b6,
-            19px -8px 0 #f472b6,
-            22px -8px 0 #f472b6,
-            25px -8px 0 #f472b6,
-            28px -8px 0 #f472b6,
-            31px -8px 0 #f472b6,
-            34px -8px 0 #f472b6,
-            37px -8px 0 #f472b6,
-            -44px -5px 0 #f472b6,
-            -41px -5px 0 #f472b6,
-            -38px -5px 0 #f472b6,
-            -35px -5px 0 #f472b6,
-            -32px -5px 0 #f472b6,
-            -29px -5px 0 #f472b6,
-            -26px -5px 0 #f472b6,
-            -23px -5px 0 #f472b6,
-            -20px -5px 0 #f472b6,
-            -17px -5px 0 #f472b6,
-            -14px -5px 0 #f472b6,
-            -11px -5px 0 #f472b6,
-            -8px -5px 0 #f472b6,
-            -5px -5px 0 #f472b6,
-            -2px -5px 0 #f472b6,
-            1px -5px 0 #f472b6,
-            4px -5px 0 #f472b6,
-            7px -5px 0 #f472b6,
-            10px -5px 0 #f472b6,
-            13px -5px 0 #f472b6,
-            16px -5px 0 #f472b6,
-            19px -5px 0 #f472b6,
-            22px -5px 0 #f472b6,
-            25px -5px 0 #f472b6,
-            28px -5px 0 #f472b6,
-            31px -5px 0 #f472b6,
-            34px -5px 0 #f472b6,
-            -44px -2px 0 #f472b6,
-            -41px -2px 0 #f472b6,
-            -38px -2px 0 #f472b6,
-            -35px -2px 0 #f472b6,
-            -32px -2px 0 #f472b6,
-            -29px -2px 0 #f472b6,
-            -26px -2px 0 #f472b6,
-            -23px -2px 0 #f472b6,
-            -20px -2px 0 #f472b6,
-            -17px -2px 0 #f472b6,
-            -14px -2px 0 #f472b6,
-            -11px -2px 0 #f472b6,
-            -8px -2px 0 #f472b6,
-            -5px -2px 0 #f472b6,
-            -2px -2px 0 #f472b6,
-            1px -2px 0 #f472b6,
-            4px -2px 0 #f472b6,
-            7px -2px 0 #f472b6,
-            10px -2px 0 #f472b6,
-            13px -2px 0 #f472b6,
-            16px -2px 0 #f472b6,
-            19px -2px 0 #f472b6,
-            22px -2px 0 #f472b6,
-            25px -2px 0 #f472b6,
-            28px -2px 0 #f472b6,
-            31px -2px 0 #f472b6,
-            34px -2px 0 #f472b6,
-            -41px 1px 0 #f472b6,
-            -38px 1px 0 #f472b6,
-            -35px 1px 0 #f472b6,
-            -32px 1px 0 #f472b6,
-            -29px 1px 0 #f472b6,
-            -26px 1px 0 #f472b6,
-            -23px 1px 0 #f472b6,
-            -20px 1px 0 #f472b6,
-            -17px 1px 0 #f472b6,
-            -14px 1px 0 #f472b6,
-            -11px 1px 0 #f472b6,
-            -8px 1px 0 #f472b6,
-            -5px 1px 0 #f472b6,
-            -2px 1px 0 #f472b6,
-            1px 1px 0 #f472b6,
-            4px 1px 0 #f472b6,
-            7px 1px 0 #f472b6,
-            10px 1px 0 #f472b6,
-            13px 1px 0 #f472b6,
-            16px 1px 0 #f472b6,
-            19px 1px 0 #f472b6,
-            22px 1px 0 #f472b6,
-            25px 1px 0 #f472b6,
-            28px 1px 0 #f472b6,
-            31px 1px 0 #f472b6,
-            -38px 4px 0 #f472b6,
-            -35px 4px 0 #f472b6,
-            -32px 4px 0 #f472b6,
-            -29px 4px 0 #f472b6,
-            -26px 4px 0 #f472b6,
-            -23px 4px 0 #f472b6,
-            -20px 4px 0 #f472b6,
-            -17px 4px 0 #f472b6,
-            -14px 4px 0 #f472b6,
-            -11px 4px 0 #f472b6,
-            -8px 4px 0 #f472b6,
-            -5px 4px 0 #f472b6,
-            -2px 4px 0 #f472b6,
-            1px 4px 0 #f472b6,
-            4px 4px 0 #f472b6,
-            7px 4px 0 #f472b6,
-            10px 4px 0 #f472b6,
-            13px 4px 0 #f472b6,
-            16px 4px 0 #f472b6,
-            19px 4px 0 #f472b6,
-            22px 4px 0 #f472b6,
-            25px 4px 0 #f472b6,
-            28px 4px 0 #f472b6,
-            -35px 7px 0 #f472b6,
-            -32px 7px 0 #f472b6,
-            -29px 7px 0 #f472b6,
-            -26px 7px 0 #f472b6,
-            -23px 7px 0 #f472b6,
-            -20px 7px 0 #f472b6,
-            -17px 7px 0 #f472b6,
-            -14px 7px 0 #f472b6,
-            -11px 7px 0 #f472b6,
-            -8px 7px 0 #f472b6,
-            -5px 7px 0 #f472b6,
-            -2px 7px 0 #f472b6,
-            1px 7px 0 #f472b6,
-            4px 7px 0 #f472b6,
-            7px 7px 0 #f472b6,
-            10px 7px 0 #f472b6,
-            13px 7px 0 #f472b6,
-            16px 7px 0 #f472b6,
-            19px 7px 0 #f472b6,
-            22px 7px 0 #f472b6,
-            25px 7px 0 #f472b6,
-            -32px 10px 0 #f472b6,
-            -29px 10px 0 #f472b6,
-            -26px 10px 0 #f472b6,
-            -23px 10px 0 #f472b6,
-            -20px 10px 0 #f472b6,
-            -17px 10px 0 #f472b6,
-            -14px 10px 0 #f472b6,
-            -11px 10px 0 #f472b6,
-            -8px 10px 0 #f472b6,
-            -5px 10px 0 #f472b6,
-            -2px 10px 0 #f472b6,
-            1px 10px 0 #f472b6,
-            4px 10px 0 #f472b6,
-            7px 10px 0 #f472b6,
-            10px 10px 0 #f472b6,
-            13px 10px 0 #f472b6,
-            16px 10px 0 #f472b6,
-            19px 10px 0 #f472b6,
-            22px 10px 0 #f472b6,
-            -29px 13px 0 #f472b6,
-            -26px 13px 0 #f472b6,
-            -23px 13px 0 #f472b6,
-            -20px 13px 0 #f472b6,
-            -17px 13px 0 #f472b6,
-            -14px 13px 0 #f472b6,
-            -11px 13px 0 #f472b6,
-            -8px 13px 0 #f472b6,
-            -5px 13px 0 #f472b6,
-            -2px 13px 0 #f472b6,
-            1px 13px 0 #f472b6,
-            4px 13px 0 #f472b6,
-            7px 13px 0 #f472b6,
-            10px 13px 0 #f472b6,
-            13px 13px 0 #f472b6,
-            16px 13px 0 #f472b6,
-            -26px 16px 0 #f472b6,
-            -23px 16px 0 #f472b6,
-            -20px 16px 0 #f472b6,
-            -17px 16px 0 #f472b6,
-            -14px 16px 0 #f472b6,
-            -11px 16px 0 #f472b6,
-            -8px 16px 0 #f472b6,
-            -5px 16px 0 #f472b6,
-            -2px 16px 0 #f472b6,
-            1px 16px 0 #f472b6,
-            4px 16px 0 #f472b6,
-            7px 16px 0 #f472b6,
-            10px 16px 0 #f472b6,
-            -11px 19px 0 #92400e,
-            -8px 19px 0 #92400e,
-            -5px 19px 0 #92400e,
-            -2px 19px 0 #92400e,
-            -11px 22px 0 #92400e,
-            -8px 22px 0 #92400e,
-            -5px 22px 0 #92400e,
-            -2px 22px 0 #92400e,
-            -11px 25px 0 #92400e,
-            -8px 25px 0 #92400e,
-            -5px 25px 0 #92400e,
-            -2px 25px 0 #92400e,
-            -11px 28px 0 #92400e,
-            -8px 28px 0 #92400e,
-            -5px 28px 0 #92400e,
-            -2px 28px 0 #92400e,
-            -11px 31px 0 #92400e,
-            -8px 31px 0 #92400e,
-            -5px 31px 0 #92400e,
-            -2px 31px 0 #92400e,
-            -11px 34px 0 #92400e,
-            -8px 34px 0 #92400e,
-            -5px 34px 0 #92400e,
-            -2px 34px 0 #92400e,
-            -14px 37px 0 #92400e,
-            -11px 37px 0 #92400e,
-            -8px 37px 0 #92400e,
-            -5px 37px 0 #92400e,
-            -2px 37px 0 #92400e,
-            1px 37px 0 #92400e,
-            -14px 40px 0 #92400e,
-            -11px 40px 0 #92400e,
-            -8px 40px 0 #92400e,
-            -5px 40px 0 #92400e,
-            -2px 40px 0 #92400e,
-            1px 40px 0 #92400e,
-            -17px 43px 0 #3f2c1d,
-            -14px 43px 0 #3f2c1d,
-            -11px 43px 0 #3f2c1d,
-            -8px 43px 0 #3f2c1d,
-            -5px 43px 0 #3f2c1d,
-            -2px 43px 0 #3f2c1d,
-            1px 43px 0 #3f2c1d,
-            4px 43px 0 #3f2c1d,
-            -20px 46px 0 #3f2c1d,
-            -17px 46px 0 #3f2c1d,
-            -14px 46px 0 #3f2c1d,
-            -11px 46px 0 #3f2c1d,
-            -8px 46px 0 #3f2c1d,
-            -5px 46px 0 #3f2c1d,
-            -2px 46px 0 #3f2c1d,
-            1px 46px 0 #3f2c1d,
-            4px 46px 0 #3f2c1d,
-            7px 46px 0 #3f2c1d,
-            -20px 49px 0 #3f2c1d,
-            -17px 49px 0 #3f2c1d,
-            -14px 49px 0 #3f2c1d,
-            -11px 49px 0 #3f2c1d,
-            -8px 49px 0 #3f2c1d,
-            -5px 49px 0 #3f2c1d,
-            -2px 49px 0 #3f2c1d,
-            1px 49px 0 #3f2c1d,
-            4px 49px 0 #3f2c1d,
-            7px 49px 0 #3f2c1d;
-        }
-
-        /* Phase 4: Same tree as Phase 2 but golden leaves everywhere */
-        .pixel-tree.cosmic {
-            width: 3px;
-            height: 3px;
-            box-shadow:
-            -20px -44px 0 #fbbf24,
-            -17px -44px 0 #fbbf24,
-            -14px -44px 0 #fbbf24,
-            -11px -44px 0 #fbbf24,
-            -8px -44px 0 #fbbf24,
-            -5px -44px 0 #fbbf24,
-            -2px -44px 0 #fbbf24,
-            1px -44px 0 #fbbf24,
-            4px -44px 0 #fbbf24,
-            7px -44px 0 #fbbf24,
-            10px -44px 0 #fbbf24,
-            -26px -41px 0 #fbbf24,
-            -23px -41px 0 #fbbf24,
-            -20px -41px 0 #fbbf24,
-            -17px -41px 0 #fbbf24,
-            -14px -41px 0 #fbbf24,
-            -11px -41px 0 #fbbf24,
-            -8px -41px 0 #fbbf24,
-            -5px -41px 0 #fbbf24,
-            -2px -41px 0 #fbbf24,
-            1px -41px 0 #fbbf24,
-            4px -41px 0 #fbbf24,
-            7px -41px 0 #fbbf24,
-            10px -41px 0 #fbbf24,
-            13px -41px 0 #fbbf24,
-            16px -41px 0 #fbbf24,
-            -32px -38px 0 #fbbf24,
-            -29px -38px 0 #fbbf24,
-            -26px -38px 0 #fbbf24,
-            -23px -38px 0 #fbbf24,
-            -20px -38px 0 #fbbf24,
-            -17px -38px 0 #fbbf24,
-            -14px -38px 0 #fbbf24,
-            -11px -38px 0 #fbbf24,
-            -8px -38px 0 #fbbf24,
-            -5px -38px 0 #fbbf24,
-            -2px -38px 0 #fbbf24,
-            1px -38px 0 #fbbf24,
-            4px -38px 0 #fbbf24,
-            7px -38px 0 #fbbf24,
-            10px -38px 0 #fbbf24,
-            13px -38px 0 #fbbf24,
-            16px -38px 0 #fbbf24,
-            19px -38px 0 #fbbf24,
-            22px -38px 0 #fbbf24,
-            -35px -35px 0 #fbbf24,
-            -32px -35px 0 #fbbf24,
-            -29px -35px 0 #fbbf24,
-            -26px -35px 0 #fbbf24,
-            -23px -35px 0 #fbbf24,
-            -20px -35px 0 #fbbf24,
-            -17px -35px 0 #fbbf24,
-            -14px -35px 0 #fbbf24,
-            -11px -35px 0 #fbbf24,
-            -8px -35px 0 #fbbf24,
-            -5px -35px 0 #fbbf24,
-            -2px -35px 0 #fbbf24,
-            1px -35px 0 #fbbf24,
-            4px -35px 0 #fbbf24,
-            7px -35px 0 #fbbf24,
-            10px -35px 0 #fbbf24,
-            13px -35px 0 #fbbf24,
-            16px -35px 0 #fbbf24,
-            19px -35px 0 #fbbf24,
-            22px -35px 0 #fbbf24,
-            25px -35px 0 #fbbf24,
-            -38px -32px 0 #fbbf24,
-            -35px -32px 0 #fbbf24,
-            -32px -32px 0 #fbbf24,
-            -29px -32px 0 #fbbf24,
-            -26px -32px 0 #fbbf24,
-            -23px -32px 0 #fbbf24,
-            -20px -32px 0 #fbbf24,
-            -17px -32px 0 #fbbf24,
-            -14px -32px 0 #fbbf24,
-            -11px -32px 0 #fbbf24,
-            -8px -32px 0 #fbbf24,
-            -5px -32px 0 #fbbf24,
-            -2px -32px 0 #fbbf24,
-            1px -32px 0 #fbbf24,
-            4px -32px 0 #fbbf24,
-            7px -32px 0 #fbbf24,
-            10px -32px 0 #fbbf24,
-            13px -32px 0 #fbbf24,
-            16px -32px 0 #fbbf24,
-            19px -32px 0 #fbbf24,
-            22px -32px 0 #fbbf24,
-            25px -32px 0 #fbbf24,
-            28px -32px 0 #fbbf24,
-            -41px -29px 0 #fbbf24,
-            -38px -29px 0 #fbbf24,
-            -35px -29px 0 #fbbf24,
-            -32px -29px 0 #fbbf24,
-            -29px -29px 0 #fbbf24,
-            -26px -29px 0 #fbbf24,
-            -23px -29px 0 #fbbf24,
-            -20px -29px 0 #fbbf24,
-            -17px -29px 0 #fbbf24,
-            -14px -29px 0 #fbbf24,
-            -11px -29px 0 #fbbf24,
-            -8px -29px 0 #fbbf24,
-            -5px -29px 0 #fbbf24,
-            -2px -29px 0 #fbbf24,
-            1px -29px 0 #fbbf24,
-            4px -29px 0 #fbbf24,
-            7px -29px 0 #fbbf24,
-            10px -29px 0 #fbbf24,
-            13px -29px 0 #fbbf24,
-            16px -29px 0 #fbbf24,
-            19px -29px 0 #fbbf24,
-            22px -29px 0 #fbbf24,
-            25px -29px 0 #fbbf24,
-            28px -29px 0 #fbbf24,
-            31px -29px 0 #fbbf24,
-            -44px -26px 0 #fbbf24,
-            -41px -26px 0 #fbbf24,
-            -38px -26px 0 #fbbf24,
-            -35px -26px 0 #fbbf24,
-            -32px -26px 0 #fbbf24,
-            -29px -26px 0 #fbbf24,
-            -26px -26px 0 #fbbf24,
-            -23px -26px 0 #fbbf24,
-            -20px -26px 0 #fbbf24,
-            -17px -26px 0 #fbbf24,
-            -14px -26px 0 #fbbf24,
-            -11px -26px 0 #fbbf24,
-            -8px -26px 0 #fbbf24,
-            -5px -26px 0 #fbbf24,
-            -2px -26px 0 #fbbf24,
-            1px -26px 0 #fbbf24,
-            4px -26px 0 #fbbf24,
-            7px -26px 0 #fbbf24,
-            10px -26px 0 #fbbf24,
-            13px -26px 0 #fbbf24,
-            16px -26px 0 #fbbf24,
-            19px -26px 0 #fbbf24,
-            22px -26px 0 #fbbf24,
-            25px -26px 0 #fbbf24,
-            28px -26px 0 #fbbf24,
-            31px -26px 0 #fbbf24,
-            34px -26px 0 #fbbf24,
-            -44px -23px 0 #fbbf24,
-            -41px -23px 0 #fbbf24,
-            -38px -23px 0 #fbbf24,
-            -35px -23px 0 #fbbf24,
-            -32px -23px 0 #fbbf24,
-            -29px -23px 0 #fbbf24,
-            -26px -23px 0 #fbbf24,
-            -23px -23px 0 #fbbf24,
-            -20px -23px 0 #fbbf24,
-            -17px -23px 0 #fbbf24,
-            -14px -23px 0 #fbbf24,
-            -11px -23px 0 #fbbf24,
-            -8px -23px 0 #fbbf24,
-            -5px -23px 0 #fbbf24,
-            -2px -23px 0 #fbbf24,
-            1px -23px 0 #fbbf24,
-            4px -23px 0 #fbbf24,
-            7px -23px 0 #fbbf24,
-            10px -23px 0 #fbbf24,
-            13px -23px 0 #fbbf24,
-            16px -23px 0 #fbbf24,
-            19px -23px 0 #fbbf24,
-            22px -23px 0 #fbbf24,
-            25px -23px 0 #fbbf24,
-            28px -23px 0 #fbbf24,
-            31px -23px 0 #fbbf24,
-            34px -23px 0 #fbbf24,
-            -47px -20px 0 #fbbf24,
-            -44px -20px 0 #fbbf24,
-            -41px -20px 0 #fbbf24,
-            -38px -20px 0 #fbbf24,
-            -35px -20px 0 #fbbf24,
-            -32px -20px 0 #fbbf24,
-            -29px -20px 0 #fbbf24,
-            -26px -20px 0 #fbbf24,
-            -23px -20px 0 #fbbf24,
-            -20px -20px 0 #fbbf24,
-            -17px -20px 0 #fbbf24,
-            -14px -20px 0 #fbbf24,
-            -11px -20px 0 #fbbf24,
-            -8px -20px 0 #fbbf24,
-            -5px -20px 0 #fbbf24,
-            -2px -20px 0 #fbbf24,
-            1px -20px 0 #fbbf24,
-            4px -20px 0 #fbbf24,
-            7px -20px 0 #fbbf24,
-            10px -20px 0 #fbbf24,
-            13px -20px 0 #fbbf24,
-            16px -20px 0 #fbbf24,
-            19px -20px 0 #fbbf24,
-            22px -20px 0 #fbbf24,
-            25px -20px 0 #fbbf24,
-            28px -20px 0 #fbbf24,
-            31px -20px 0 #fbbf24,
-            34px -20px 0 #fbbf24,
-            37px -20px 0 #fbbf24,
-            -47px -17px 0 #fbbf24,
-            -44px -17px 0 #fbbf24,
-            -41px -17px 0 #fbbf24,
-            -38px -17px 0 #fbbf24,
-            -35px -17px 0 #fbbf24,
-            -32px -17px 0 #fbbf24,
-            -29px -17px 0 #fbbf24,
-            -26px -17px 0 #fbbf24,
-            -23px -17px 0 #fbbf24,
-            -20px -17px 0 #fbbf24,
-            -17px -17px 0 #fbbf24,
-            -14px -17px 0 #fbbf24,
-            -11px -17px 0 #fbbf24,
-            -8px -17px 0 #fbbf24,
-            -5px -17px 0 #fbbf24,
-            -2px -17px 0 #fbbf24,
-            1px -17px 0 #fbbf24,
-            4px -17px 0 #fbbf24,
-            7px -17px 0 #fbbf24,
-            10px -17px 0 #fbbf24,
-            13px -17px 0 #fbbf24,
-            16px -17px 0 #fbbf24,
-            19px -17px 0 #fbbf24,
-            22px -17px 0 #fbbf24,
-            25px -17px 0 #fbbf24,
-            28px -17px 0 #fbbf24,
-            31px -17px 0 #fbbf24,
-            34px -17px 0 #fbbf24,
-            37px -17px 0 #fbbf24,
-            -47px -14px 0 #fbbf24,
-            -44px -14px 0 #fbbf24,
-            -41px -14px 0 #fbbf24,
-            -38px -14px 0 #fbbf24,
-            -35px -14px 0 #fbbf24,
-            -32px -14px 0 #fbbf24,
-            -29px -14px 0 #fbbf24,
-            -26px -14px 0 #fbbf24,
-            -23px -14px 0 #fbbf24,
-            -20px -14px 0 #fbbf24,
-            -17px -14px 0 #fbbf24,
-            -14px -14px 0 #fbbf24,
-            -11px -14px 0 #fbbf24,
-            -8px -14px 0 #fbbf24,
-            -5px -14px 0 #fbbf24,
-            -2px -14px 0 #fbbf24,
-            1px -14px 0 #fbbf24,
-            4px -14px 0 #fbbf24,
-            7px -14px 0 #fbbf24,
-            10px -14px 0 #fbbf24,
-            13px -14px 0 #fbbf24,
-            16px -14px 0 #fbbf24,
-            19px -14px 0 #fbbf24,
-            22px -14px 0 #fbbf24,
-            25px -14px 0 #fbbf24,
-            28px -14px 0 #fbbf24,
-            31px -14px 0 #fbbf24,
-            34px -14px 0 #fbbf24,
-            37px -14px 0 #fbbf24,
-            -47px -11px 0 #fbbf24,
-            -44px -11px 0 #fbbf24,
-            -41px -11px 0 #fbbf24,
-            -38px -11px 0 #fbbf24,
-            -35px -11px 0 #fbbf24,
-            -32px -11px 0 #fbbf24,
-            -29px -11px 0 #fbbf24,
-            -26px -11px 0 #fbbf24,
-            -23px -11px 0 #fbbf24,
-            -20px -11px 0 #fbbf24,
-            -17px -11px 0 #fbbf24,
-            -14px -11px 0 #fbbf24,
-            -11px -11px 0 #fbbf24,
-            -8px -11px 0 #fbbf24,
-            -5px -11px 0 #fbbf24,
-            -2px -11px 0 #fbbf24,
-            1px -11px 0 #fbbf24,
-            4px -11px 0 #fbbf24,
-            7px -11px 0 #fbbf24,
-            10px -11px 0 #fbbf24,
-            13px -11px 0 #fbbf24,
-            16px -11px 0 #fbbf24,
-            19px -11px 0 #fbbf24,
-            22px -11px 0 #fbbf24,
-            25px -11px 0 #fbbf24,
-            28px -11px 0 #fbbf24,
-            31px -11px 0 #fbbf24,
-            34px -11px 0 #fbbf24,
-            37px -11px 0 #fbbf24,
-            -47px -8px 0 #fbbf24,
-            -44px -8px 0 #fbbf24,
-            -41px -8px 0 #fbbf24,
-            -38px -8px 0 #fbbf24,
-            -35px -8px 0 #fbbf24,
-            -32px -8px 0 #fbbf24,
-            -29px -8px 0 #fbbf24,
-            -26px -8px 0 #fbbf24,
-            -23px -8px 0 #fbbf24,
-            -20px -8px 0 #fbbf24,
-            -17px -8px 0 #fbbf24,
-            -14px -8px 0 #fbbf24,
-            -11px -8px 0 #fbbf24,
-            -8px -8px 0 #fbbf24,
-            -5px -8px 0 #fbbf24,
-            -2px -8px 0 #fbbf24,
-            1px -8px 0 #fbbf24,
-            4px -8px 0 #fbbf24,
-            7px -8px 0 #fbbf24,
-            10px -8px 0 #fbbf24,
-            13px -8px 0 #fbbf24,
-            16px -8px 0 #fbbf24,
-            19px -8px 0 #fbbf24,
-            22px -8px 0 #fbbf24,
-            25px -8px 0 #fbbf24,
-            28px -8px 0 #fbbf24,
-            31px -8px 0 #fbbf24,
-            34px -8px 0 #fbbf24,
-            37px -8px 0 #fbbf24,
-            -44px -5px 0 #fbbf24,
-            -41px -5px 0 #fbbf24,
-            -38px -5px 0 #fbbf24,
-            -35px -5px 0 #fbbf24,
-            -32px -5px 0 #fbbf24,
-            -29px -5px 0 #fbbf24,
-            -26px -5px 0 #fbbf24,
-            -23px -5px 0 #fbbf24,
-            -20px -5px 0 #fbbf24,
-            -17px -5px 0 #fbbf24,
-            -14px -5px 0 #fbbf24,
-            -11px -5px 0 #fbbf24,
-            -8px -5px 0 #fbbf24,
-            -5px -5px 0 #fbbf24,
-            -2px -5px 0 #fbbf24,
-            1px -5px 0 #fbbf24,
-            4px -5px 0 #fbbf24,
-            7px -5px 0 #fbbf24,
-            10px -5px 0 #fbbf24,
-            13px -5px 0 #fbbf24,
-            16px -5px 0 #fbbf24,
-            19px -5px 0 #fbbf24,
-            22px -5px 0 #fbbf24,
-            25px -5px 0 #fbbf24,
-            28px -5px 0 #fbbf24,
-            31px -5px 0 #fbbf24,
-            34px -5px 0 #fbbf24,
-            -44px -2px 0 #fbbf24,
-            -41px -2px 0 #fbbf24,
-            -38px -2px 0 #fbbf24,
-            -35px -2px 0 #fbbf24,
-            -32px -2px 0 #fbbf24,
-            -29px -2px 0 #fbbf24,
-            -26px -2px 0 #fbbf24,
-            -23px -2px 0 #fbbf24,
-            -20px -2px 0 #fbbf24,
-            -17px -2px 0 #fbbf24,
-            -14px -2px 0 #fbbf24,
-            -11px -2px 0 #fbbf24,
-            -8px -2px 0 #fbbf24,
-            -5px -2px 0 #fbbf24,
-            -2px -2px 0 #fbbf24,
-            1px -2px 0 #fbbf24,
-            4px -2px 0 #fbbf24,
-            7px -2px 0 #fbbf24,
-            10px -2px 0 #fbbf24,
-            13px -2px 0 #fbbf24,
-            16px -2px 0 #fbbf24,
-            19px -2px 0 #fbbf24,
-            22px -2px 0 #fbbf24,
-            25px -2px 0 #fbbf24,
-            28px -2px 0 #fbbf24,
-            31px -2px 0 #fbbf24,
-            34px -2px 0 #fbbf24,
-            -41px 1px 0 #fbbf24,
-            -38px 1px 0 #fbbf24,
-            -35px 1px 0 #fbbf24,
-            -32px 1px 0 #fbbf24,
-            -29px 1px 0 #fbbf24,
-            -26px 1px 0 #fbbf24,
-            -23px 1px 0 #fbbf24,
-            -20px 1px 0 #fbbf24,
-            -17px 1px 0 #fbbf24,
-            -14px 1px 0 #fbbf24,
-            -11px 1px 0 #fbbf24,
-            -8px 1px 0 #fbbf24,
-            -5px 1px 0 #fbbf24,
-            -2px 1px 0 #fbbf24,
-            1px 1px 0 #fbbf24,
-            4px 1px 0 #fbbf24,
-            7px 1px 0 #fbbf24,
-            10px 1px 0 #fbbf24,
-            13px 1px 0 #fbbf24,
-            16px 1px 0 #fbbf24,
-            19px 1px 0 #fbbf24,
-            22px 1px 0 #fbbf24,
-            25px 1px 0 #fbbf24,
-            28px 1px 0 #fbbf24,
-            31px 1px 0 #fbbf24,
-            -38px 4px 0 #fbbf24,
-            -35px 4px 0 #fbbf24,
-            -32px 4px 0 #fbbf24,
-            -29px 4px 0 #fbbf24,
-            -26px 4px 0 #fbbf24,
-            -23px 4px 0 #fbbf24,
-            -20px 4px 0 #fbbf24,
-            -17px 4px 0 #fbbf24,
-            -14px 4px 0 #fbbf24,
-            -11px 4px 0 #fbbf24,
-            -8px 4px 0 #fbbf24,
-            -5px 4px 0 #fbbf24,
-            -2px 4px 0 #fbbf24,
-            1px 4px 0 #fbbf24,
-            4px 4px 0 #fbbf24,
-            7px 4px 0 #fbbf24,
-            10px 4px 0 #fbbf24,
-            13px 4px 0 #fbbf24,
-            16px 4px 0 #fbbf24,
-            19px 4px 0 #fbbf24,
-            22px 4px 0 #fbbf24,
-            25px 4px 0 #fbbf24,
-            28px 4px 0 #fbbf24,
-            -35px 7px 0 #fbbf24,
-            -32px 7px 0 #fbbf24,
-            -29px 7px 0 #fbbf24,
-            -26px 7px 0 #fbbf24,
-            -23px 7px 0 #fbbf24,
-            -20px 7px 0 #fbbf24,
-            -17px 7px 0 #fbbf24,
-            -14px 7px 0 #fbbf24,
-            -11px 7px 0 #fbbf24,
-            -8px 7px 0 #fbbf24,
-            -5px 7px 0 #fbbf24,
-            -2px 7px 0 #fbbf24,
-            1px 7px 0 #fbbf24,
-            4px 7px 0 #fbbf24,
-            7px 7px 0 #fbbf24,
-            10px 7px 0 #fbbf24,
-            13px 7px 0 #fbbf24,
-            16px 7px 0 #fbbf24,
-            19px 7px 0 #fbbf24,
-            22px 7px 0 #fbbf24,
-            25px 7px 0 #fbbf24,
-            -32px 10px 0 #fbbf24,
-            -29px 10px 0 #fbbf24,
-            -26px 10px 0 #fbbf24,
-            -23px 10px 0 #fbbf24,
-            -20px 10px 0 #fbbf24,
-            -17px 10px 0 #fbbf24,
-            -14px 10px 0 #fbbf24,
-            -11px 10px 0 #fbbf24,
-            -8px 10px 0 #fbbf24,
-            -5px 10px 0 #fbbf24,
-            -2px 10px 0 #fbbf24,
-            1px 10px 0 #fbbf24,
-            4px 10px 0 #fbbf24,
-            7px 10px 0 #fbbf24,
-            10px 10px 0 #fbbf24,
-            13px 10px 0 #fbbf24,
-            16px 10px 0 #fbbf24,
-            19px 10px 0 #fbbf24,
-            22px 10px 0 #fbbf24,
-            -29px 13px 0 #fbbf24,
-            -26px 13px 0 #fbbf24,
-            -23px 13px 0 #fbbf24,
-            -20px 13px 0 #fbbf24,
-            -17px 13px 0 #fbbf24,
-            -14px 13px 0 #fbbf24,
-            -11px 13px 0 #fbbf24,
-            -8px 13px 0 #fbbf24,
-            -5px 13px 0 #fbbf24,
-            -2px 13px 0 #fbbf24,
-            1px 13px 0 #fbbf24,
-            4px 13px 0 #fbbf24,
-            7px 13px 0 #fbbf24,
-            10px 13px 0 #fbbf24,
-            13px 13px 0 #fbbf24,
-            16px 13px 0 #fbbf24,
-            -26px 16px 0 #fbbf24,
-            -23px 16px 0 #fbbf24,
-            -20px 16px 0 #fbbf24,
-            -17px 16px 0 #fbbf24,
-            -14px 16px 0 #fbbf24,
-            -11px 16px 0 #fbbf24,
-            -8px 16px 0 #fbbf24,
-            -5px 16px 0 #fbbf24,
-            -2px 16px 0 #fbbf24,
-            1px 16px 0 #fbbf24,
-            4px 16px 0 #fbbf24,
-            7px 16px 0 #fbbf24,
-            10px 16px 0 #fbbf24,
-            -11px 19px 0 #92400e,
-            -8px 19px 0 #92400e,
-            -5px 19px 0 #92400e,
-            -2px 19px 0 #92400e,
-            -11px 22px 0 #92400e,
-            -8px 22px 0 #92400e,
-            -5px 22px 0 #92400e,
-            -2px 22px 0 #92400e,
-            -11px 25px 0 #92400e,
-            -8px 25px 0 #92400e,
-            -5px 25px 0 #92400e,
-            -2px 25px 0 #92400e,
-            -11px 28px 0 #92400e,
-            -8px 28px 0 #92400e,
-            -5px 28px 0 #92400e,
-            -2px 28px 0 #92400e,
-            -11px 31px 0 #92400e,
-            -8px 31px 0 #92400e,
-            -5px 31px 0 #92400e,
-            -2px 31px 0 #92400e,
-            -11px 34px 0 #92400e,
-            -8px 34px 0 #92400e,
-            -5px 34px 0 #92400e,
-            -2px 34px 0 #92400e,
-            -14px 37px 0 #92400e,
-            -11px 37px 0 #92400e,
-            -8px 37px 0 #92400e,
-            -5px 37px 0 #92400e,
-            -2px 37px 0 #92400e,
-            1px 37px 0 #92400e,
-            -14px 40px 0 #92400e,
-            -11px 40px 0 #92400e,
-            -8px 40px 0 #92400e,
-            -5px 40px 0 #92400e,
-            -2px 40px 0 #92400e,
-            1px 40px 0 #92400e,
-            -17px 43px 0 #3f2c1d,
-            -14px 43px 0 #3f2c1d,
-            -11px 43px 0 #3f2c1d,
-            -8px 43px 0 #3f2c1d,
-            -5px 43px 0 #3f2c1d,
-            -2px 43px 0 #3f2c1d,
-            1px 43px 0 #3f2c1d,
-            4px 43px 0 #3f2c1d,
-            -20px 46px 0 #3f2c1d,
-            -17px 46px 0 #3f2c1d,
-            -14px 46px 0 #3f2c1d,
-            -11px 46px 0 #3f2c1d,
-            -8px 46px 0 #3f2c1d,
-            -5px 46px 0 #3f2c1d,
-            -2px 46px 0 #3f2c1d,
-            1px 46px 0 #3f2c1d,
-            4px 46px 0 #3f2c1d,
-            7px 46px 0 #3f2c1d,
-            -20px 49px 0 #3f2c1d,
-            -17px 49px 0 #3f2c1d,
-            -14px 49px 0 #3f2c1d,
-            -11px 49px 0 #3f2c1d,
-            -8px 49px 0 #3f2c1d,
-            -5px 49px 0 #3f2c1d,
-            -2px 49px 0 #3f2c1d,
-            1px 49px 0 #3f2c1d,
-            4px 49px 0 #3f2c1d,
-            7px 49px 0 #3f2c1d;
-        }
-
-        /* Pixel-by-pixel render scanline animation */
-        @keyframes pixelRender {
-            0% { clip-path: inset(100% 0 0 0); }
-            100% { clip-path: inset(0 0 0 0); }
-        }
-        .pixel-tree.rendering {
-            animation: pixelRender 0.8s steps(12) forwards;
-        }
-
-        /* Floating pixel stars for 100% */
-        .pixel-stars {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: visible;
-        }
-        .pixel-star {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #fbbf24;
-            border-radius: 0;
-            opacity: 0;
-            left: 50%;
-            top: 40%;
-            image-rendering: pixelated;
-            box-shadow: 2px 0 0 #f59e0b, 0 2px 0 #f59e0b, 2px 2px 0 #f59e0b;
-        }
-        .pixel-tree-container.has-stars .pixel-star {
-            animation: pixelStarFloat 2.5s linear infinite;
-        }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(1) { --dx: -40px; --dy: -20px; animation-delay: 0s; }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(2) { --dx: 35px; --dy: -30px; animation-delay: 0.3s; }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(3) { --dx: -20px; --dy: -40px; animation-delay: 0.6s; }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(4) { --dx: 45px; --dy: -15px; animation-delay: 0.9s; }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(5) { --dx: -35px; --dy: -35px; animation-delay: 1.2s; }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(6) { --dx: 25px; --dy: -25px; animation-delay: 1.5s; }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(7) { --dx: -45px; --dy: -10px; animation-delay: 1.8s; }
-        .pixel-tree-container.has-stars .pixel-star:nth-child(8) { --dx: 15px; --dy: -45px; animation-delay: 2.1s; }
-
-        @keyframes pixelStarFloat {
-            0% { transform: translate(-50%, -50%) translateY(0) translateX(0) scale(1); opacity: 1; }
-            100% { transform: translate(-50%, -50%) translateY(var(--dy, -50px)) translateX(var(--dx, 0)) scale(0.3); opacity: 0; }
-        }
-
-        /* Cosmic golden glow */
-        .pixel-tree.cosmic::after {
-            content: '';
-            position: absolute;
-            inset: -30px;
-            background: radial-gradient(circle, rgba(245,158,11,0.3) 0%, transparent 65%);
-            animation: cosmicGlow 2s ease-in-out infinite alternate;
-            pointer-events: none;
-            z-index: -1;
-        }
-        @keyframes cosmicGlow {
-            from { opacity: 0.6; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1.15); }
-        }
-
-        /* Subtle idle sway for realism */
-        .pixel-tree {
-            animation: treeSwayRealistic 5s ease-in-out infinite;
-            transform-origin: bottom center;
-        }
-        @keyframes treeSwayRealistic {
-            0%, 100% { transform: translateY(0) rotate(-1deg); }
-            50% { transform: translateY(-2px) rotate(1.5deg); }
-        }
-
-        /* Dark mode adjustments */
-        .dark .pixel-tree.sprout { filter: brightness(1.1) saturate(1.15); }
-        .dark .pixel-tree.growth { filter: brightness(1.1) saturate(1.15); }
-        .dark .pixel-tree.sakura { filter: brightness(1.15) saturate(1.25); }
-        .dark .pixel-tree.cosmic { filter: brightness(1.2) saturate(1.2); }
-
         /* Responsive */
         @media (max-width: 768px) {
             .modern-box:hover { transform: none; }
@@ -2635,6 +844,153 @@
         .admin-toggle-btn.in-group { background: var(--accent-success); color: white; box-shadow: 0 2px 8px rgba(5,150,105,0.3); }
         .admin-toggle-btn.not-in-group { background: var(--bg-card-solid); color: var(--text-secondary); border: 1px solid var(--border-color); }
         .admin-toggle-btn.not-in-group:hover { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
+
+        /* XP Admin Modal */
+        .xp-admin-input {
+            background: var(--bg-input);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+        .xp-admin-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--accent-primary-soft);
+        }
+        .xp-toggle-group { display: flex; gap: 0.5rem; }
+        .xp-toggle-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1.5px solid var(--border-color);
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+        }
+        .xp-toggle-btn.active-add {
+            background: linear-gradient(135deg, var(--accent-success), #10b981);
+            color: white;
+            border-color: var(--accent-success);
+            box-shadow: 0 4px 14px rgba(5,150,105,0.3);
+        }
+        .xp-toggle-btn.active-minus {
+            background: linear-gradient(135deg, var(--accent-danger), #ef4444);
+            color: white;
+            border-color: var(--accent-danger);
+            box-shadow: 0 4px 14px rgba(220,38,38,0.3);
+        }
+
+        /* Bell Icon & Notification Badge */
+        .bell-icon-wrap {
+            position: relative;
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+        .bell-icon-wrap:hover { transform: scale(1.1); }
+        .bell-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 100px;
+            background: var(--accent-danger);
+            color: white;
+            font-size: 9px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(220,38,38,0.4);
+            animation: bellPulse 2s ease-in-out infinite;
+        }
+        @keyframes bellPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            pointer-events: none;
+        }
+        .toast-item {
+            pointer-events: auto;
+            background: var(--bg-card-solid);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            padding: 0.875rem 1.25rem;
+            min-width: 280px;
+            max-width: 340px;
+            animation: toastSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            backdrop-filter: var(--backdrop-blur);
+            position: relative;
+            overflow: hidden;
+        }
+        .toast-item.toast-out {
+            animation: toastSlideOut 0.35s ease-in forwards;
+        }
+        .toast-item::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+        }
+        .toast-item.toast-add::before { background: var(--accent-success); }
+        .toast-item.toast-minus::before { background: var(--accent-danger); }
+        @keyframes toastSlideIn {
+            from { opacity: 0; transform: translateX(60px) scale(0.95); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes toastSlideOut {
+            from { opacity: 1; transform: translateX(0) scale(1); }
+            to { opacity: 0; transform: translateX(60px) scale(0.95); }
+        }
+        .toast-title { font-size: 0.8rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .toast-reason { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; }
+        .toast-close {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            font-size: 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1;
+            transition: color var(--transition-fast);
+        }
+        .toast-close:hover { color: var(--accent-danger); }
+
+        /* Notification History */
+        .notif-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-card-solid);
+            margin-bottom: 0.5rem;
+            transition: all var(--transition-fast);
+        }
+        .notif-item:hover { border-color: var(--border-strong); transform: translateX(2px); }
+        .notif-item.unread { border-left: 3px solid var(--accent-primary); background: var(--accent-primary-soft); }
+        .notif-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .notif-add { color: var(--accent-success); }
+        .notif-minus { color: var(--accent-danger); }
+
 </style>
 <base target="_blank">
 </head>
@@ -2756,7 +1112,7 @@
             <div class="space-y-3">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight flex items-center gap-3 flex-wrap" style="color: var(--accent-primary);">
-                        <span class="text-4xl">🚀</span> Track Your Progress
+                        <span class="text-4xl">🚀</span> Tracking my Progress!
                     </h1>
                     <p class="text-sm mt-1 font-medium" style="color: var(--text-muted);">Level up your preparation!</p>
                 </div>
@@ -2788,6 +1144,10 @@
                         <span id="exam-countdown-display" class="font-black" style="color: var(--accent-danger);"></span>
                     </div>
                     <button id="auth-toggle-btn" class="btn-primary text-xs px-4 py-2 rounded-xl cursor-pointer">🔐 Sign In / Sync</button>
+                    <div id="notification-bell-wrap" class="bell-icon-wrap hidden" onclick="openNotificationHistory()">
+                        <svg class="w-6 h-6" style="color: var(--accent-warning);" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+                        <span id="notification-badge" class="bell-badge hidden">0</span>
+                    </div>
                 </div>
             </div>
 
@@ -2859,19 +1219,7 @@
                     </div>
                 </div>
                 <div id="anime-tree-box" class="w-44 h-44 shrink-0 rounded-2xl flex items-center justify-center relative z-10 transition-all duration-300">
-                    <div id="tree-avatar-display" class="pixel-tree-container">
-                        <div id="pixel-tree" class="pixel-tree sprout"></div>
-                        <div id="pixel-stars" class="pixel-stars">
-                            <div class="pixel-star"></div>
-                            <div class="pixel-star"></div>
-                            <div class="pixel-star"></div>
-                            <div class="pixel-star"></div>
-                            <div class="pixel-star"></div>
-                            <div class="pixel-star"></div>
-                            <div class="pixel-star"></div>
-                            <div class="pixel-star"></div>
-                        </div>
-                    </div>
+                    <div id="tree-avatar-display" class="text-7xl select-none tree-avatar">🌱</div>
                 </div>
             </div>
 
@@ -2902,7 +1250,7 @@
             <!-- Left Column -->
             <div class="lg:col-span-2 space-y-6 w-full">
                 <!-- Syllabus -->
-                <div class="modern-box p-6 w-full animate-in delay-3">
+                <div class="modern-box p-6 w-full">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
                         <h2 class="text-2xl font-extrabold flex items-center gap-2" style="color: var(--text-primary);">📖 Target Syllabus</h2>
                         <span class="text-[11px] font-semibold p-2 px-3 rounded-lg glass-card" style="color: var(--text-muted);">💡 1st Click=Half done | 2nd Click=Full done | 3rd Click=Undo | 🔁 Revise +20XP (max 2/day)</span>
@@ -3194,6 +1542,7 @@
         // link editing functions
         const DEFAULT_LINKS = [
             { title: "🔥YPT group", url: "https://link.yeolpumta.com/P3R5cGU9Z3JvdXBJbnZpdGUmaWQ9NjgxMzA0NA==", isDefault: true },
+            { title: "How to use this website", url: "https://drive.google.com/file/d/1hS1LROnCona5KYOuOAwbD6nssPVqMtuo/view?usp=drivesdk", isDefault: true },
             { title: "Periodic table", url: "https://zperiod.app/", isDefault: true },
             { title: "Chemistry Experiment", url: "https://chemistry-en.nobook.com", isDefault: true },
             { title: "PCMB Simulations-University of Colorado", url: "https://phet.colorado.edu", isDefault: true },
@@ -3284,6 +1633,7 @@
 
         let revisionRounds = JSON.parse(localStorage.getItem('study_os_revision_rounds')) || [];
         let currentRound = parseInt(localStorage.getItem('study_os_current_round')) || 1;
+        let adminXP = parseInt(localStorage.getItem('study_os_admin_xp')) || 0;
         let state = {
             syllabus: localSyllabus,
             completedChapters: parsedCompleted,
@@ -3308,9 +1658,6 @@
         let currentPeriod = 'lifetime';
         let leaderboardDisplayLimit = 10;
         let isAdmin = false;
-let adminXPAdjustments = JSON.parse(localStorage.getItem('study_os_admin_xp_adjustments')) || [];
-let currentXPUserId = null;
-let currentXPNotificationId = null;
         let currentLeaderboardTab = 'global';
         let personalLeaderboardDisplayLimit = 10;
 
@@ -3335,8 +1682,6 @@ let currentXPNotificationId = null;
                 (round.completedChapters || []).forEach(c => archivedXP += (c.status === 'half' ? 50 : 100));
                 (round.revisionLogs || []).forEach(r => archivedXP += (r.xp || 20));
             });
-            // Add admin XP adjustments
-            let adminXP = adminXPAdjustments.reduce((sum, a) => sum + (a.amount || 0), 0);
             return currentXP + revisionTotal + archivedXP + adminXP; 
         }
         function getAllActivityLogs() { 
@@ -3650,7 +1995,7 @@ let currentXPNotificationId = null;
                             <button class="admin-toggle-btn ${groupBtnClass}" data-userid="${user.id}" data-in-group="${inGroup}">${groupBtnText}</button>
                             <button class="admin-toggle-btn ${blockBtnClass}" data-userid="${user.id}" data-blocked="${isBlocked}" style="${blockBtnStyle}">${blockBtnText}</button>
                             <button class="admin-toggle-btn ${notifyBtnClass}" data-userid="${user.id}" data-notified="${isNotified}" style="${notifyBtnStyle}">${notifyBtnText}</button>
-                            <button class="admin-toggle-btn not-in-group" data-userid="${user.id}" data-action="xp" style="background: linear-gradient(135deg, #059669, #10b981); color: white;">💰 XP</button>
+                            <button class="admin-toggle-btn not-in-group" data-userid="${user.id}" data-action="xp" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">💰 XP</button>
                             <button class="admin-toggle-btn not-in-group" data-userid="${user.id}" data-action="delete" style="background: #7f1d1d; color: white;">🗑️ Delete</button>
                         </div>
                     </div>`;
@@ -3683,7 +2028,10 @@ let currentXPNotificationId = null;
                                 openNotifyModal(userId);
                             }
                         } else if (btn.getAttribute('data-action') === 'xp') {
-                            openXPModal(userId);
+                            const user = globalUsersData.find(u => u.id === userId);
+                            if (user) {
+                                openAdminXPModal(userId, user.name || 'Anonymous', user.totalXP || 0);
+                            }
                         } else if (btn.getAttribute('data-action') === 'delete') {
                             if (confirm('⚠️ Are you sure you want to DELETE this user\'s profile completely? This cannot be undone!')) {
                                 deleteUserProfile(userId);
@@ -3883,14 +2231,18 @@ let currentXPNotificationId = null;
                 isAdmin = (user.email === 'fahimreza511@gmail.com');
                 if (isAdmin) { document.getElementById('admin-panel')?.classList.remove('hidden'); renderAdminPanel(); }
                 else { document.getElementById('admin-panel')?.classList.add('hidden'); }
-                authBtn.innerText = '🚪 Sign Out'; authBtn.classList.replace('bg-indigo-600','bg-rose-500'); authBtn.classList.replace('hover:bg-indigo-700','hover:bg-rose-600'); authBtn.classList.replace('border-indigo-800','border-rose-700'); db.ref('users/' + uid).once('value').then(snap => { if (snap.exists()) { const data = snap.val(); if (data.name) userProfile.name = data.name; if (data.batch && ['HSC 25','HSC 26','HSC 27','HSC 28','Others'].includes(data.batch)) userProfile.batch = data.batch; else userProfile.batch = 'Others'; if (data.completedData) { try { state.completedChapters = JSON.parse(data.completedData); localStorage.setItem('study_os_completed_v4', data.completedData); } catch(e) {} } if (data.revisionLogs) { try { revisionLogs = JSON.parse(data.revisionLogs); localStorage.setItem('study_os_revision_logs', data.revisionLogs); } catch(e) {} } if (data.syllabus) { try { const customSyllabus = JSON.parse(data.syllabus); state.syllabus = customSyllabus; localStorage.setItem('study_os_syllabus', data.syllabus); } catch(e) {} } if (data.revisionRounds) { try { revisionRounds = JSON.parse(data.revisionRounds); localStorage.setItem('study_os_revision_rounds', data.revisionRounds); } catch(e) {} }
-                if (data.adminXPAdjustments) { try { adminXPAdjustments = Object.values(data.adminXPAdjustments); localStorage.setItem('study_os_admin_xp_adjustments', JSON.stringify(adminXPAdjustments)); } catch(e) {} } if (data.currentRound) { try { currentRound = parseInt(data.currentRound); localStorage.setItem('study_os_current_round', data.currentRound); } catch(e) {} } if (data.examDate !== undefined) { userProfile.examDate = data.examDate || ''; localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); } updateProfileUI(); updateExamCountdownUI(); triggerUpdateCycle(true); } else { syncDataToFirebase(); updateProfileUI(); triggerUpdateCycle(true); } }); authModalEl.classList.add('hidden'); errText.classList.add('hidden'); loadUserLinks();
+                authBtn.innerText = '🚪 Sign Out'; authBtn.classList.replace('bg-indigo-600','bg-rose-500'); authBtn.classList.replace('hover:bg-indigo-700','hover:bg-rose-600'); authBtn.classList.replace('border-indigo-800','border-rose-700'); db.ref('users/' + uid).once('value').then(snap => { if (snap.exists()) { const data = snap.val(); if (data.name) userProfile.name = data.name; if (data.batch && ['HSC 25','HSC 26','HSC 27','HSC 28','Others'].includes(data.batch)) userProfile.batch = data.batch; else userProfile.batch = 'Others'; if (data.completedData) { try { state.completedChapters = JSON.parse(data.completedData); localStorage.setItem('study_os_completed_v4', data.completedData); } catch(e) {} } if (data.revisionLogs) { try { revisionLogs = JSON.parse(data.revisionLogs); localStorage.setItem('study_os_revision_logs', data.revisionLogs); } catch(e) {} } if (data.syllabus) { try { const customSyllabus = JSON.parse(data.syllabus); state.syllabus = customSyllabus; localStorage.setItem('study_os_syllabus', data.syllabus); } catch(e) {} } if (data.revisionRounds) { try { revisionRounds = JSON.parse(data.revisionRounds); localStorage.setItem('study_os_revision_rounds', data.revisionRounds); } catch(e) {} } if (data.currentRound) { try { currentRound = parseInt(data.currentRound); localStorage.setItem('study_os_current_round', data.currentRound); } catch(e) {} } if (data.examDate !== undefined) { userProfile.examDate = data.examDate || ''; localStorage.setItem('study_os_user_profile', JSON.stringify(userProfile)); } 
+                if (data.adminXP !== undefined) { adminXP = parseInt(data.adminXP) || 0; localStorage.setItem('study_os_admin_xp', adminXP); }
+                if (data.totalXP !== undefined) { state.totalXP = parseInt(data.totalXP) || 0; localStorage.setItem('study_os_xp', state.totalXP); }
+                updateProfileUI(); updateExamCountdownUI(); triggerUpdateCycle(true); } else { syncDataToFirebase(); updateProfileUI(); triggerUpdateCycle(true); } }); authModalEl.classList.add('hidden'); errText.classList.add('hidden'); loadUserLinks();
                 checkUserBlockStatus();
                 checkUserNotification();
-                listenForXPNotifications();
+                updateBellBadge();
+                startXPNotificationListener();
             } else { isAdmin = false; document.getElementById('admin-panel')?.classList.add('hidden'); authBtn.innerText = '🔐 Sign In / Sync'; authBtn.classList.replace('bg-rose-500','bg-indigo-600'); authBtn.classList.replace('hover:bg-rose-600','hover:bg-indigo-700'); authBtn.classList.replace('border-rose-700','border-indigo-800'); uid = localStorage.getItem('study_os_uid'); if (!uid || !uid.startsWith('user_')) { uid = 'user_' + Math.random().toString(36).substring(2,11); localStorage.setItem('study_os_uid', uid); } loadUserLinks();
                 document.getElementById('block-overlay')?.classList.add('hidden');
                 document.getElementById('force-notification-overlay')?.classList.add('hidden');
+                document.getElementById('notification-bell-wrap')?.classList.add('hidden');
                 document.body.style.overflow = '';
             } });
         authBtn.addEventListener('click', () => { if (auth.currentUser) { if(confirm("আপনি কি সাইন আউট করতে চান?")) auth.signOut(); } else authModalEl.classList.remove('hidden'); });
@@ -4090,76 +2442,10 @@ function mergeSyllabusWithCustom(defaultSyllabus, currentSyllabus) {
         const getTimeBasedCounts = () => { const allLogs = getAllActivityLogs(); const todayStr = new Date().toISOString().split('T')[0]; const oneWeekAgo = new Date(); oneWeekAgo.setDate(oneWeekAgo.getDate() - 7); const oneMonthAgo = new Date(); oneMonthAgo.setDate(oneMonthAgo.getDate() - 30); let todayCount=0, weekCount=0, monthCount=0; allLogs.forEach(c => { const cDate = new Date(c.date); if(c.date === todayStr) todayCount++; if(cDate >= oneWeekAgo) weekCount++; if(cDate >= oneMonthAgo) monthCount++; }); return { todayCount, weekCount, monthCount }; };
         const badgesConfig = [{ id:'first', name:'First Milestone', desc:'Complete 1st Chapter', icon:'🌱', check:(total)=>total>=1 },{ id:'ten', name:'Syllabus Conqueror', desc:'Complete 10 Chapters', icon:'👑', check:(total)=>total>=10 },{ id:'daily_w', name:'Daily Warrior', desc:'Complete 3 chapters today', icon:'🔥', check:(_,__,time)=>time.todayCount>=3 },{ id:'weekly_c', name:'Weekly Champion', desc:'10 chapters in last 7 days', icon:'⚡', check:(_,__,time)=>time.weekCount>=10 },{ id:'monthly_l', name:'Monthly Legend', desc:'25 chapters in last 30 days', icon:'🏆', check:(_,__,time)=>time.monthCount>=25 },{ id:'streak_5', name:'Streak Master', desc:'Maintain 5 Days Streak', icon:'⭐', check:(_,__,___,streak)=>streak>=5 },{ id:'level5', name:'Elite Level 5', desc:'Reach Level 5 or higher', icon:'🛡️', check:(_,level)=>level>=5 }];
 
-        const updateAnimeTreeVisuals = (progressPercent) => {
-            const treeEl = document.getElementById('pixel-tree');
-            const containerEl = document.getElementById('tree-avatar-display');
-            const treePhaseTitle = document.getElementById('tree-phase-title');
-            const animeBox = document.getElementById('anime-tree-box');
+        const updateAnimeTreeVisuals = (progressPercent) => { const treeAvatar = document.getElementById('tree-avatar-display'); const treePhaseTitle = document.getElementById('tree-phase-title'); const animeBox = document.getElementById('anime-tree-box'); if (progressPercent <= 25) { treeAvatar.innerText = "🌱"; treePhaseTitle.innerText = "Phase 1: Anime Sprout Era"; treePhaseTitle.style.color = 'var(--accent-success)'; animeBox.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.1), transparent)'; animeBox.style.border = '1px solid rgba(16,185,129,0.2)'; } else if (progressPercent <= 50) { treeAvatar.innerText = "🌿"; treePhaseTitle.innerText = "Phase 2: Lush Green Growth"; treePhaseTitle.style.color = 'var(--accent-success)'; animeBox.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(99,102,241,0.05))'; animeBox.style.border = '1px solid rgba(16,185,129,0.3)'; } else if (progressPercent <= 75) { treeAvatar.innerText = "🌸"; treePhaseTitle.innerText = "Phase 3: Sakura Blossom Peak"; treePhaseTitle.style.color = '#ec4899'; animeBox.style.background = 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(99,102,241,0.05))'; animeBox.style.border = '1px solid rgba(236,72,153,0.3)'; } else { treeAvatar.innerText = "🥭"; treePhaseTitle.innerText = "Phase 4: Golden Cosmic Fruit"; treePhaseTitle.style.color = 'var(--accent-warning)'; animeBox.style.background = 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(99,102,241,0.1))'; animeBox.style.border = '1px solid rgba(245,158,11,0.4)'; animeBox.style.boxShadow = '0 0 30px rgba(245,158,11,0.15)'; } };
 
-            let newPhase = '';
-            let titleText = '';
-            let titleColor = '';
-            let boxBg = '';
-            let boxBorder = '';
-            let boxShadow = '';
-
-            if (progressPercent <= 25) {
-                newPhase = 'sprout';
-                titleText = "Phase 1: Pixel Sprout Era";
-                titleColor = 'var(--accent-success)';
-                boxBg = 'linear-gradient(135deg, rgba(16,185,129,0.1), transparent)';
-                boxBorder = '1px solid rgba(16,185,129,0.2)';
-                boxShadow = '';
-            } else if (progressPercent <= 50) {
-                newPhase = 'growth';
-                titleText = "Phase 2: Lush Pixel Growth";
-                titleColor = 'var(--accent-success)';
-                boxBg = 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(99,102,241,0.05))';
-                boxBorder = '1px solid rgba(16,185,129,0.3)';
-                boxShadow = '';
-            } else if (progressPercent <= 75) {
-                newPhase = 'sakura';
-                titleText = "Phase 3: Sakura Pixel Peak";
-                titleColor = '#ec4899';
-                boxBg = 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(99,102,241,0.05))';
-                boxBorder = '1px solid rgba(236,72,153,0.3)';
-                boxShadow = '';
-            } else {
-                newPhase = 'cosmic';
-                titleText = "Phase 4: Golden Cosmic Fruit";
-                titleColor = 'var(--accent-warning)';
-                boxBg = 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(99,102,241,0.1))';
-                boxBorder = '1px solid rgba(245,158,11,0.4)';
-                boxShadow = '0 0 30px rgba(245,158,11,0.15)';
-            }
-
-            // Check if phase changed to trigger pixel render animation
-            const hadPhase = treeEl.className.match(/sprout|growth|sakura|cosmic/);
-            const oldPhase = hadPhase ? hadPhase[0] : '';
-
-            treeEl.className = 'pixel-tree ' + newPhase;
-            treePhaseTitle.innerText = titleText;
-            treePhaseTitle.style.color = titleColor;
-            animeBox.style.background = boxBg;
-            animeBox.style.border = boxBorder;
-            animeBox.style.boxShadow = boxShadow;
-
-            // Trigger pixel-by-pixel render animation on phase change
-            if (oldPhase && oldPhase !== newPhase) {
-                treeEl.classList.add('rendering');
-                setTimeout(() => treeEl.classList.remove('rendering'), 800);
-            }
-
-            // Floating pixel stars at 100%
-            if (progressPercent >= 100) {
-                containerEl.classList.add('has-stars');
-            } else {
-                containerEl.classList.remove('has-stars');
-            }
-        };
-
-        const recalculateGamerStats = () => { let totalXP = computeTotalXPFromChaptersAndRevisions(); state.totalXP = totalXP; let oldLevel = state.level; state.level = Math.floor(state.totalXP / 500) + 1; if(state.level > oldLevel && oldLevel !== 1) { const treeBox = document.getElementById('anime-tree-box'); treeBox.classList.add('level-up-anim'); setTimeout(() => treeBox.classList.remove('level-up-anim'), 2000); } localStorage.setItem('study_os_xp', state.totalXP); localStorage.setItem('study_os_level', state.level); localStorage.setItem('study_os_completed_v4', JSON.stringify(state.completedChapters)); localStorage.setItem('study_os_revision_logs', JSON.stringify(revisionLogs)); syncDataToFirebase(); };
-        const syncDataToFirebase = () => { const { totalChapters, totalWeightedDone } = getStatsSummary(); const progressPercent = totalChapters > 0 ? Math.round((totalWeightedDone / totalChapters) * 100) : 0; let currentPhase = "🌱 Sprout"; if(progressPercent > 25 && progressPercent <= 50) currentPhase = "🌿 Growth"; else if(progressPercent > 50 && progressPercent <= 75) currentPhase = "🌸 Sakura"; else if(progressPercent > 75) currentPhase = "🌳 Cosmic"; let syncPayload = { name: userProfile.name, batch: userProfile.batch, examDate: userProfile.examDate || '', totalXP: state.totalXP, progressPercent: progressPercent, phase: currentPhase, completedData: JSON.stringify(state.completedChapters), revisionLogs: JSON.stringify(revisionLogs), syllabus: JSON.stringify(state.syllabus), revisionRounds: JSON.stringify(revisionRounds), currentRound: currentRound, adminXPAdjustments: JSON.stringify(adminXPAdjustments), lastUpdated: firebase.database.ServerValue.TIMESTAMP };
+        const recalculateGamerStats = () => { let totalXP = computeTotalXPFromChaptersAndRevisions(); state.totalXP = totalXP; localStorage.setItem('study_os_xp', state.totalXP); syncDataToFirebase(); let oldLevel = state.level; state.level = Math.floor(state.totalXP / 500) + 1; if(state.level > oldLevel && oldLevel !== 1) { const treeBox = document.getElementById('anime-tree-box'); treeBox.classList.add('level-up-anim'); setTimeout(() => treeBox.classList.remove('level-up-anim'), 2000); } localStorage.setItem('study_os_xp', state.totalXP); localStorage.setItem('study_os_level', state.level); localStorage.setItem('study_os_completed_v4', JSON.stringify(state.completedChapters)); localStorage.setItem('study_os_revision_logs', JSON.stringify(revisionLogs)); syncDataToFirebase(); };
+        const syncDataToFirebase = () => { const { totalChapters, totalWeightedDone } = getStatsSummary(); const progressPercent = totalChapters > 0 ? Math.round((totalWeightedDone / totalChapters) * 100) : 0; let currentPhase = "🌱 Sprout"; if(progressPercent > 25 && progressPercent <= 50) currentPhase = "🌿 Growth"; else if(progressPercent > 50 && progressPercent <= 75) currentPhase = "🌸 Sakura"; else if(progressPercent > 75) currentPhase = "🥭 Fruits"; let syncPayload = { name: userProfile.name, batch: userProfile.batch, examDate: userProfile.examDate || '', totalXP: state.totalXP, adminXP: adminXP, progressPercent: progressPercent, phase: currentPhase, completedData: JSON.stringify(state.completedChapters), revisionLogs: JSON.stringify(revisionLogs), syllabus: JSON.stringify(state.syllabus), revisionRounds: JSON.stringify(revisionRounds), currentRound: currentRound, lastUpdated: firebase.database.ServerValue.TIMESTAMP };
             if (auth.currentUser && auth.currentUser.email) syncPayload.email = auth.currentUser.email;
             else if (auth.currentUser && auth.currentUser.providerData && auth.currentUser.providerData[0] && auth.currentUser.providerData[0].email) syncPayload.email = auth.currentUser.providerData[0].email;
             db.ref('users/' + uid).update(syncPayload); };
@@ -4296,9 +2582,7 @@ function mergeSyllabusWithCustom(defaultSyllabus, currentSyllabus) {
                     if (!isCurrentlyOpen) {
                         content.classList.add('open');
                         arrow.classList.add('rotate-180');
-                        setTimeout(() => {
-                            this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }, 80);
+                        this.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
             });
@@ -4486,121 +2770,7 @@ function mergeSyllabusWithCustom(defaultSyllabus, currentSyllabus) {
             }).catch(err => console.error('Error removing notification:', err));
         }
 
-        function openXPModal(userId) {
-    currentXPUserId = userId;
-    const user = globalUsersData.find(u => u.id === userId);
-    document.getElementById('admin-xp-target').innerText = 'To: ' + (user?.name || 'Anonymous') + ' (' + (user?.email || 'no email') + ')';
-    document.getElementById('admin-xp-amount').value = '';
-    document.getElementById('admin-xp-reason').value = '';
-    document.getElementById('admin-xp-modal').classList.remove('hidden');
-}
-
-function closeXPModal() {
-    document.getElementById('admin-xp-modal').classList.add('hidden');
-    currentXPUserId = null;
-}
-
-function adjustUserXP(userId, amount, reason) {
-    if (!isAdmin) return;
-    const adminName = auth.currentUser?.displayName || auth.currentUser?.email || 'Admin';
-
-    db.ref('users/' + userId).once('value').then(snap => {
-        const data = snap.val() || {};
-        const currentTotal = data.totalXP || 0;
-        const newTotal = Math.max(0, currentTotal + amount);
-
-        // Push adjustment record
-        const adjRef = db.ref('users/' + userId + '/adminXPAdjustments').push();
-        adjRef.set({
-            amount: amount,
-            reason: reason || '',
-            timestamp: firebase.database.ServerValue.TIMESTAMP,
-            adminUid: auth.currentUser?.uid || 'admin',
-            adminName: adminName
-        });
-
-        // Update totalXP directly for immediate leaderboard effect
-        db.ref('users/' + userId + '/totalXP').set(newTotal);
-
-        // Push notification
-        const notifRef = db.ref('xpNotifications/' + userId).push();
-        notifRef.set({
-            amount: amount,
-            reason: reason || '',
-            adminName: adminName,
-            timestamp: firebase.database.ServerValue.TIMESTAMP,
-            read: false
-        });
-
-        alert('✅ ' + (amount > 0 ? 'Gifted +' : 'Deducted ') + amount + ' XP to user. New total: ' + newTotal + ' XP');
-    }).catch(err => {
-        console.error('Error adjusting XP:', err);
-        alert('Failed to adjust XP.');
-    });
-}
-
-function listenForXPNotifications() {
-    if (!auth.currentUser) return;
-    const userId = auth.currentUser.uid;
-    db.ref('xpNotifications/' + userId).on('value', snap => {
-        const notifications = snap.val();
-        if (!notifications) return;
-        Object.entries(notifications).forEach(([id, notif]) => {
-            if (!notif.read) {
-                showXPNotification(notif, id);
-            }
-        });
-    });
-}
-
-function showXPNotification(notif, notifId) {
-    const modal = document.getElementById('xp-notification-modal');
-    const title = document.getElementById('xp-notification-title');
-    const message = document.getElementById('xp-notification-message');
-    const reasonBox = document.getElementById('xp-notification-reason-box');
-    const reason = document.getElementById('xp-notification-reason');
-    const icon = document.getElementById('xp-notification-icon');
-    const bar = document.getElementById('xp-notification-bar');
-
-    const isGift = notif.amount > 0;
-    const absAmount = Math.abs(notif.amount);
-
-    if (isGift) {
-        icon.innerText = '🎁';
-        title.innerText = 'XP Gift Received!';
-        title.style.color = 'var(--accent-success)';
-        bar.style.background = 'linear-gradient(to right, #059669, #10b981)';
-        message.innerHTML = '<strong style="color: var(--accent-success);">' + (notif.adminName || 'Admin') + '</strong> gifted you <strong style="color: var(--accent-success);">+' + absAmount + ' XP</strong>!';
-    } else {
-        icon.innerText = '⚠️';
-        title.innerText = 'XP Deducted';
-        title.style.color = 'var(--accent-danger)';
-        bar.style.background = 'linear-gradient(to right, #dc2626, #ef4444)';
-        message.innerHTML = '<strong style="color: var(--accent-danger);">' + (notif.adminName || 'Admin') + '</strong> deducted <strong style="color: var(--accent-danger);">-' + absAmount + ' XP</strong> from your account.';
-    }
-
-    if (notif.reason) {
-        reasonBox.classList.remove('hidden');
-        reason.innerText = notif.reason;
-    } else {
-        reasonBox.classList.add('hidden');
-    }
-
-    modal.classList.remove('hidden');
-    currentXPNotificationId = notifId;
-}
-
-function dismissXPNotification() {
-    const modal = document.getElementById('xp-notification-modal');
-    modal.classList.add('hidden');
-
-    if (currentXPNotificationId && auth.currentUser) {
-        db.ref('xpNotifications/' + auth.currentUser.uid + '/' + currentXPNotificationId).update({ read: true });
-        currentXPNotificationId = null;
-    }
-}
-
-function deleteUserProfile(userId) {
+        function deleteUserProfile(userId) {
             if (!isAdmin) return;
             db.ref('users/' + userId).remove().then(() => {
                 db.ref('adminNotifications/' + userId).remove().catch(()=>{});
@@ -4745,35 +2915,45 @@ function deleteUserProfile(userId) {
             document.getElementById('admin-notify-modal')?.addEventListener('click', (e) => {
                 if (e.target === document.getElementById('admin-notify-modal')) closeNotifyModal();
             });
-
-            // Admin XP Modal Listeners
-            document.getElementById('close-admin-xp-modal')?.addEventListener('click', closeXPModal);
+            document.getElementById('notification-history-modal')?.addEventListener('click', (e) => {
+                if (e.target === document.getElementById('notification-history-modal')) document.getElementById('notification-history-modal').classList.add('hidden');
+            });
             document.getElementById('admin-xp-modal')?.addEventListener('click', (e) => {
-                if (e.target === document.getElementById('admin-xp-modal')) closeXPModal();
+                if (e.target === document.getElementById('admin-xp-modal')) {
+                    document.getElementById('admin-xp-modal').classList.add('hidden');
+                    currentXPAdminTargetId = null;
+                }
             });
-            document.getElementById('admin-gift-xp-btn')?.addEventListener('click', () => {
-                if (!isAdmin || !currentXPUserId) return;
-                const amount = parseInt(document.getElementById('admin-xp-amount').value);
-                const reason = document.getElementById('admin-xp-reason').value.trim();
-                if (!amount || amount <= 0) { alert('Please enter a valid positive amount.'); return; }
-                adjustUserXP(currentXPUserId, amount, reason);
-                closeXPModal();
-            });
-            document.getElementById('admin-deduct-xp-btn')?.addEventListener('click', () => {
-                if (!isAdmin || !currentXPUserId) return;
-                const amount = parseInt(document.getElementById('admin-xp-amount').value);
-                const reason = document.getElementById('admin-xp-reason').value.trim();
-                if (!amount || amount <= 0) { alert('Please enter a valid positive amount.'); return; }
-                adjustUserXP(currentXPUserId, -amount, reason);
-                closeXPModal();
-            });
-
             // User cannot dismiss notification - only admin can remove it via admin panel
         });
 
         document.getElementById('admin-search-input')?.addEventListener('input', () => renderAdminPanel());
         document.getElementById('admin-batch-filter')?.addEventListener('change', () => renderAdminPanel());
         document.getElementById('admin-status-filter')?.addEventListener('change', () => renderAdminPanel());
+
+        
+        let currentXPAdminTargetId = null;
+        let currentXPMode = 'add';
+
+        function setXPMode(mode) {
+            currentXPMode = mode;
+            document.getElementById('xp-mode-add').className = mode === 'add' ? 'xp-toggle-btn active-add' : 'xp-toggle-btn';
+            document.getElementById('xp-mode-minus').className = mode === 'minus' ? 'xp-toggle-btn active-minus' : 'xp-toggle-btn';
+        }
+
+        function openAdminXPModal(userId, userName, currentXP) {
+            if (!isAdmin) return;
+            currentXPAdminTargetId = userId;
+            document.getElementById('admin-xp-target').innerText = 'To: ' + (userName || 'Anonymous');
+            document.getElementById('admin-xp-current').innerText = currentXP || 0;
+            document.getElementById('admin-xp-amount').value = '';
+            document.getElementById('admin-xp-reason').value = '';
+            setXPMode('add');
+            document.getElementById('admin-xp-modal').classList.remove('hidden');
+        }
+
+
+
 
         function handleFreshStart() {
             if (!confirm('🔄 Fresh Start?\n\nThis will archive your current progress as "Round ' + currentRound + '" and reset your chapter tracking.\n\nYour TOTAL XP will be kept. You can start completing chapters again for more XP!\n\nContinue?')) return;
@@ -4812,6 +2992,224 @@ function deleteUserProfile(userId) {
             alert('✅ Fresh Start initiated! Round ' + (currentRound - 1) + ' archived. You are now on Round ' + currentRound + '. Keep grinding! 🔥');
         }
 
+        
+        // Toast Notification System
+        function showToast(type, amount, reason, adminName) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-item toast-' + type;
+
+            const title = type === 'add' 
+                ? '🎉 +' + amount + ' XP Added!' 
+                : '⚠️ -' + amount + ' XP Deducted!';
+            const titleColor = type === 'add' ? 'color: var(--accent-success);' : 'color: var(--accent-danger);';
+
+            let reasonHtml = '';
+            if (reason && reason.trim()) {
+                reasonHtml = '<div class="toast-reason">💬 Reason: ' + escapeHtml(reason) + '</div>';
+            } else {
+                reasonHtml = '<div class="toast-reason">By: ' + (adminName || 'Admin') + '</div>';
+            }
+
+            toast.innerHTML = '<div class="toast-close" onclick="this.parentElement.remove()">×</div>' +
+                '<div class="toast-title" style="' + titleColor + '">' + title + '</div>' + reasonHtml;
+
+            container.appendChild(toast);
+
+            // Auto remove after 6 seconds
+            setTimeout(() => {
+                toast.classList.add('toast-out');
+                setTimeout(() => toast.remove(), 350);
+            }, 6000);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Notification History Modal
+        function openNotificationHistory() {
+            const modal = document.getElementById('notification-history-modal');
+            const list = document.getElementById('notification-history-list');
+            if (!modal || !list) return;
+
+            if (!auth.currentUser) {
+                alert('Please sign in to view notifications.');
+                return;
+            }
+
+            list.innerHTML = '<div class="text-center py-4 italic" style="color: var(--text-muted);">Loading...</div>';
+            modal.classList.remove('hidden');
+
+            db.ref('users/' + auth.currentUser.uid + '/xpNotifications').once('value').then(snap => {
+                const notifications = snap.val() || {};
+                const items = Object.entries(notifications).map(([key, val]) => ({ id: key, ...val }));
+                items.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+                if (items.length === 0) {
+                    list.innerHTML = '<div class="text-center py-4 italic" style="color: var(--text-muted);">No notifications yet</div>';
+                    return;
+                }
+
+                let html = '';
+                items.forEach(item => {
+                    const isUnread = !item.read;
+                    const dateStr = item.timestamp ? new Date(item.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Unknown';
+                    const icon = item.type === 'add' ? '🎁' : '⚠️';
+                    const iconClass = item.type === 'add' ? 'notif-add' : 'notif-minus';
+                    const title = item.type === 'add' ? '+' + item.amount + ' XP Added' : '-' + item.amount + ' XP Deducted';
+                    const titleColor = item.type === 'add' ? 'color: var(--accent-success);' : 'color: var(--accent-danger);';
+
+                    html += '<div class="notif-item ' + (isUnread ? 'unread' : '') + '">' +
+                        '<span class="notif-icon ' + iconClass + '">' + icon + '</span>' +
+                        '<div class="flex-1 min-w-0">' +
+                        '<div class="font-bold text-xs" style="' + titleColor + '">' + title + '</div>' +
+                        '<div class="text-[10px]" style="color: var(--text-muted);">' + dateStr + ' • By: ' + (item.adminName || 'Admin') + (item.round ? ' • Round ' + item.round : '') + '</div>' +
+                        (item.reason ? '<div class="text-[10px] mt-0.5" style="color: var(--text-secondary);">💬 ' + escapeHtml(item.reason) + '</div>' : '') +
+                        '</div>' +
+                        '</div>';
+                });
+
+                list.innerHTML = html;
+
+                // Mark all as read
+                const updates = {};
+                items.filter(i => !i.read).forEach(item => {
+                    updates[item.id + '/read'] = true;
+                });
+                if (Object.keys(updates).length > 0) {
+                    db.ref('users/' + auth.currentUser.uid + '/xpNotifications').update(updates);
+                }
+                updateBellBadge();
+            }).catch(err => {
+                console.error('Error loading notifications:', err);
+                list.innerHTML = '<div class="text-center py-4" style="color: var(--accent-danger);">❌ Failed to load</div>';
+            });
+        }
+
+        function updateBellBadge() {
+            if (!auth.currentUser) {
+                document.getElementById('notification-bell-wrap')?.classList.add('hidden');
+                return;
+            }
+            db.ref('users/' + auth.currentUser.uid + '/xpNotifications').once('value').then(snap => {
+                const notifications = snap.val() || {};
+                const unreadCount = Object.values(notifications).filter(n => !n.read).length;
+                const badge = document.getElementById('notification-badge');
+                const wrap = document.getElementById('notification-bell-wrap');
+                if (wrap) wrap.classList.remove('hidden');
+                if (badge) {
+                    if (unreadCount > 0) {
+                        badge.innerText = unreadCount > 99 ? '99+' : unreadCount;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Listen for new XP notifications in real-time
+        function startXPNotificationListener() {
+            if (!auth.currentUser) return;
+            const notifRef = db.ref('users/' + auth.currentUser.uid + '/xpNotifications');
+            notifRef.on('child_added', (snap) => {
+                const notif = snap.val();
+                if (notif && !notif.read && notif.timestamp) {
+                    // Only show toast for recent notifications (last 10 seconds to avoid showing old ones on login)
+                    const now = Date.now();
+                    const notifTime = notif.timestamp;
+                    if (typeof notifTime === 'number' && (now - notifTime) < 15000) {
+                        showToast(notif.type, notif.amount, notif.reason, notif.adminName);
+                        updateBellBadge();
+                    }
+                }
+            });
+        }
+
+
+        
+        function closeAdminXPModal() {
+            document.getElementById('admin-xp-modal').classList.add('hidden');
+            currentXPAdminTargetId = null;
+        }
+
+        async function sendAdminXP() {
+            console.log('sendAdminXP called', currentXPAdminTargetId, isAdmin);
+            if (!currentXPAdminTargetId || !isAdmin) {
+                alert('Error: Not authorized or no target selected');
+                return;
+            }
+            const amount = parseInt(document.getElementById('admin-xp-amount').value);
+            if (!amount || amount <= 0 || amount > 5000) {
+                alert('Please enter a valid amount (1-5000)');
+                return;
+            }
+            const reason = document.getElementById('admin-xp-reason').value.trim();
+            const type = currentXPMode;
+
+            try {
+                const userRef = db.ref('users/' + currentXPAdminTargetId);
+                const snap = await userRef.once('value');
+                const data = snap.val() || {};
+                let currentAdminXP = data.adminXP || 0;
+                let newAdminXP = type === 'add' ? currentAdminXP + amount : currentAdminXP - amount;
+                // Calculate new totalXP (base + adminXP)
+                let baseXP = 0;
+                if (data.completedData) {
+                    try {
+                        const completed = JSON.parse(data.completedData);
+                        completed.forEach(c => baseXP += (c.status === 'half' ? 50 : 100));
+                    } catch(e) {}
+                }
+                if (data.revisionLogs) {
+                    try {
+                        const logs = JSON.parse(data.revisionLogs);
+                        logs.forEach(r => baseXP += (r.xp || 20));
+                    } catch(e) {}
+                }
+                let newTotal = baseXP + newAdminXP;
+                if (newTotal < 0) newTotal = 0;
+
+                const transaction = {
+                    type: type,
+                    amount: amount,
+                    reason: reason || '',
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    adminName: userProfile.name || 'Admin',
+                    previousAdminXP: currentAdminXP,
+                    newAdminXP: newAdminXP,
+                    round: data.currentRound || 1
+                };
+
+                await userRef.update({
+                    adminXP: newAdminXP,
+                    totalXP: newTotal,
+                    lastUpdated: firebase.database.ServerValue.TIMESTAMP
+                });
+
+                await db.ref('users/' + currentXPAdminTargetId + '/xpTransactions').push(transaction);
+
+                await db.ref('users/' + currentXPAdminTargetId + '/xpNotifications').push({
+                    ...transaction,
+                    read: false
+                });
+
+                document.getElementById('admin-xp-modal').classList.add('hidden');
+                alert('✅ XP ' + (type === 'add' ? 'added' : 'deducted') + ' successfully!');
+                currentXPAdminTargetId = null;
+
+            } catch (err) {
+                console.error('XP transaction error:', err);
+                alert('❌ Failed to update XP: ' + err.message);
+            }
+        }
+
+
         function showXPBreakdown() {
             const modal = document.getElementById('xp-breakdown-modal');
             if (!modal) return;
@@ -4829,11 +3227,15 @@ function deleteUserProfile(userId) {
                 (round.revisionLogs || []).forEach(r => archivedXP += (r.xp || 20));
             });
 
-            const total = completionsXP + revisionsXP + archivedXP;
+            // Admin XP is tracked separately
+            const total = state.totalXP;
+            const baseTotal = completionsXP + revisionsXP + archivedXP;
+            let adminXPBreakdown = adminXP || 0;
 
             document.getElementById('xp-breakdown-completions').innerText = completionsXP + ' XP';
             document.getElementById('xp-breakdown-revisions').innerText = revisionsXP + ' XP';
             document.getElementById('xp-breakdown-archived').innerText = archivedXP + ' XP';
+            document.getElementById('xp-breakdown-admin').innerText = (adminXPBreakdown >= 0 ? '+' : '') + adminXPBreakdown + ' XP';
             document.getElementById('xp-breakdown-total').innerText = total + ' XP';
 
             modal.classList.remove('hidden');
@@ -4981,6 +3383,7 @@ const initApp = () => {
             startBuddyAutoCarousel(); 
             initLeaderboardListener(); 
             loadUserLinks();
+            startXPNotificationListener();
             // Check if already logged in as admin
             if (auth.currentUser && auth.currentUser.email === 'fahimreza511@gmail.com') {
                 isAdmin = true;
@@ -5106,29 +3509,6 @@ const initApp = () => {
         </div>
     </div>
 
-    <!-- Admin XP Gift/Deduct Modal -->
-    <div id="admin-xp-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-overlay transition-opacity p-4">
-        <div class="modal-content w-full max-w-md p-6 relative mx-4">
-            <button id="close-admin-xp-modal" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
-            <h2 class="text-xl font-black text-center mb-1" style="color: var(--text-primary);">💰 XP Manager</h2>
-            <p class="text-center text-xs mb-4" style="color: var(--text-muted);" id="admin-xp-target">To: User</p>
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-xs font-bold mb-1" style="color: var(--text-primary);">Amount</label>
-                    <input type="number" id="admin-xp-amount" placeholder="Enter XP amount..." class="w-full modern-input p-3 text-sm font-bold">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold mb-1" style="color: var(--text-primary);">Reason (Optional)</label>
-                    <textarea id="admin-xp-reason" rows="2" placeholder="Why are you giving/taking XP?" class="w-full modern-input p-3 text-sm font-medium"></textarea>
-                </div>
-                <div class="flex gap-3">
-                    <button id="admin-gift-xp-btn" class="flex-1 btn-primary py-3 rounded-xl text-sm cursor-pointer" style="background: linear-gradient(135deg, #059669, #10b981);">🎁 Gift +XP</button>
-                    <button id="admin-deduct-xp-btn" class="flex-1 btn-danger py-3 rounded-xl text-sm cursor-pointer">➖ Deduct -XP</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 <!-- My Study History Modal -->
 <div id="my-history-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay transition-opacity p-4">
     <div class="modal-content w-full max-w-lg p-5 relative mx-4 max-h-[85vh] overflow-y-auto">
@@ -5167,7 +3547,7 @@ const initApp = () => {
             </div>
             <div class="p-3 rounded-lg" style="background: var(--bg-hover); border: 1px solid var(--border-color);">
                 <h3 class="font-bold text-sm mb-1" style="color: var(--accent-primary);">🌳 Aura Tree Evolution</h3>
-                <p>Your tree evolves as you progress: 🌱 Sprout (0-25%) → 🌿 Growth (26-50%) → 🌸 Sakura (51-75%) → 🌳✨ Cosmic (76-100%). Complete chapters to watch your tree grow!</p>
+                <p>Your tree evolves as you progress: 🌱 Sprout (0-25%) → 🌿 Growth (26-50%) → 🌸 Sakura (51-75%) → 🥭 Fruits (76-100%). Complete chapters to watch your tree grow!</p>
             </div>
             <div class="p-3 rounded-lg" style="background: var(--bg-hover); border: 1px solid var(--border-color);">
                 <h3 class="font-bold text-sm mb-1" style="color: var(--accent-primary);">🏆 Achievement Badges</h3>
@@ -5352,6 +3732,17 @@ const initApp = () => {
                 <span id="xp-breakdown-archived" class="text-sm font-black" style="color: var(--accent-warning);">0 XP</span>
             </div>
 
+            <div class="glass-card p-3 rounded-xl flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🎁</span>
+                    <div>
+                        <p class="text-xs font-bold" style="color: var(--text-primary);">Admin Bonus / Deduction</p>
+                        <p class="text-[10px]" style="color: var(--text-muted);">XP gifted or deducted by admin</p>
+                    </div>
+                </div>
+                <span id="xp-breakdown-admin" class="text-sm font-black" style="color: var(--accent-primary);">0 XP</span>
+            </div>
+
             <div class="p-3 rounded-xl flex justify-between items-center" style="background: linear-gradient(135deg, var(--accent-success-soft), var(--accent-primary-soft)); border: 1px solid var(--border-color);">
                 <div class="flex items-center gap-2">
                     <span class="text-lg">⭐</span>
@@ -5409,23 +3800,6 @@ const initApp = () => {
     </div>
 </div>
 
-<!-- XP Notification Modal (Dismissible) -->
-<div id="xp-notification-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-overlay transition-opacity p-4">
-    <div class="modal-content w-full max-w-md overflow-hidden relative mx-4">
-        <div class="absolute top-0 left-0 w-full h-1" id="xp-notification-bar" style="background: linear-gradient(to right, #059669, #10b981);"></div>
-        <div class="p-6 text-center">
-            <div class="text-5xl mb-3" id="xp-notification-icon">🎁</div>
-            <h2 class="text-2xl font-black mb-2" id="xp-notification-title" style="color: var(--text-primary);">XP Received!</h2>
-            <p class="text-sm font-medium leading-relaxed my-4" id="xp-notification-message" style="color: var(--text-secondary);">...</p>
-            <div id="xp-notification-reason-box" class="p-3 rounded-lg mb-4 hidden" style="background: var(--bg-hover); border: 1px solid var(--border-color);">
-                <p class="text-xs font-bold mb-1" style="color: var(--text-muted);">Reason:</p>
-                <p class="text-sm font-medium" id="xp-notification-reason" style="color: var(--text-primary);">...</p>
-            </div>
-            <button onclick="dismissXPNotification()" class="w-full btn-primary py-3 rounded-xl cursor-pointer">Okay, Thanks! 👍</button>
-        </div>
-    </div>
-</div>
-
 <!-- Rank Pushers Only Modal -->
 <div id="rank-pushers-only-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-overlay transition-opacity p-4">
     <div class="modal-content w-full max-w-md overflow-hidden relative mx-4">
@@ -5457,6 +3831,54 @@ const initApp = () => {
         </div>
     </div>
 </div>
+
+
+    <!-- Admin XP Gift/Minus Modal -->
+    <div id="admin-xp-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-overlay transition-opacity p-4">
+        <div class="modal-content w-full max-w-md p-6 relative mx-4">
+            <button id="close-admin-xp-modal" onclick="closeAdminXPModal()" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
+            <h2 class="text-xl font-black text-center mb-1" style="color: var(--text-primary);">💰 Manage User XP</h2>
+            <p class="text-center text-xs mb-4" style="color: var(--text-muted);" id="admin-xp-target">To: User</p>
+
+            <div class="flex items-center justify-between p-3 rounded-xl mb-4 glass-card">
+                <span class="text-xs font-bold" style="color: var(--text-muted);">Current XP</span>
+                <span id="admin-xp-current" class="text-lg font-black" style="color: var(--accent-success);">0</span>
+            </div>
+
+            <div class="xp-toggle-group mb-4">
+                <button id="xp-mode-add" class="xp-toggle-btn active-add" onclick="setXPMode('add')">➕ Add XP</button>
+                <button id="xp-mode-minus" class="xp-toggle-btn" onclick="setXPMode('minus')">➖ Minus XP</button>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-xs font-bold mb-1.5" style="color: var(--text-primary);">Amount *</label>
+                <input type="number" id="admin-xp-amount" placeholder="e.g. 50" min="1" max="5000" class="xp-admin-input w-full p-3 text-sm font-bold">
+            </div>
+
+            <div class="mb-5">
+                <label class="block text-xs font-bold mb-1.5" style="color: var(--text-primary);">Reason (Optional)</label>
+                <textarea id="admin-xp-reason" rows="2" placeholder="Why are you giving/taking XP? (optional)" class="xp-admin-input w-full p-3 text-sm font-medium"></textarea>
+            </div>
+
+            <button id="admin-send-xp-btn" onclick="sendAdminXP()" class="w-full btn-primary py-3 rounded-xl text-sm cursor-pointer">📤 Send XP Update</button>
+        </div>
+    </div>
+
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Notification History Modal -->
+    <div id="notification-history-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay transition-opacity p-4">
+        <div class="modal-content w-full max-w-lg p-5 relative mx-4 max-h-[85vh] overflow-y-auto">
+            <button onclick="document.getElementById('notification-history-modal').classList.add('hidden')" class="absolute top-3 right-4 text-xl text-slate-400 hover:text-rose-500 cursor-pointer transition-transform hover:scale-125">×</button>
+            <h2 class="text-xl font-black text-center mb-1" style="color: var(--text-primary);">🔔 Notifications</h2>
+            <p class="text-center text-xs mb-4" style="color: var(--text-muted);">XP updates from admin</p>
+            <div id="notification-history-list" class="space-y-2">
+                <div class="text-center py-4 italic" style="color: var(--text-muted);">No notifications yet</div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
